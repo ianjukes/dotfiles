@@ -8,7 +8,7 @@ IFS=$'\n\t'
 # Trigger script if cwd.sh has changed
 # Hash: {{ include $src | sha256sum }}
 
-if [[ -f "{{ $dst }}" ]]; then
+if [[ ! -f "{{ $dst }}" ]]; then
   cp -f "{{ print .chezmoi.sourceDir "/" $src }}" "{{ $dst }}"
   sed -i '' "s|cwd=\"\${path/\"\$HOME\"/'~'}|cwd=\"\${path/\"\$HOME\"/~}|g" "{{ $dst }}"
 fi
