@@ -1,0 +1,18 @@
+# .chezmoiexternal.toml
+# Generated from /Users/Ian/.local/share/chezmoi/home/.chezmoiexternal.toml.tmpl
+
+{{ if eq .chezmoi.os "darwin" -}}
+["Library/Fonts"]
+  refreshPeriod = "4320h" # 180 days
+  type = "archive"
+  url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.tar.xz"
+  exact = true
+  include = ["*.ttf"]
+{{- end }}
+
+[".local/share/oh-my-zsh/custom/themes/powerlevel10k"]
+  refreshPeriod = "168h" # 7 days
+  type = "archive"
+  url = "https://github.com/romkatv/powerlevel10k/archive/{{ (gitHubLatestRelease "romkatv/powerlevel10k").TagName }}.tar.gz"
+  exact = true
+  stripComponents = 1

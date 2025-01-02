@@ -1,0 +1,12 @@
+[submodule "home/dot_config/vim/vimfiles/pack/themes/start/external_dracula"]
+	path = home/dot_config/vim/vimfiles/pack/themes/start/external_dracula
+	url = https://github.com/dracula/vim.git
+[submodule "home/dot_config/tmux/plugins/external_tpm"]
+	path = home/dot_config/tmux/plugins/external_tpm
+	url = https://github.com/tmux-plugins/tpm
+[submodule "home/dot_local/share/external_oh-my-zsh"]
+	path = home/dot_local/share/external_oh-my-zsh
+	url = https://github.com/ohmyzsh/ohmyzsh.git
+[submodule "home/dot_config/tmux/plugins/external_tmux"]
+	path = home/dot_config/tmux/plugins/external_tmux
+	url = https://github.com/dracula/tmux.git

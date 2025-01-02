@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+echo "Setting desktop wallpaper..."
+
+{{/* differentiate between laptop and desktop */ -}}
+{{ $image := "Apple Code 5k.png" -}}
+{{ if hasPrefix "MacBook" .chezmoi.hostname -}}
+{{   $image = "Apple Code.png" -}}
+{{ end -}}
+
+osascript <<EOT
+tell application "System Events"
+    set n to count of desktops
+    set picture of desktop 1 to "~/Pictures/Wallpaper/{{ $image }}"
+    if n > 1 then
+        repeat with i from 2 to n
+            set picture of desktop i to "~/Pictures/Wallpaper/Dracula.png"
+        end repeat
+    end if
+end tell
+EOT

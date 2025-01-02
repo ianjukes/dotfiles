@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+{{ $src := "dot_config/tmux/plugins/external_tmux/scripts/cwd.sh" -}}
+{{ $dst := print .chezmoi.homeDir "/.config/tmux/plugins/tmux/scripts/cwd.sh" -}}
+
+# Trigger script if cwd.sh has changed
+# Hash: {{ include $src | sha256sum }}
+
+if [[ -f "{{ $dst }}" ]]; then
+  cp -f "{{ print .chezmoi.sourceDir "/" $src }}" "{{ $dst }}"
+  sed -i '' "s|cwd=\"\${path/\"\$HOME\"/'~'}|cwd=\"\${path/\"\$HOME\"/~}|g" "{{ $dst }}"
+fi

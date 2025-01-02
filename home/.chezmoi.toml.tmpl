@@ -1,0 +1,19 @@
+# .chezmoi.toml
+# Generated from {{ .chezmoi.sourceDir }}/.chezmoi.toml.tmpl
+
+encryption = "gpg"
+
+{{ $passphrase := promptStringOnce . "passphrase" "GPG passphrase" -}}
+
+[data]
+  passphrase = {{ $passphrase | quote }}
+  filesDir   = "{{ .chezmoi.sourceDir }}/.files"
+  include    = "{{ .chezmoi.sourceDir }}/.files/lib/macos.sh"
+  stateDir   = "${XDG_STATE_HOME}/chezmoi"
+
+[gpg]
+  symmetric = true
+  args = ["--batch", "--passphrase", {{ $passphrase | quote }}, "--no-symkey-cache", "--quiet"]
+
+# [git]
+#   autoCommit = true # Auto-commit after 'chezmoi add'

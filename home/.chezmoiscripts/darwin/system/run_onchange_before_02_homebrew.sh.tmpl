@@ -1,0 +1,52 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+echo "Installing/updating applications via Homebrew..."
+
+{{ $taps     := .homebrew.all.taps     -}}
+{{ $formulae := .homebrew.all.formulae -}}
+{{ $casks    := .homebrew.all.casks    -}}
+{{ $apps     := .homebrew.all.apps     -}}
+
+{{/* differentiate between laptop and desktop */ -}}
+{{ $platform := .homebrew.desktop -}}
+{{ if hasPrefix "MacBook" .chezmoi.hostname -}}
+{{   $platform = .homebrew.laptop -}}
+{{ else if hasSuffix "Test" .chezmoi.hostname -}}
+{{  $platform = .homebrew.test -}}
+{{  $taps     = list -}}
+{{  $formulae = list -}}
+{{  $casks    = list -}}
+{{  $apps     = list -}}
+{{ end -}}
+
+{{/* merge platform-specifics */ -}}
+{{ $taps     = concat $taps     $platform.taps     -}}
+{{ $formulae = concat $formulae $platform.formulae -}}
+{{ $casks    = concat $casks    $platform.casks    -}}
+{{ $apps     = concat $apps     $platform.apps     -}}
+
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+mkdir -p {{ .stateDir }}
+cat > {{ .stateDir }}/Brewfile <<EOF
+## Taps
+{{ range ($taps | sortAlpha | uniq) -}}
+tap "{{ . }}"
+{{ end }}
+## Formulae
+{{ range ($formulae | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end }}
+## Applications
+# Casks
+{{ range ($casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end -}}
+#  Mac App Store
+{{ range ($apps | sortAlpha | uniq) -}}
+mas {{ . }}
+{{ end -}}
+EOF
+
+brew bundle --no-lock --file={{ .stateDir }}/Brewfile

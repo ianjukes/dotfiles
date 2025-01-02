@@ -1,0 +1,27 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+echo "Resetting macOS dock applications..."
+
+dockutil --no-restart --remove all
+
+{{/* differentiate between laptop, desktop and vm */ -}}
+{{ $app_list := .dock.desktop -}}
+{{ if hasPrefix "MacBook" .chezmoi.hostname -}}
+{{   $app_list = .dock.laptop -}}
+{{ else if hasSuffix "Test" .chezmoi.hostname -}}
+{{   $app_list = .dock.test -}}
+{{ end -}}
+
+app_list=(
+{{ range $app_list -}}
+  "{{ . }}"
+{{ end -}}
+)
+
+for app in "${app_list[@]}"; do
+  dockutil --no-restart --add "${app}" || true
+done
+
+dockutil --add ~/Downloads --view fan --display folder --sort dateadded

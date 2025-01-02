@@ -1,0 +1,6 @@
+# ~/.zlogin
+# Note: this file is loaded *only once* at login time, and sourced after .zshrc
+# Best practise is to place any MOTD or banner messages here
+#
+# Authors:
+#   Ian Jukes

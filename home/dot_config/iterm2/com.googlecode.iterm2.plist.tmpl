@@ -1,0 +1,7 @@
+{{- /* differentiate between laptop and desktop */ -}}
+{{- $path := print .filesDir "/conf/iterm2/" }}
+{{- if hasPrefix "MacBook" .chezmoi.hostname -}}
+{{-   include (print $path "laptop.com.googlecode.iterm2.plist") -}}
+{{- else -}}
+{{-   include (print $path "desktop.com.googlecode.iterm2.plist") -}}
+{{- end -}}

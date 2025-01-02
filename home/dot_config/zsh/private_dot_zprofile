@@ -1,0 +1,135 @@
+# ~/.zprofile
+# Note: this file is loaded *only once* at login time, and sourced before .zshrc
+# Best practise is to set up the environment here -- including exporting
+# environment variables
+#
+# Homebrew recommends setting PATH variable here as macOS sets the PATH before
+# .zprofile is loaded
+#
+# Authors:
+#   Ian Jukes
+
+# Homebrew
+if [[ `uname -m` == 'arm64' ]]; then
+  # If Apple Silicon:
+  export HOMEBREW_PREFIX="/opt/homebrew"
+  export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX"
+else
+  # If Intel:
+  export HOMEBREW_PREFIX="/usr/local"
+  export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX/Homebrew"
+fi
+export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
+export HOMEBREW_NO_ENV_HINTS=1
+
+export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin${PATH:+:$PATH}"
+export MANPATH="$HOMEBREW_PREFIX/share/man${MANPATH:+:$MANPATH}"
+export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
+
+# 1Password
+OP_DIR="$XDG_CACHE_HOME/1password"
+OP_SCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+[ ! -d $OP_DIR ] && mkdir -p $OP_DIR
+if [ -e "$OP_SCK" ] && [ ! -L $OP_DIR/agent.sock ]; then
+  ln -s "$OP_SCK" $OP_DIR/agent.sock
+  export SSH_AUTH_SOCK=$OP_DIR/agent.sock
+fi
+
+# AWS
+export AWS_PROFILE="noomedia"
+export AWS_REGION="eu-west-2"
+export AWS_DEFAULT_REGION="eu-west-2"
+export AWS_DEFAULT_OUTPUT="json"
+
+# Azure
+export AZURE_CONFIG_DIR="$XDG_CONFIG_HOME/azure"
+
+# curl
+export PATH="${PATH:+$PATH:}$HOMEBREW_PREFIX/opt/curl/bin"
+
+# Docker
+# Forces x86/amd64 emulation of containers via Rosetta on Apple Silicon
+#export DOCKER_DEFAULT_PLATFORM="linux/amd64"
+
+# GnuPG
+export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
+
+# Go
+export GOROOT="$HOMEBREW_PREFIX/opt/go"
+export GOENV_ROOT="$XDG_DATA_HOME/goenv"
+
+if command -v goenv 1>/dev/null 2>&1; then
+  export PATH="${PATH:+$PATH:}$GOENV_ROOT/bin"
+  eval "$(goenv init -)"
+  export PATH="${PATH:+$PATH:}$GOPATH/bin:$GOROOT/bin"
+fi
+
+# Guile
+export GUILE_LOAD_PATH="$HOMEBREW_PREFIX/share/guile/site/3.0"
+export GUILE_LOAD_COMPILED_PATH="$HOMEBREW_PREFIX/lib/guile/3.0/site-ccache"
+export GUILE_SYSTEM_EXTENSIONS_PATH="$HOMEBREW_PREFIX/lib/guile/3.0/extensions"
+export GUILE_TLS_CERTIFICATE_DIRECTORY="$HOMEBREW_PREFIX/etc/gnutls/"
+
+# Java
+export JENV_ROOT="$XDG_DATA_HOME/jenv"
+eval "$(jenv init -)"
+
+# Less
+export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"
+export LESS="-XFR"
+
+# Maven
+export M2_HOME="$HOMEBREW_PREFIX/opt/maven/libexec"
+export MAVEN_HOME="$M2_HOME"
+
+# Minikube
+export MINIKUBE_HOME="$XDG_STATE_HOME/minikube"
+
+# MySQL client
+export PATH="${PATH:+$PATH:}$HOMEBREW_PREFIX/opt/mysql-client/bin"
+
+# Node.js
+export NVM_DIR="$XDG_DATA_HOME/nvm"
+export NVM_HOMEBREW="$HOMEBREW_PREFIX/nvm"
+
+# NPM
+export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
+
+# OpenSSL
+export PATH="${PATH:+$PATH:}$HOMEBREW_PREFIX/opt/openssl/bin"
+
+# Python
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc.py"
+export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
+
+# Hack for PyCharm (commented out as it's not working)
+# See https://youtrack.jetbrains.com/issue/PY-20638/Support-for-pyenv#focus=Comments-27-7838763.0-0
+#if [[ ! -d ~/.virtualenvs ]]; then
+#  ln -s $XDG_DATA_HOME/pyenv/versions ~/.virtualenvs
+#fi
+
+# Ruby
+export PATH="${PATH:+$PATH:}$HOMEBREW_PREFIX/opt/ruby/bin"
+
+# Tcl/Tk (for Python)
+export TK_SILENCE_DEPRECATION=1
+export PATH="${PATH:+$PATH:}$HOMEBREW_PREFIX/opt/tcl-tk/bin"
+
+# Terraform
+export TF_CLI_CONFIG_FILE="$XDG_CONFIG_HOME/terraform/terraformrc"
+
+# User scripts path
+export PATH="${PATH:+$PATH:}$XDG_DATA_HOME/../bin"
+
+# Vim
+export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"
+
+# Visual Studio Code
+export PATH="${PATH:+$PATH:}/Applications/Visual Studio Code.app/Content/Resources/app/bin"

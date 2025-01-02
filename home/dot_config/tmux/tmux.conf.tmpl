@@ -1,0 +1,25 @@
+# Configuration
+set -g default-command "${SHELL}"
+set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+
+# Plugins 
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'dracula/tmux'
+
+# Dracula plugin options
+set -g @dracula-show-powerline true
+set -g @dracula-show-left-icon session
+{{- if hasPrefix "MacBook" .chezmoi.hostname }}
+set -g @dracula-plugins "cwd time battery"
+{{- else }}
+set -g @dracula-plugins "cwd time"
+{{- end }}
+set -g @dracula-time-format "%-l:%M%p %Z"
+{{ if hasPrefix "MacBook" .chezmoi.hostname -}}
+set -g @dracula-battery-label false
+set -g @dracula-no-battery-label false
+set -g @dracula-show-battery-status true
+{{- end }}
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '$HOMEBREW_PREFIX/opt/tpm/share/tpm/tpm'

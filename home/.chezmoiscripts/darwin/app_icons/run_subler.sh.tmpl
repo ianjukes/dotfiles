@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+source "{{ .include }}"
+
+app="Subler"
+src="{{ .filesDir }}/icons/${app}"
+dst="/Applications/${app}.app/Contents/Resources"
+
+if replace_icons "${src}" "${app}" "AppIcon.icns:${dst}/AppIcon.icns"; then
+  mv -f "${dst}/Assets.car" "${dst}/Assets.chezmoi"
+  reset_icons
+fi

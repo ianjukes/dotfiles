@@ -1,0 +1,242 @@
+homebrew:
+  all:
+    taps:
+      - "buo/cask-upgrade"       # Provides 'brew cu' command
+      - "hashicorp/tap"
+      - "homebrew/bundle"
+      - "homebrew/services"
+      - "spring-io/tap"
+    formulae:
+      # Formulae from taps (see above)
+      - "hashicorp/tap/terraform"
+      - "spring-io/tap/spring-boot"
+      # Regular formulae
+      - "age"
+      - "aws-cdk"
+      - "aws-nuke"
+      - "aws-sam-cli"
+      - "awscli"
+      - "azure-cli"
+      - "babel"
+      - "bat"
+      - "cfn-lint"
+      - "chezmoi"
+      - "cmake"
+      - "dockutil"
+      - "eksctl"
+      - "exiftool"
+      - "expect"
+      - "eza"
+      - "fastfetch"
+      - "fd"
+      - "ffmpeg"
+      - "figlet"
+      - "gh"
+      - "git"
+      - "git-lfs"
+      - "gnupg"
+      - "goenv"
+      - "gradle"
+      - "helm"
+      - "httpie"
+      - "hub"
+      - "iam-policy-json-to-terraform"
+      - "jenv"
+      - "jq"
+      - "k6"
+      - "k9s"
+      - "kind"
+      - "kubecolor"
+      - "kubernetes-cli"
+      - "lolcat"
+      - "mas"
+      - "maven"
+      - "minikube"
+      - "mkvtoolnix"
+      - "mosh"
+      - "muon"
+      - "mysql-client"
+      - "nvm"
+      - "opentofu"
+      - "pinentry-mac"
+      - "procs"
+      - "pyenv-virtualenv"
+      - "rbenv"
+      - "rust"
+      - "sbt"
+      - "scala"
+      - "tcl-tk"
+      - "terraformer"
+      - "tmux"
+      - "tree"
+      - "typescript"
+      - "vim"
+      - "watch"
+      - "wget"
+      - "yt-dlp"
+    casks:
+      - "1password"              # https://1password.com
+      - "audio-hijack"           # https://rogueamoeba.com/audiohijack/
+      - "balenaetcher"           # https://etcher.balena.io
+      - "bartender"              # https://www.macbartender.com
+      - "betterdisplay"          # https://betterdisplay.pro
+      - "bootstrap-studio"       # https://bootstrapstudio.io
+      - "calibre"                # https://calibre-ebook.com
+      - "chatgpt"                # https://chatgpt.com
+      - "clion"                  # https://www.jetbrains.com/clion/
+      - "coderunner"             # https://coderunnerapp.com
+      - "cork"                   # https://corkmac.app
+      - "discord"                # https://discord.com
+      - "docker"                 # https://www.docker.com/products/docker-desktop/
+      - "drawio"                 # https://www.drawio.com
+      - "evernote"               # https://evernote.com
+      - "firefox"                # https://www.mozilla.org/en-GB/firefox/
+      - "ghostty"                # https://ghostty.org
+      - "github"                 # https://github.com/apps/desktop
+      - "google-chrome"          # https://www.google.com/intl/en_uk/chrome/
+      - "google-earth-pro"       # https://earth.google.com/intl/earth/versions/#earth-pro
+      - "graalvm-jdk@21"         # https://www.graalvm.org
+      - "handbrake"              # https://handbrake.fr
+      - "hazel"                  # https://www.noodlesoft.com
+      - "intellij-idea"          # https://www.jetbrains.com/idea/
+      - "iterm2"                 # https://iterm2.com
+      - "jdk-mission-control"    # https://www.oracle.com/java/technologies/jdk-mission-control.html
+      - "jupyterlab"             # https://jupyter.org
+      - "kaleidoscope"           # https://kaleidoscope.app
+      - "little-snitch"          # https://www.obdev.at/products/littlesnitch/
+      - "loopback"               # https://rogueamoeba.com/loopback/
+      - "macwhisper"             # https://goodsnooze.gumroad.com/l/macwhisper/
+      - "microsoft-auto-update"  # https://learn.microsoft.com/en-gb/officeupdates/release-history-microsoft-autoupdate/
+      - "microsoft-edge"         # https://www.microsoft.com/en-gb/edge/
+      - "microsoft-teams"        # https://www.microsoft.com/en-gb/microsoft-teams/
+      - "moom"                   # https://manytricks.com/moom/
+      - "mongodb-compass"        # https://www.mongodb.com/products/tools/compass/
+      - "mysqlworkbench"         # https://www.mysql.com/products/workbench/
+      - "ngrok"                  # https://ngrok.com
+      - "nova"                   # https://nova.app
+      - "obsidian"               # https://obsidian.md
+      - "plex"                   # https://www.plex.tv/media-server-downloads/?cat=plex+desktop&plat=macos#plex-app
+      - "plex-htpc"              # https://www.plex.tv/media-server-downloads/?cat=plex+htpc&plat=macos#plex-app
+      - "pycharm-ce"             # https://www.jetbrains.com/pycharm/
+      - "raindropio"             # https://raindrop.io
+      - "soundsource"            # https://rogueamoeba.com/soundsource/
+      - "subler"                 # https://subler.org
+      - "tableplus"              # https://tableplus.com
+      - "tor-browser"            # https://www.torproject.org
+      - "tower"                  # https://www.git-tower.com/mac/
+      - "transmit"               # https://panic.com/transmit/
+      - "visual-studio-code"     # https://code.visualstudio.com
+      - "visualvm"               # https://visualvm.github.io
+      - "vlc"                    # https://www.videolan.org
+      - "webcatalog"             # https://webcatalog.io
+      - "webex"                  # https://www.webex.com
+      - "whisky"                 # https://getwhisky.app
+      - "wireshark"              # https://www.wireshark.org
+      - "zoom"                   # https://zoom.us
+      - "zulu"                   # https://www.azul.com/downloads/#zulu
+      - "zulu@8"                 # https://www.azul.com/downloads/?version=java-8-lts#zulu
+      - "zulu@11"                # https://www.azul.com/downloads/?version=java-11-lts#zulu
+      - "zulu@17"                # https://www.azul.com/downloads/?version=java-17-lts#zulu
+      - "zulu@21"                # https://www.azul.com/downloads/?version=java-21-lts#zulu
+    apps:
+      - "\"1Password for Safari\", id: 1569813296"
+      - "\"Affinity Designer 2\", id: 1616831348"
+      - "\"Affinity Photo 2: Image Editor\", id: 1616822987"
+      - "\"Affinity Publisher 2\", id: 1606941598"
+      - "\"Amphetamine\", id: 937984704"
+      - "\"Apple Developer\", id: 640199958"
+      - "\"Apple Remote Desktop\", id: 409907375"
+      - "\"Capacities Web Extension\", id: 6502697899"
+      - "\"Capture - Quick Notes\", id: 6458535284"
+      - "\"ColorSlurp\", id: 1287239339"
+      - "\"Craft: Write docs, AI editing\", id: 1487937127"
+      - "\"CrystalFetch ISO Downloader\", id: 6454431289"
+      - "\"DaisyDisk\", id: 411643860"
+      - "\"Diagrams\", id: 1276248849"
+      - "\"Draw Things: AI Generation\", id: 6444050820"
+      - "\"Fantastical - Calendar\", id: 975937182"
+      - "\"Flighty – Live Flight Tracker\", id: 1358823008"
+      - "\"GarageBand\", id: 682658836"
+      - "\"Image2icon - Make your icons\", id: 992115977"
+      - "\"iMovie\", id: 408981434"
+      - "\"iStatistica Pro\", id: 1447778660"
+      - "\"Kahoot! Play & Create Quizzes\", id: 1131203560"
+      - "\"Keka\", id: 470158793"
+      - "\"Keynote\", id: 409183694"
+      - "\"Kindle\", id: 302584613"
+      - "\"LEGO® MINDSTORMS® Inventor\", id: 1515448947"
+      - "\"Save to Matter\", id: 1548677272"
+      - "\"Mela – Recipe Manager\", id: 1568924476 "
+      - "\"MetaMovie\", id: 511114225"
+      - "\"Microsoft Excel\", id: 462058435"
+      - "\"Microsoft PowerPoint\", id: 462062816"
+      - "\"Microsoft Word\", id: 462054704"
+      - "\"Numbers\", id: 409203825"
+      - "\"OpenIn 4 Advanced Link Handler\", id: 1643649331"
+      - "\"Pages\", id: 409201541"
+      - "\"Parcel - Delivery Tracking\", id: 639968404"
+      - "\"Pixelmator Pro\", id: 1289583905"
+      - "\"Save to Raindrop.io\", id: 1549370672"
+      - "\"Screenbrush\", id: 1233965871"
+      - "\"Slack for Desktop\", id: 803453959"
+      - "\"SnippetsLab\", id: 1006087419"
+      - "\"Speedtest by Ookla\", id: 1153157709"
+      - "\"Spark Mail – AI Email & Inbox\", id: 6445813049"
+      - "\"StopTheMadness Pro\", id: 6471380298"
+      - "\"Swift Playgrounds\", id: 1496833156"
+      - "\"Things 3\", id: 904280696"
+      - "\"Todoist: To-Do List & Tasks\", id: 585829637"
+      - "\"Triode - Internet Radio\", id: 1450027401"
+      - "\"Typeface 3\", id: 1062679359"
+      - "\"UTM Virtual Machines\", id: 1538878817"
+      - "\"WhatsApp Messenger\", id: 310633997"
+      - "\"Windows App\", id: 1295203466"
+      - "\"Xcode\", id: 497799835"
+  desktop:
+    taps: []
+    formulae: []
+    casks:
+      - "cursr"                  # https://cursr.app
+      - "displaylink"            # https://www.synaptics.com/products/displaylink-graphics/downloads/macos/
+      - "elgato-camera-hub"      # https://www.elgato.com/uk/en/s/downloads/
+      - "elgato-control-center"  # https://www.elgato.com/uk/en/s/downloads/
+      - "elgato-stream-deck"     # https://www.elgato.com/uk/en/s/downloads/
+      - "obs"                    # https://obsproject.com
+    apps:
+      - "\"Home Assistant\", id: 1099568401"
+  laptop:
+    taps:
+      - "fcanas/tap"
+    formulae:
+      # Formulae from taps (see above)
+      - "fcanas/tap/mirror-displays"
+    casks:
+      - "remote-buddy"           # https://www.iospirit.com/products/remotebuddy/
+      - "viscosity"              # https://www.sparklabs.com/viscosity/
+    apps: []
+  test:
+    taps:
+      - "buo/cask-upgrade"       # Provides 'brew cu' command
+    formulae:
+      - "chezmoi"
+      - "dockutil"
+      - "eza"
+      - "figlet"
+      - "git"
+      - "git-lfs"
+      - "gnupg"
+      - "mas"
+      - "pinentry-mac"
+      - "procs"
+      - "tmux"
+      - "tpm"
+      - "tree"
+      - "vim"
+      - "wget"
+    casks:
+      - "1password"              # https://1password.com
+      - "bartender"              # https://www.macbartender.com
+      - "ghostty"                # https://ghostty.org
+      - "iterm2"                 # https://iterm2.com
+      - "moom"                   # https://manytricks.com/moom/
+    apps: []

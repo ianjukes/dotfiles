@@ -1,0 +1,9 @@
+[user]
+	name = Ian Jukes
+	email = ianjukes@users.noreply.github.com
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = false
+[gpg]
+	program = /opt/homebrew/bin/gpg

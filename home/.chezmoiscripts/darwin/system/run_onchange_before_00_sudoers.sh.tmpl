@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+{{ $enc := print .filesDir "/etc/encrypted_nopasswd.asc" -}}
+{{ $out := "/etc/sudoers.d/nopasswd" }}
+
+if [[ ! -f "{{ $out }}" ]]; then
+  echo "Updating sudoers (which will request your password)... "
+  chezmoi decrypt {{ $enc }} | sudo tee {{ $out }} >/dev/null
+  sudo chmod 640 {{ $out }}
+fi

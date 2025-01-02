@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+source "{{ .include }}"
+
+app="calibre"
+src="{{ .filesDir }}/icons/${app}"
+dst="/Applications/${app}.app/Contents/Resources"
+
+replace_icons "${src}" "${app}" \
+  "calibre.icns:${dst}/calibre.icns" \
+  "calibre.png:${dst}/resources/content-server/calibre.png" \
+  "library.png:${dst}/resources/images/library.png" \
+  "apple-touch-icon.png:${dst}/resources/images/apple-touch-icon.png" || true

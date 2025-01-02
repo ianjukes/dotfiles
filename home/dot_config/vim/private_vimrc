@@ -1,0 +1,103 @@
+" Set the local runtime path to be .local/share/vim
+set runtimepath+=$XDG_CONFIG_HOME/vim/vimfiles,$XDG_CONFIG_HOME/vim/vimfiles/after
+
+" Set the location of the viminfo file to .cache/vim
+" (Should be the same as the runtimepath)
+set viminfo+=n$XDG_CACHE_HOME/viminfo,$XDG_CONFIG_HOME/vim/vimfiles/after
+
+" Set the location of plugins
+set packpath+=$XDG_CONFIG_HOME/vim/vimfiles
+
+" Set the location of swap and undo files
+set directory=$XDG_STATE_HOME/vim/swap//,.,~/tmp,/var/tmp,/tmp
+set undodir=$XDG_STATE_HOME/vim/undo//,.
+
+" Set the location of backup files
+set backupdir=$XDG_DATA_HOME/vim/backup//,.,~/tmp,~/
+
+" Use Vim settings, rather than Vi settings (much better!)
+if &compatible
+  set nocompatible
+endif
+
+" When the +eval feature is missing, the set command above will be skipped
+" Use a trick to reset compatible only when the +eval feature is missing
+silent! while 0
+  set nocompatible
+silent! endwhile
+
+" Allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+" Miscellanous options
+set history=200     " Keep 200 lines of command line history
+set ruler           " Show the cursor position all the time
+set showcmd         " Display incomplete commands
+set wildmenu        " Display completion matches in a status line
+set ttimeout        " Time out for key codes
+set ttimeoutlen=100 " Wait up to 100ms after Esc for special key
+
+" Show @@@ in the last line if it is truncated
+set display=truncate
+
+" Show a few lines of context around the cursor
+" Note that this makes the text scroll if you mouse-click near the start or end of the window
+set scrolloff=3
+
+" Turn on mouse support
+if has('mouse')
+  set mouse=nvi
+endif
+
+" Only do this part when Vim was compiled with the +eval feature
+if 1
+  " Enable file type detection
+  filetype plugin indent on
+  " When editing a file, always jump to the last known cursor position
+  augroup vimStartup
+    autocmd!
+    autocmd BufReadPost *
+      \ let line = line("'\"")
+      \ | if line >= 1 && line <= line("$") && &filetype !~# 'commit'
+      \      && index(['xxd', 'gitrebase'], &filetype) == -1
+      \ |   execute "normal! g`\""
+      \ | endif
+  augroup END
+endif
+
+" Set options if the terminal support colours
+if &t_Co > 2
+  " Enable the Dracula theme
+  colorscheme dracula
+  " Turn on syntax highlighting
+  syntax on
+  " Set the background color to none (after syntax on)
+  highlight Normal ctermbg=none
+  highlight NonText ctermbg=none
+endif
+
+" Show line numbers
+set number
+set numberwidth=5
+
+" Intentation options
+set autoindent    " Turn on autoidentation
+set shiftwidth=2  " The number of spaces to autoindent
+set tabstop=2     " The number of spaces that a tab character represents
+set softtabstop=2 " The number of spaces to insert when the tab key is pressed
+set expandtab     " Insert spaces instead of a tab character
+set noshiftround  " Disable indentation rounding
+
+" Line wrapping options
+set wrap          " Turn on line wrapping
+set textwidth=100 " Sets the maximum line width to 100 characters
+
+" Formatting options
+"  t: Auto-wrap text using textwidth
+"  c: Auto-wrap comments using textwidth
+"  q: Allow formatting of comments with gq
+"  r: Automatically insert the comment leader after hitting Enter
+"  n: Recognize numbered lists
+"  1: Break line before 1 character of a word
+set formatoptions=tcqrn1
+

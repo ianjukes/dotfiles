@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+source "{{ .include }}"
+
+app="Bartender 5"
+
+pls="com.surteesstudios.Bartender.plist"
+src="{{ .filesDir }}/prefs/${app}/${pls}.asc"
+dst="$HOME/Library/Preferences/${pls}"
+
+replace_lib "${src}" "${dst}" "${app}" "${pls}" true

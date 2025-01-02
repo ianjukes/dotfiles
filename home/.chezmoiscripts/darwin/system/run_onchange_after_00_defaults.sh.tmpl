@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+echo "Updating system settings..."
+
+# General
+defaults write -g NSAutomaticCapitalizationEnabled -int 0
+defaults write -g NSAutomaticDashSubstitutionEnabled -int 0
+defaults write -g NSAutomaticPeriodSubstitutionEnabled -int 0
+defaults write -g NSAutomaticQuoteSubstitutionEnabled -int 0
+defaults write -g NSAutomaticSpellingCorrectionEnabled -int 0
+defaults write -g NSAutomaticTextCorrectionEnabled -int 0
+defaults write -g NSDocumentSaveNewDocumentsToCloud -int 0
+defaults write -g WebAutomaticSpellingCorrectionEnabled -int 0
+
+# Dock
+defaults write com.apple.dock autohide -int 1
+defaults write com.apple.dock show-recents -int 0
+
+# Finder
+defaults write com.apple.finder ShowHardDrivesOnDesktop -int 0
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -int 0
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -int 0
+defaults write com.apple.finder ShowMountedServersOnDesktop -int 0
+defaults write com.apple.finder NewWindowTarget -string "PfHm"
+defaults write com.apple.finder FinderSpawnTab -int 1
+defaults write com.apple.finder WarnOnEmptyTrash -int 0
+defaults write com.apple.finder _FXSortFoldersFirst -int 1
+defaults write com.apple.finder _FXSortFoldersFirstOnDesktop -int 1
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"

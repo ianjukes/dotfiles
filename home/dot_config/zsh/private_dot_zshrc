@@ -1,0 +1,139 @@
+# ~/.zshrc
+# Note: this is only loaded for interactive shells
+# Best practise is to place behaviour and appearance settings here
+#
+# Authors:
+#   Ian Jukes
+
+# This needs to be set here rather than .zprofile because macOS overrides it in /etc/zshrc
+export HISTFILE="$XDG_CACHE_HOME/zsh_history"
+
+# Detect if the terminal is inside an IDE
+[[ $TERM_PROGRAM == "vscode" || $TERMINAL_EMULATOR == "JetBrains-JediTerm" ]] && IS_IDE=true
+
+# ---- tmux ----------------------------------------------------------------------------------------
+
+if [[ -z "$TMUX" && -z "$VSCODE_PID" && -z "$IS_IDE" ]]; then
+  if tmux has-session &>/dev/null && tmux ls | grep -qv attached; then
+    exec tmux attach && exit
+  else
+    exec tmux new && exit
+  fi
+fi
+
+# ---- Welcome message -----------------------------------------------------------------------------
+
+# Dracula Theme ANSI colors:
+# Red:    31
+# Green:  32
+# Yellow: 33
+# Purple: 34
+# Pink:   35
+# Blue:   36
+# White:  37
+
+if [[ -o interactive ]] && [[ $SHLVL -eq 1 ]]; then
+  if [[ !$IS_IDE && $ITERM_PROFILE != "Training" ]]; then
+    echo -n '\033[0;32m'
+    figlet -f small `hostname -s`
+    echo -n '\033[0;37m'
+    echo "`sw_vers -productName` `sw_vers -productVersion` Build `sw_vers -buildVersion`"
+    uname -v
+    echo '\033[0m' # No color
+  fi
+fi
+
+# ---- oh-my-zsh configuration ---------------------------------------------------------------------
+
+# Enable Powerlevel10k instant prompt
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Path to your oh-my-zsh installation
+export ZSH="${XDG_DATA_HOME}/oh-my-zsh"
+export ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME}/zcompdump"
+
+# Set name of the theme to load
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# Change the auto-update behavior
+zstyle ':omz:update' mode disabled  # Updates are handled by chezmoi
+
+# Ensures there is no extra padding between the right edge of the terminal and the prompt
+ZLE_RPROMPT_INDENT=0
+
+# Disable colors in ls
+DISABLE_LS_COLORS="true" # Allows the terminal application to control colours
+
+# Disable auto-setting terminal title
+DISABLE_AUTO_TITLE="true"
+
+plugins=(
+  aws
+  azure
+  github
+  golang
+  helm
+  mvn
+  npm
+  nvm
+  sbt
+  scala
+  spring
+  terraform
+  tmux
+)
+
+source $ZSH/oh-my-zsh.sh
+
+# ---- User configuration --------------------------------------------------------------------------
+
+# This ensures each new shell session gets a unique history file
+# Note: must be placed after the oh-my-zsh.sh source line
+unsetopt inc_append_history
+unsetopt share_history
+
+# eza -- replacement for ls
+# Set preferred colours
+#   https://github.com/eza-community/eza/blob/main/man/eza_colors.5.md
+export EZA_COLORS="oc=37:xa=37:ur=32:uw=32:ux=32:ue=32:gr=33:gw=33:gx=33:tr=35:tw=35:tx=35:bd=31"
+# Aliases to replace ls
+unalias l
+alias la='eza --icons=always --color=always --no-quotes -A'
+alias ls='eza --icons=always --color=always --no-quotes --ignore-glob=".CFUserTextEncoding|.DS_Store|.Trash|.Spotlight-V100|.TemporaryItems|.fseventsd|.DocumentRevisions-V100|Icon[!a-zA-Z0-9]|.timemachine|.localized|.file|.vol|.VolumeIcon.icnsi|.dropbox"'
+alias lf='ls -A'
+alias lg='ls -lgaM  --tree --level=1 --git'
+alias ll='ls -lgaM  --tree --level=1'
+alias lo='ls -lgoaM --tree --level=1'
+alias lt='ls -lgaM  --tree --level=2'
+
+# Local scripts
+local bin="$XDG_DATA_HOME/../bin"
+alias aws-profile='source $bin/aws-profile.zsh'
+alias lscolors='$bin/lscolors.zsh'
+
+# General alias
+alias aws-cli-demo='docker run --rm -it --name aws-cli-demo --hostname aws-cli-demo noomedia/aws-cli-demo:latest'
+alias bu='brew upgrade'
+alias bcu='brew cu -a --cleanup -y'
+alias copilot='gh copilot'
+alias ek='eksctl'
+alias k='kubectl'
+alias k9s='k9s -c workloads'
+alias kubectl='kubecolor'
+alias kw='kwatch'
+alias kwatch='watch -n1 --color unbuffer kubecolor get replicaset,secret,job,cronjob,daemonset,statefulset,ingress,configmap,pv,pvc,service,deployment,po,hpa'
+alias more='less'
+alias vi=vim
+
+# Server aliases
+alias ha=homeassistant
+alias homeassistant='mosh --ssh="ssh -p 1972" hostmaster@homeassistant.local'
+alias nas='ssh -p 1972 ianjukes@nas.local'
+alias zb=zimablade
+alias zimablade='ssh hostmaster@zimablade.local'
+
+# ---- Powerlevel10k -------------------------------------------------------------------------------
+
+source $XDG_CONFIG_HOME/oh-my-zsh/p10k.zsh

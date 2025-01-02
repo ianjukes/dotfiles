@@ -1,0 +1,35 @@
+.files/**
+
+{{ if eq .chezmoi.os "darwin" -}}
+{{/* Bartender 5 */ -}}
+{{   if not (stat "/Applications/Bartender 5.app") -}}
+Library/Preferences/com.surteesstudios.Bartender.plist
+{{   end -}}
+{{/* HuionTablet */ -}}
+{{   if not (stat "/Applications/HuionTablet.app") -}}
+Library/Application\ Support/HuionTablet/HUION_M214.cfg
+Library/Preferences/com.huion.HuionTablet.plist
+{{   end -}}
+{{/* Moom */ -}}
+{{   if not (stat "/Applications/Moom.app") -}}
+Library/Application\ Support/Many\ Tricks/Licenses/Ian\ Jukes.moomlicense
+Library/Preferences/com.manytricks.Moom.plist
+{{   end -}}
+{{ end -}}
+
+{{ if ne .chezmoi.os "darwin" -}}
+.chezmoiscripts/darwin/**
+Library/**
+Pictures/**
+{{ end -}}
+
+{{ if ne .chezmoi.os "linux" -}}
+.chezmoiscripts/linux/**
+{{ end -}}
+
+{{ if ne .chezmoi.os "windows" -}}
+.chezmoiscripts/windows/**
+.config/tmux/plugins/tmux/scripts/cwd.sh
+.local/share/oh-my-zsh/cache/**
+.local/share/oh-my-zsh/custom/themes/powerlevel10k/**/*.zwc
+{{ end -}}

@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+if ! pkgutil --pkg-info com.apple.pkg.RosettaUpdateAuto &>/dev/null; then
+  echo "Installing Rosetta (which may request your password)... "
+  sudo softwareupdate --install-rosetta --agree-to-license
+fi

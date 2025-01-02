@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+source "{{ .include }}"
+
+app="Terminal"
+
+pls="com.apple.Terminal.plist"
+src="{{ .filesDir }}/prefs/${app}/${pls}"
+dst="$HOME/Library/Preferences/${pls}"
+
+replace_lib "${src}" "${dst}" "${app}" "${pls}"

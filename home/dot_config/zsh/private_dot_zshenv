@@ -1,0 +1,28 @@
+# ~/.zshenv
+# Note: this file is loaded *first* for both login and non-login shells
+# Export any environment variables here that are needed by all Zsh instances, otherwise place them
+# in .zprofile or .zshrc
+#
+# This should be symbolically linked back to the user home directory to ensure that the ZSH
+# environment is set up correctly:
+#   ln -s ~/.config/zsh/.zshenv ~/.zshenv
+#
+# Authors:
+#   Ian Jukes
+
+# Turn off the default save/restore behaviour in the Apple Terminal app
+# See /etc/zshrc_Apple_Terminal for details
+export SHELL_SESSIONS_DISABLE=1
+
+# Skip global compinit from running (may not be necessary on macOS)
+skip_global_compinit=1
+
+# XDG Base Directory Specification (XDGBDS)
+# See https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_STATE_HOME="$HOME/.local/state"
+
+# Set ZDOTDIR for zsh and bootstrap $ZDOTDIR/.zshenv
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"

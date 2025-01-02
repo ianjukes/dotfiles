@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+source "{{ .include }}"
+
+app="VisualVM"
+src="{{ .filesDir }}/icons/${app}"
+dst="/Applications/${app}.app/Contents/Resources"
+
+replace_icons "${src}" "${app}" \
+  "visualvm.icns:${dst}/visualvm.icns" \
+  "visualvm.icns:${dst}//visualvm/etc/visualvm.icns" || true
