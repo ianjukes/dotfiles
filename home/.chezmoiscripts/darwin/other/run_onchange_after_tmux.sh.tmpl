@@ -3,7 +3,7 @@ set -eufo pipefail
 IFS=$'\n\t'
 
 {{ $src := "dot_config/tmux/plugins/external_tmux/scripts/cwd.sh" -}}
-{{ $dst := print .chezmoi.homeDir "/.config/tmux/plugins/tmux/scripts/cwd.sh" -}}
+{{ $dst := "$HOME/.config/tmux/plugins/tmux/scripts/cwd.sh" -}}
 
 # Trigger script if cwd.sh has changed
 # Hash: {{ include $src | sha256sum }}
