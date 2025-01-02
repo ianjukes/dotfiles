@@ -68,6 +68,7 @@ homebrew:
       - "tcl-tk"
       - "terraformer"
       - "tmux"
+      - "tpm"
       - "tree"
       - "typescript"
       - "vim"
@@ -82,6 +83,7 @@ homebrew:
       - "betterdisplay"          # https://betterdisplay.pro
       - "bootstrap-studio"       # https://bootstrapstudio.io
       - "calibre"                # https://calibre-ebook.com
+      - "capacities"             # https://capacities.io
       - "chatgpt"                # https://chatgpt.com
       - "clion"                  # https://www.jetbrains.com/clion/
       - "coderunner"             # https://coderunnerapp.com
@@ -183,6 +185,7 @@ homebrew:
       - "\"Speedtest by Ookla\", id: 1153157709"
       - "\"Spark Mail – AI Email & Inbox\", id: 6445813049"
       - "\"StopTheMadness Pro\", id: 6471380298"
+      - "\"Subscriptions - Track Expenses\", id: 1577082754"
       - "\"Swift Playgrounds\", id: 1496833156"
       - "\"Things 3\", id: 904280696"
       - "\"Todoist: To-Do List & Tasks\", id: 585829637"
