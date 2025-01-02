@@ -13,7 +13,7 @@ dst="$HOME/Library/Preferences/${pls}"
 replace_lib "${src}" "${dst}" "${app}" "${pls}"
 
 lic="Ian Jukes.moomlicense"
-src="{{ .filesDir }}/prefs/${app}/${pls}.asc"
+src="{{ .filesDir }}/prefs/${app}/${lic}.asc"
 dst="$HOME/Library/Application Support/Many Tricks/Licenses/${lic}"
 
 replace_lib "${src}" "${dst}" "${app}" "${lic}" true
