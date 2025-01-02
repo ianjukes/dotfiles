@@ -75,9 +75,14 @@ function replace_lib() {
 }
 
 function reset_icons() {
+  echo "Resetting system icon caches..."
   sudo rm -rf /Library/Caches/com.apple.iconservices.store 2>/dev/null || true
   sudo find /private/var/folders/ -name com.apple.iconservices -exec rm -rf {} \; 2>/dev/null || true
   sudo find /private/var/folders/ -name com.apple.dock.iconcache -exec rm -rf {} \; 2>/dev/null || true
+  echo "Waiting for Dock to restart..."
   killall Dock
+  while ! pgrep Dock >/dev/null; do sleep 0.1; done
+  echo "Waiting for Finder to restart..."
   killall Finder
+  while ! pgrep Finder >/dev/null; do sleep 0.1; done
 }
