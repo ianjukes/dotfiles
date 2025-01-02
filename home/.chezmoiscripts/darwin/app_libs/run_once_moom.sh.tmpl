@@ -16,4 +16,5 @@ lic="Ian Jukes.moomlicense"
 src="{{ .filesDir }}/prefs/${app}/${lic}.asc"
 dst="$HOME/Library/Application Support/Many Tricks/Licenses/${lic}"
 
+mkdir -p "$HOME/Library/Application Support/Many Tricks/Licenses"
 replace_lib "${src}" "${dst}" "${app}" "${lic}" true
