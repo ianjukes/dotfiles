@@ -1,6 +1,7 @@
 [user]
   name = Ian Jukes
-  email = ianjukes@users.noreply.github.com
+  email = ianjukes@gmail.com
+  # email = ianjukes@users.noreply.github.com # Use for GitHub
 [init]
   defaultBranch = main
 [commit]
