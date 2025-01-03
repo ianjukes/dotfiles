@@ -1,9 +1,14 @@
 [user]
-	name = Ian Jukes
-	email = ianjukes@users.noreply.github.com
+  name = Ian Jukes
+  email = ianjukes@users.noreply.github.com
 [init]
-	defaultBranch = main
+  defaultBranch = main
 [commit]
-	gpgsign = false
+  gpgsign = false
 [gpg]
-	program = /opt/homebrew/bin/gpg
+  program = /opt/homebrew/bin/gpg
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
