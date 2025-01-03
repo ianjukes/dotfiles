@@ -94,6 +94,25 @@ source $ZSH/oh-my-zsh.sh
 unsetopt inc_append_history
 unsetopt share_history
 
+# Lazy initialisation of jenv
+jenv() {
+  if command -v jenv 1>/dev/null 2>&1; then
+    unset -f jenv
+    eval "$(command jenv init -)"
+    jenv "$@"
+  fi
+}
+
+# Lazy initialisation of pyenv
+pyenv() {
+  if command -v pyenv 1>/dev/null 2>&1; then
+    unset -f pyenv
+    eval "$(command pyenv init - zsh)"
+    eval "$(command pyenv virtualenv-init -)"
+    pyenv "$@"
+  fi
+}
+
 # eza -- replacement for ls
 # Set preferred colours
 #   https://github.com/eza-community/eza/blob/main/man/eza_colors.5.md

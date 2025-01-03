@@ -35,7 +35,7 @@ homebrew:
       - "git"
       - "git-lfs"
       - "gnupg"
-      - "goenv"
+      - "go"
       - "gradle"
       - "helm"
       - "httpie"
