@@ -9,6 +9,9 @@
 # Authors:
 #   Ian Jukes
 
+[ -n "$ZPROFILE_ALREADY_SOURCED" ] && return
+export ZPROFILE_ALREADY_SOURCED=1
+
 # Homebrew
 if [[ `uname -m` == 'arm64' ]]; then
   # If Apple Silicon:
