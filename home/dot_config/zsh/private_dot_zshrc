@@ -178,4 +178,4 @@ alias vi=vim
 
 # ---- Powerlevel10k -------------------------------------------------------------------------------
 
-source $XDG_CONFIG_HOME/oh-my-zsh/p10k.zs
+source $XDG_CONFIG_HOME/oh-my-zsh/p10k.zsh
