@@ -87,31 +87,58 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# ---- User configuration --------------------------------------------------------------------------
+# ---- Lazy initialisation of Java tools -----------------------------------------------------------
+
+[[ -z "$JAVA_HOME" ]] && export JAVA_HOME="$(/usr/libexec/java_home)"
+JAVA_BINS=($(find "$JAVA_HOME/bin" -type f -exec basename {} \;))
+JAVA_BINS+=(
+  jenv
+  mvn
+  mvnDebug
+  mvnyjp
+  gradle
+  spring
+)
+
+_lazy_java_init() {
+  unset -f "${JAVA_BINS[@]}" &>/dev/null
+  command -v jenv &>/dev/null && eval "$(jenv init -)"
+  eval "$@"
+}
+
+for bin in "${JAVA_BINS[@]}"; do
+  functions[$bin]="_lazy_java_init $bin \"\$@\""
+done
+
+# ---- Lazy initialisation of Python tools ---------------------------------------------------------
+
+PYTHON_BINS=(
+  python
+  python3
+  pip
+  pyenv
+  pyenv-virtualenv
+)
+
+_lazy_python_init() {
+  unset -f "${PYTHON_BINS[@]}" &>/dev/null
+  if command -v pyenv &>/dev/null; then
+    eval "$(pyenv init - zsh)"
+    eval "$(pyenv virtualenv-init -)"
+  fi
+  eval "$@"
+}
+
+for bin in "${PYTHON_BINS[@]}"; do
+  functions[$bin]="_lazy_python_init $bin \"\$@\""
+done
+
+# ---- User configuration & aliases ----------------------------------------------------------------
 
 # This ensures each new shell session gets a unique history file
 # Note: must be placed after the oh-my-zsh.sh source line
 unsetopt inc_append_history
 unsetopt share_history
-
-# Lazy initialisation of jenv
-jenv() {
-  if command -v jenv 1>/dev/null 2>&1; then
-    unset -f jenv
-    eval "$(command jenv init -)"
-    jenv "$@"
-  fi
-}
-
-# Lazy initialisation of pyenv
-pyenv() {
-  if command -v pyenv 1>/dev/null 2>&1; then
-    unset -f pyenv
-    eval "$(command pyenv init - zsh)"
-    eval "$(command pyenv virtualenv-init -)"
-    pyenv "$@"
-  fi
-}
 
 # eza -- replacement for ls
 # Set preferred colours
@@ -128,31 +155,27 @@ alias lo='ls -lgoaM --tree --level=1'
 alias lt='ls -lgaM  --tree --level=2'
 
 # Local scripts
-local bin="$XDG_DATA_HOME/../bin"
-alias aws-profile='source $bin/aws-profile.zsh'
-alias lscolors='$bin/lscolors.zsh'
+local bin_dir="$XDG_DATA_HOME/../bin"
+alias aws-profile='source ${bin_dir}/aws-profile.zsh'
+alias lscolors='${bin_dir}/lscolors.zsh'
 
-# General alias
-alias aws-cli-demo='docker run --rm -it --name aws-cli-demo --hostname aws-cli-demo noomedia/aws-cli-demo:latest'
+# Homebrew
 alias bu='brew upgrade'
 alias bcu='brew cu -a --cleanup -y'
-alias copilot='gh copilot'
-alias ek='eksctl'
+
+# Kubernetes
+alias kubectl='kubecolor'
 alias k='kubectl'
 alias k9s='k9s -c workloads'
-alias kubectl='kubecolor'
-alias kw='kwatch'
 alias kwatch='watch -n1 --color unbuffer kubecolor get replicaset,secret,job,cronjob,daemonset,statefulset,ingress,configmap,pv,pvc,service,deployment,po,hpa'
+alias kw='kwatch'
+alias ek='eksctl'
+
+# General
+alias copilot='gh copilot'
 alias more='less'
 alias vi=vim
 
-# Server aliases
-alias ha=homeassistant
-alias homeassistant='mosh --ssh="ssh -p 1972" hostmaster@homeassistant.local'
-alias nas='ssh -p 1972 ianjukes@nas.local'
-alias zb=zimablade
-alias zimablade='ssh hostmaster@zimablade.local'
-
 # ---- Powerlevel10k -------------------------------------------------------------------------------
 
-source $XDG_CONFIG_HOME/oh-my-zsh/p10k.zsh
+source $XDG_CONFIG_HOME/oh-my-zsh/p10k.zs
