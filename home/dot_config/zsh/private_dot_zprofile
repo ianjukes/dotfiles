@@ -74,7 +74,7 @@ export LESS="-XFR"
 
 # Maven
 export M2_HOME="$HOMEBREW_PREFIX/opt/maven/libexec"
-export MAVEN_HOME="$M2_HOME"
+export M2="$M2_HOME/bin"
 
 # Minikube
 export MINIKUBE_HOME="$XDG_STATE_HOME/minikube"
