@@ -9,7 +9,7 @@
 export HISTFILE="$XDG_CACHE_HOME/zsh_history"
 
 # Detect if the terminal is inside an IDE
-[[ $TERM_PROGRAM == "vscode" || $TERMINAL_EMULATOR == "JetBrains-JediTerm" ]] && IS_IDE=true
+[[ $TERM_PROGRAM == "vscode" || $TERMINAL_EMULATOR == "JetBrains-JediTerm" || -n "$INTELLIJ_ENVIRONMENT_READER" ]] && IS_IDE=true
 
 # ---- tmux ----------------------------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ fi
 # White:  37
 
 if [[ -o interactive ]] && [[ $SHLVL -eq 1 ]]; then
-  if [[ !$IS_IDE && $ITERM_PROFILE != "Training" ]]; then
+  if [[ -z "$IS_IDE" ]]; then
     echo -n '\033[0;32m'
     figlet -f small `hostname -s`
     echo -n '\033[0;37m'
@@ -86,6 +86,10 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+source $XDG_CONFIG_HOME/oh-my-zsh/p10k.zsh
+
+# Fix for IntelliJ width issue
+[[ -n "$IS_IDE" ]] && unset ZLE_RPROMPT_INDENT
 
 # ---- Lazy initialisation of Java tools -----------------------------------------------------------
 
@@ -175,7 +179,3 @@ alias ek='eksctl'
 alias copilot='gh copilot'
 alias more='less'
 alias vi=vim
-
-# ---- Powerlevel10k -------------------------------------------------------------------------------
-
-source $XDG_CONFIG_HOME/oh-my-zsh/p10k.zsh
