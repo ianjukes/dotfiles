@@ -95,6 +95,7 @@ homebrew:
       - "firefox"                # https://www.mozilla.org/en-GB/firefox/
       - "ghostty"                # https://ghostty.org
       - "github"                 # https://github.com/apps/desktop
+      - "goland"                 # https://www.jetbrains.com/go/
       - "google-chrome"          # https://www.google.com/intl/en_uk/chrome/
       - "google-earth-pro"       # https://earth.google.com/intl/earth/versions/#earth-pro
       - "graalvm-jdk@21"         # https://www.graalvm.org
@@ -119,7 +120,8 @@ homebrew:
       - "obsidian"               # https://obsidian.md
       - "plex"                   # https://www.plex.tv/media-server-downloads/?cat=plex+desktop&plat=macos#plex-app
       - "plex-htpc"              # https://www.plex.tv/media-server-downloads/?cat=plex+htpc&plat=macos#plex-app
-      - "pycharm-ce"             # https://www.jetbrains.com/pycharm/
+      - "pycharm-ce"             # https://www.jetbrains.com/pycharm/ <- Community Edition
+      - "pycharm"                # https://www.jetbrains.com/pycharm/
       - "raindropio"             # https://raindrop.io
       - "soundsource"            # https://rogueamoeba.com/soundsource/
       - "subler"                 # https://subler.org

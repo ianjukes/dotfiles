@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+source "{{ .include }}"
+
+app="Visual Studio Code"
+src="{{ .filesDir }}/icons/${app}"
+dst="/Applications/${app}.app/Contents/Resources"
+
+replace_icons "${src}" "${app}" \
+  "Code.icns:${dst}/Code.icns" || true
