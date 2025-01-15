@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+source "{{ .include }}"
+
+app="SONR Music"
+src="{{ .filesDir }}/icons/${app}"
+dst="/Applications/${app}.app/Contents/Resources"
+
+replace_icons "${src}" "${app}" \
+  "electron.icns:${dst}/electron.icns" || true
