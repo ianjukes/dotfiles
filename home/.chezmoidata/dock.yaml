@@ -49,6 +49,7 @@ dock:
     - "/Applications/IntelliJ IDEA.app"
     - "/Applications/SnippetsLab.app"
     - "/Applications/Ghostty.app"
+    - "/System/Applications/Utilities/Print Center.app"
     - "/System/Applications/System Settings.app"
   test:
     - "/System/Applications/Launchpad.app"
