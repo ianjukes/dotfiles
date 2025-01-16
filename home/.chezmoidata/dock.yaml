@@ -1,6 +1,7 @@
 dock:
   desktop:
     - "/System/Applications/App Store.app"
+    - "/System/Applications/iPhone Mirroring.app"
     - "/System/Applications/Calculator.app"
     - "/System/Applications/TV.app"
     - "/System/Applications/Music.app"
@@ -30,6 +31,7 @@ dock:
     - "/System/Applications/System Settings.app"
   laptop:
     - "/System/Applications/App Store.app"
+    - "/System/Applications/iPhone Mirroring.app"
     - "/System/Applications/Calculator.app"
     - "/Applications/1Password.app"
     - "/Applications/Raindrop.io.app"
