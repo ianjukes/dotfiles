@@ -217,6 +217,7 @@ homebrew:
       # Formulae from taps (see above)
       - "fcanas/tap/mirror-displays"
     casks:
+      - "aldente"                # https://apphousekitchen.com
       - "remote-buddy"           # https://www.iospirit.com/products/remotebuddy/
       - "viscosity"              # https://www.sparklabs.com/viscosity/
     apps: []
