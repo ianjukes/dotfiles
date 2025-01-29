@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<a:fontScheme name="Noobric" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+  <a:majorFont>
+    <a:latin typeface="Fira Sans Medium" />
+    <a:ea typeface="" />
+    <a:cs typeface="" />
+  </a:majorFont>
+  <a:minorFont>
+    <a:latin typeface="Fira Sans" />
+    <a:ea typeface="" />
+    <a:cs typeface="" />
+  </a:minorFont>
+</a:fontScheme>
