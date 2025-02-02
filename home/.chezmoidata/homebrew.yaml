@@ -123,9 +123,10 @@ homebrew:
       - "pearcleaner"            # https://itsalin.com/appInfo/?id=pearcleaner
       - "plex"                   # https://www.plex.tv/media-server-downloads/?cat=plex+desktop&plat=macos#plex-app
       - "plex-htpc"              # https://www.plex.tv/media-server-downloads/?cat=plex+htpc&plat=macos#plex-app
-      - "pycharm-ce"             # https://www.jetbrains.com/pycharm/ <- Community Edition
+      - "pycharm-ce"             # https://www.jetbrains.com/pycharm/
       - "pycharm"                # https://www.jetbrains.com/pycharm/
       - "raindropio"             # https://raindrop.io
+      - "rustrover"              # https://www.jetbrains.com/rust/
       - "soundsource"            # https://rogueamoeba.com/soundsource/
       - "subler"                 # https://subler.org
       - "tableplus"              # https://tableplus.com
