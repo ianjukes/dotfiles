@@ -2,6 +2,7 @@ homebrew:
   all:
     taps:
       - "buo/cask-upgrade"       # Provides 'brew cu' command
+      - "hanshuaikang/nping"
       - "hashicorp/tap"
       - "homebrew/bundle"
       - "homebrew/services"
@@ -56,6 +57,7 @@ homebrew:
       - "mosh"
       - "muon"
       - "mysql-client"
+      - "nping"
       - "nvm"
       - "opentofu"
       - "pinentry-mac"
