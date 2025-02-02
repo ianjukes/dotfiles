@@ -64,7 +64,7 @@ homebrew:
       - "procs"
       - "pyenv-virtualenv"
       - "rbenv"
-      - "rust"
+      - "rustup"
       - "sbt"
       - "scala"
       - "tcl-tk"
