@@ -103,6 +103,10 @@ export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
 # Ruby
 export PATH="${PATH:+$PATH:}$HOMEBREW_PREFIX/opt/ruby/bin"
 
+# Rust
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+
 # Tcl/Tk (for Python)
 export TK_SILENCE_DEPRECATION=1
 export PATH="${PATH:+$PATH:}$HOMEBREW_PREFIX/opt/tcl-tk/bin"
