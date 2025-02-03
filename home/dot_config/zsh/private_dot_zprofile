@@ -106,6 +106,7 @@ export PATH="${PATH:+$PATH:}$HOMEBREW_PREFIX/opt/ruby/bin"
 # Rust
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
+source "$CARGO_HOME/env"
 
 # Tcl/Tk (for Python)
 export TK_SILENCE_DEPRECATION=1
