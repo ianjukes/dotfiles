@@ -118,6 +118,7 @@ homebrew:
       - "mongodb-compass"        # https://www.mongodb.com/products/tools/compass/
       - "mysqlworkbench"         # https://www.mysql.com/products/workbench/
       - "ngrok"                  # https://ngrok.com
+      - "notion"                 # https://www.notion.com
       - "nova"                   # https://nova.app
       - "obsidian"               # https://obsidian.md
       - "pearcleaner"            # https://itsalin.com/appInfo/?id=pearcleaner
@@ -151,6 +152,7 @@ homebrew:
       - "\"Affinity Designer 2\", id: 1616831348"
       - "\"Affinity Photo 2: Image Editor\", id: 1616822987"
       - "\"Affinity Publisher 2\", id: 1606941598"
+      - "\"Agenda - Notes meets Calendar\", id: 1287445660"
       - "\"Amphetamine\", id: 937984704"
       - "\"Apple Developer\", id: 640199958"
       - "\"Apple Remote Desktop\", id: 409907375"
