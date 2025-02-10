@@ -59,6 +59,7 @@ homebrew:
       - "mysql-client"
       - "nping"
       - "nvm"
+      - "ollama"
       - "opentofu"
       - "pinentry-mac"
       - "procs"
