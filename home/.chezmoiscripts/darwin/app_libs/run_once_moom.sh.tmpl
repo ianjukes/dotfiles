@@ -2,12 +2,18 @@
 set -eufo pipefail
 IFS=$'\n\t'
 
+{{/* differentiate between laptop and desktop */ -}}
+{{ $pre := "desktop." -}}
+{{ if hasPrefix "MacBook" .chezmoi.hostname -}}
+{{   $pre = "laptop." -}}
+{{ end -}}
+
 source "{{ .include }}"
 
 app="Moom"
 
 pls="com.manytricks.Moom.plist"
-src="{{ .filesDir }}/prefs/${app}/${pls}"
+src="{{ .filesDir }}/prefs/${app}/{{ $pre }}${pls}"
 dst="$HOME/Library/Preferences/${pls}"
 
 replace_lib "${src}" "${dst}" "${app}" "${pls}"
