@@ -56,7 +56,15 @@ export PATH="${PATH:+$PATH:}$HOMEBREW_PREFIX/opt/curl/bin"
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 
 # Go
-export GOROOT="$HOMEBREW_PREFIX/opt/go"
+export GOPATH="$XDG_DATA_HOME/go"
+export GOBIN="$GOPATH/bin"
+export GOENV="$GOPATH/env"
+export GOCACHE="$XDG_CACHE_HOME/go-build"
+export GOROOT="$HOMEBREW_PREFIX/opt/go/libexec"
+export GOPROXY="https://goproxy.io,direct"
+export GOSUMDB="sum.golang.org"
+export GOTELEMETRYDIR="$GOPATH/telemetry"
+export PATH="${PATH:+$PATH:}$GOBIN"
 
 # Guile
 export GUILE_LOAD_PATH="$HOMEBREW_PREFIX/share/guile/site/3.0"
