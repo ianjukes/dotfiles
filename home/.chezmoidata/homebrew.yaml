@@ -226,31 +226,5 @@ homebrew:
     casks:
       - "aldente"                # https://apphousekitchen.com
       - "remote-buddy"           # https://www.iospirit.com/products/remotebuddy/
-      - "viscosity"              # https://www.sparklabs.com/viscosity/
-    apps: []
-  test:
-    taps:
-      - "buo/cask-upgrade"       # Provides 'brew cu' command
-    formulae:
-      - "chezmoi"
-      - "dockutil"
-      - "eza"
-      - "figlet"
-      - "git"
-      - "git-lfs"
-      - "gnupg"
-      - "mas"
-      - "pinentry-mac"
-      - "procs"
-      - "tmux"
-      - "tpm"
-      - "tree"
-      - "vim"
-      - "wget"
-    casks:
-      - "1password"              # https://1password.com
-      - "bartender"              # https://www.macbartender.com
-      - "ghostty"                # https://ghostty.org
-      - "iterm2"                 # https://iterm2.com
-      - "moom"                   # https://manytricks.com/moom/
-    apps: []
+    apps:
+      - "\"Passepartout, VPN Client\", id: 1433648537"
