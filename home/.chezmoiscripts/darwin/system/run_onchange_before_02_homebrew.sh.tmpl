@@ -49,4 +49,6 @@ mas {{ . }}
 {{ end -}}
 EOF
 
-brew bundle --no-lock --file={{ .stateDir }}/Brewfile
+# Original command had --no-lock - has this been removed?
+# brew bundle --no-lock --file={{ .stateDir }}/Brewfile
+brew bundle --file={{ .stateDir }}/Brewfile
