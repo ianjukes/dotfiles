@@ -215,8 +215,7 @@ homebrew:
       - "elgato-control-center"  # https://www.elgato.com/uk/en/s/downloads/
       - "elgato-stream-deck"     # https://www.elgato.com/uk/en/s/downloads/
       - "obs"                    # https://obsproject.com
-    apps:
-      - "\"Home Assistant\", id: 1099568401"
+    apps: []
   laptop:
     taps:
       - "fcanas/tap"
