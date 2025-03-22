@@ -1,14 +1,20 @@
 # .chezmoiexternal.toml
 # Generated from {{ .chezmoi.sourceDir }}/.chezmoiexternal.toml.tmpl
 
+{{ if and (eq .chezmoi.os "darwin") (not (hasPrefix .chezmoi.hostname "MacBook")) -}}
+["Library/Fonts/BigTimer.ttf"]
+  refreshPeriod = "2160h" # 3 months
+  type = "file"
+  url = "https://ianjukes.s3.eu-west-2.amazonaws.com/chezmoi/BigTimer.ttf"
+{{- end }}
+
 {{ if eq .chezmoi.os "darwin" -}}
-["Library/Fonts"]
-  refreshPeriod = "4320h" # 180 days
+["Library/Fonts/FiraCodeNerdFont*.ttf"]
+  refreshPeriod = "2160h" # 3 months
   type = "archive"
   url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.tar.xz"
   exact = true
-  include = ["*.ttf"]
-{{- end }}
+  include = ["FiraCodeNerdFont*.ttf"]
 
 [".local/share/oh-my-zsh/custom/themes/powerlevel10k"]
   refreshPeriod = "168h" # 7 days
@@ -16,3 +22,4 @@
   url = "https://github.com/romkatv/powerlevel10k/archive/{{ (gitHubLatestRelease "romkatv/powerlevel10k").TagName }}.tar.gz"
   exact = true
   stripComponents = 1
+{{- end }}
