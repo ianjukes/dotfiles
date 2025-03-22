@@ -1,14 +1,14 @@
 # .chezmoiexternal.toml
 # Generated from {{ .chezmoi.sourceDir }}/.chezmoiexternal.toml.tmpl
 
-{{ if and (eq .chezmoi.os "darwin") (not (hasPrefix .chezmoi.hostname "MacBook")) -}}
+{{ if eq .chezmoi.os "darwin" -}}
+{{   if not (hasPrefix "MacBook" .chezmoi.hostname) -}}
 ["Library/Fonts/BigTimer.ttf"]
   refreshPeriod = "2160h" # 3 months
   type = "file"
   url = "https://ianjukes.s3.eu-west-2.amazonaws.com/chezmoi/BigTimer.ttf"
-{{- end }}
+{{-  end }}
 
-{{ if eq .chezmoi.os "darwin" -}}
 ["Library/Fonts"]
   refreshPeriod = "2160h" # 3 months
   type = "archive"
