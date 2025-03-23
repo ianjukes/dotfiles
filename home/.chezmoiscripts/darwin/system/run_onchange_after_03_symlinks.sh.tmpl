@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+echo "Setting symlinks..."
+
+sudo ln -s "/Applications/Keyboard Maestro.app/Contents/MacOS/keyboardmaestro" /usr/local/bin/keyboardmaestro
