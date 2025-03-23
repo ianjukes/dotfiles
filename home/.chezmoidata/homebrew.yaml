@@ -1,16 +1,18 @@
 homebrew:
   all:
     taps:
-      - "buo/cask-upgrade"       # Provides 'brew cu' command
+      - "buo/cask-upgrade"        # Provides 'brew cu' command
       - "hanshuaikang/nping"
       - "hashicorp/tap"
       - "homebrew/bundle"
       - "homebrew/services"
       - "spring-io/tap"
+      - "waydabber/betterdisplay"
     formulae:
       # Formulae from taps (see above)
       - "hashicorp/tap/terraform"
       - "spring-io/tap/spring-boot"
+      - "waydabber/betterdisplay/betterdisplaycli"
       # Regular formulae
       - "age"
       - "aws-cdk"
