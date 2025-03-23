@@ -109,6 +109,7 @@ homebrew:
       - "jdk-mission-control"    # https://www.oracle.com/java/technologies/jdk-mission-control.html
       - "jupyterlab"             # https://jupyter.org
       - "kaleidoscope"           # https://kaleidoscope.app
+      - "keyboard-maestro"       # https://www.keyboardmaestro.com
       - "little-snitch"          # https://www.obdev.at/products/littlesnitch/
       - "loopback"               # https://rogueamoeba.com/loopback/
       - "macwhisper"             # https://goodsnooze.gumroad.com/l/macwhisper/
