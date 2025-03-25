@@ -25,6 +25,7 @@ homebrew:
       - "cfn-lint"
       - "chezmoi"
       - "cmake"
+      - "displayplacer" # Used with Keyboad Maestro
       - "dockutil"
       - "eksctl"
       - "exiftool"
