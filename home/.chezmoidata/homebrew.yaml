@@ -94,6 +94,7 @@ homebrew:
       - "clion"                  # https://www.jetbrains.com/clion/
       - "coderunner"             # https://coderunnerapp.com
       - "cork"                   # https://corkmac.app
+      - "cursor"                 # https://www.cursor.com
       - "discord"                # https://discord.com
       - "docker"                 # https://www.docker.com/products/docker-desktop/
       - "drawio"                 # https://www.drawio.com
