@@ -6,14 +6,7 @@ source "{{ .include }}"
 
 app="JDK Mission Control"
 src="{{ .filesDir }}/icons/${app}"
-dst="/Applications/${app}.app/Contents/Eclipse/configuration/org.eclipse.osgi"
+dst="/Applications/${app}.app/Contents/Resources"
 
 replace_icons "${src}" "${app}" \
-  "mission_control.icns:/Applications/${app}.app/Contents/Resources/mission_control.icns" \
-  "mission_control.png:${dst}/376/0/.cp/icons/mission_control.png" \
-  "mission_control_16.png:${dst}/430/0/.cp/icons/mission_control_16.png" \
-  "mission_control@2x.png:${dst}/376/0/.cp/icons/mission_control@2x.png" \
-  "mission_control_32.png:${dst}/430/0/.cp/icons/mission_control_32.png" \
-  "mission_control_48.png:${dst}/430/0/.cp/icons/mission_control_48.png" \
-  "mission_control_64.png:${dst}/430/0/.cp/icons/mission_control_64.png" \
-  "mission_control_128.png:${dst}/430/0/.cp/icons/mission_control_128.png" || true
+  "mission_control.icns:${dst}/mission_control.icns" || true
