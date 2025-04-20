@@ -145,7 +145,6 @@ homebrew:
       - "vlc"                    # https://www.videolan.org
       - "webcatalog"             # https://webcatalog.io
       - "webex"                  # https://www.webex.com
-      - "whisky"                 # https://getwhisky.app
       - "wireshark"              # https://www.wireshark.org
       - "zoom"                   # https://zoom.us
       - "zulu"                   # https://www.azul.com/downloads/#zulu
