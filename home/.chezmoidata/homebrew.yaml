@@ -14,7 +14,6 @@ homebrew:
       - "spring-io/tap/spring-boot"
       - "waydabber/betterdisplay/betterdisplaycli"
       # Regular formulae
-      - "1password-cli"
       - "age"
       - "aws-cdk"
       - "aws-nuke"
@@ -84,6 +83,7 @@ homebrew:
       - "yt-dlp"
     casks:
       - "1password"              # https://1password.com
+      - "1password-cli"          # https://1password.com/downloads/command-line/
       - "audio-hijack"           # https://rogueamoeba.com/audiohijack/
       - "balenaetcher"           # https://etcher.balena.io
       - "bartender"              # https://www.macbartender.com
