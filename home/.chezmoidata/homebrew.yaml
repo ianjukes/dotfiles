@@ -14,6 +14,7 @@ homebrew:
       - "spring-io/tap/spring-boot"
       - "waydabber/betterdisplay/betterdisplaycli"
       # Regular formulae
+      - "1password-cli"
       - "age"
       - "aws-cdk"
       - "aws-nuke"
