@@ -6,11 +6,13 @@ homebrew:
       - "hashicorp/tap"
       - "homebrew/bundle"
       - "homebrew/services"
+      - "sass/sass"
       - "spring-io/tap"
       - "waydabber/betterdisplay"
     formulae:
       # Formulae from taps (see above)
       - "hashicorp/tap/terraform"
+      - "sass/sass/sass"
       - "spring-io/tap/spring-boot"
       - "waydabber/betterdisplay/betterdisplaycli"
       # Regular formulae
@@ -42,6 +44,7 @@ homebrew:
       - "go"
       - "gradle"
       - "helm"
+      - "hugo"
       - "httpie"
       - "hub"
       - "iam-policy-json-to-terraform"
@@ -164,6 +167,7 @@ homebrew:
       - "\"Apple Remote Desktop\", id: 409907375"
       - "\"Capacities Web Extension\", id: 6502697899"
       - "\"Capture - Quick Notes\", id: 6458535284"
+      - "\"CloudMounter: Cloud Manager\", id: 1130254674"
       - "\"ColorSlurp\", id: 1287239339"
       - "\"Craft: Write docs, AI editing\", id: 1487937127"
       - "\"CrystalFetch ISO Downloader\", id: 6454431289"
