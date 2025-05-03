@@ -75,6 +75,7 @@ homebrew:
       - "sbt"
       - "scala"
       - "tcl-tk"
+      - "tailwindcss"
       - "terraformer"
       - "tmux"
       - "tpm"
