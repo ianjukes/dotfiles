@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+source "{{ .include }}"
+
+app="MKVToolNix"
+src="{{ .filesDir }}/icons/${app}"
+dst="/Applications/${app}.app"
+
+# 1. Rename MKVToolNix-*.app to MKVToolNix.app if needed
+from=(/Applications/${app}-*.app(N))
+from=("${(@)from:#*/${app}.app}")
+
+if [[ ${#from[@]} -gt 0 ]]; then
+  if [[ -e "${dst}" ]]; then
+    sudo rm -rf "${dst}"
+  fi
+  sudo mv "${from[1]}" "${dst}"
+fi
+
+# 2. Replace the icon
+replace_icons "${src}" "${app}" \
+  "MKVToolNix.icns:${dst}/Contents/Resources/MKVToolNix.icns" || true
