@@ -100,6 +100,7 @@ homebrew:
       - "discord"                # https://discord.com
       - "docker"                 # https://www.docker.com/products/docker-desktop/
       - "drawio"                 # https://www.drawio.com
+      - "dropbox"                # https://www.dropbox.com
       - "evernote"               # https://evernote.com
       - "firefox"                # https://www.mozilla.org/en-GB/firefox/
       - "ghostty"                # https://ghostty.org
