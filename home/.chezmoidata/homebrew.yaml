@@ -137,6 +137,7 @@ homebrew:
       - "pycharm-ce"             # https://www.jetbrains.com/pycharm/
       - "pycharm"                # https://www.jetbrains.com/pycharm/
       - "raindropio"             # https://raindrop.io
+      - "sf-symbols"             # https://developer.apple.com/sf-symbols/
       - "rustrover"              # https://www.jetbrains.com/rust/
       - "soundsource"            # https://rogueamoeba.com/soundsource/
       - "subler"                 # https://subler.org
