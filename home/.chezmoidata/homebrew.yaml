@@ -86,6 +86,7 @@ homebrew:
     casks:
       - "1password"              # https://1password.com
       - "1password-cli"          # https://1password.com/downloads/command-line/
+      - "antinote"               # https://antinote.io
       - "audio-hijack"           # https://rogueamoeba.com/audiohijack/
       - "balenaetcher"           # https://etcher.balena.io
       - "bartender"              # https://www.macbartender.com
@@ -138,6 +139,7 @@ homebrew:
       - "pycharm-ce"             # https://www.jetbrains.com/pycharm/
       - "pycharm"                # https://www.jetbrains.com/pycharm/
       - "raindropio"             # https://raindrop.io
+      - "rocket"                 # https://matthewpalmer.net/rocket/
       - "sf-symbols"             # https://developer.apple.com/sf-symbols/
       - "rustrover"              # https://www.jetbrains.com/rust/
       - "soundsource"            # https://rogueamoeba.com/soundsource/
