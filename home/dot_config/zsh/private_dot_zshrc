@@ -159,12 +159,12 @@ export EZA_COLORS="oc=37:xa=37:ur=32:uw=32:ux=32:ue=32:gr=33:gw=33:gx=33:tr=35:t
 # Aliases to replace ls
 unalias l
 alias la='eza --icons=always --color=always --no-quotes -A'
-alias ls='eza --icons=always --color=always --no-quotes --ignore-glob=".CFUserTextEncoding|.DS_Store|.Trash|.Spotlight-V100|.TemporaryItems|.fseventsd|.DocumentRevisions-V100|Icon[!a-zA-Z0-9]|.timemachine|.localized|.file|.vol|.VolumeIcon.icnsi|.dropbox"'
+alias ls='eza --icons=always --color=always --no-quotes --ignore-glob=".CFUserTextEncoding|.DS_Store|.Trash|.Spotlight-V100|.TemporaryItems|.fseventsd|.DocumentRevisions-V100|Icon[!a-zA-Z0-9]|.timemachine|.localized|.file|.vol|.VolumeIcon.icns"'
 alias lf='ls -A'
-alias lg='ls -lgaM  --tree --level=1 --git'
-alias ll='ls -lgaM  --tree --level=1'
-alias lo='ls -lgoaM --tree --level=1'
-alias lt='ls -lgaM  --tree --level=2'
+alias lg='ls -lgaM --tree --level=1 --git | less -FRX'
+alias ll='ls -lgaM | less -FRX'
+alias lo='ls -lgoaM | less -FRX'
+alias lt='ls -lgaM --tree --level=2 | less -FRX'
 
 # Local scripts
 local bin_dir="$XDG_DATA_HOME/../bin"
