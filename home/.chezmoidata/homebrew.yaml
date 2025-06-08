@@ -143,6 +143,7 @@ homebrew:
       - "sf-symbols"             # https://developer.apple.com/sf-symbols/
       - "rustrover"              # https://www.jetbrains.com/rust/
       - "soundsource"            # https://rogueamoeba.com/soundsource/
+      - "steam"                  # https://store.steampowered.com
       - "subler"                 # https://subler.org
       - "tableplus"              # https://tableplus.com
       - "tor-browser"            # https://www.torproject.org
