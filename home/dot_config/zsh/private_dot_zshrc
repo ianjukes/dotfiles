@@ -5,15 +5,18 @@
 # Authors:
 #   Ian Jukes
 
+# Source the .zprofile file to set up the environment
+source "$XDG_CONFIG_HOME/zsh/.zprofile"
+
 # This needs to be set here rather than .zprofile because macOS overrides it in /etc/zshrc
 export HISTFILE="$XDG_CACHE_HOME/zsh_history"
 
-# Detect if the terminal is inside an IDE
-[[ $TERM_PROGRAM == "vscode" || $TERMINAL_EMULATOR == "JetBrains-JediTerm" || -n "$INTELLIJ_ENVIRONMENT_READER" ]] && IS_IDE=true
+# Detect if the terminal is integrated into another application (e.g. VSCode, IntelliJ)
+[[ $TERM_PROGRAM == "docker_desktop" || $TERM_PROGRAM == "vscode" || $TERMINAL_EMULATOR == "JetBrains-JediTerm" || -n "$INTELLIJ_ENVIRONMENT_READER" ]] && IS_INTEGRATED=true
 
 # ---- tmux ----------------------------------------------------------------------------------------
 
-if [[ -z "$TMUX" && -z "$VSCODE_PID" && -z "$IS_IDE" ]]; then
+if [[ -z "$TMUX" && -z "$VSCODE_PID" && -z "$IS_INTEGRATED" ]]; then
   if tmux has-session &>/dev/null && tmux ls | grep -qv attached; then
     exec tmux attach && exit
   else
@@ -33,7 +36,7 @@ fi
 # White:  37
 
 if [[ -o interactive ]] && [[ $SHLVL -eq 1 ]]; then
-  if [[ -z "$IS_IDE" ]]; then
+  if [[ -z "$IS_INTEGRATED" ]]; then
     echo -n '\033[0;32m'
     figlet -f small `hostname -s`
     echo -n '\033[0;37m'
@@ -97,7 +100,7 @@ source $ZSH/oh-my-zsh.sh
 source $XDG_CONFIG_HOME/oh-my-zsh/p10k.zsh
 
 # Fix for IntelliJ width issue
-[[ -n "$IS_IDE" ]] && unset ZLE_RPROMPT_INDENT
+[[ -n "$IS_INTEGRATED" ]] && unset ZLE_RPROMPT_INDENT
 
 # ---- Lazy initialisation of Java tools -----------------------------------------------------------
 

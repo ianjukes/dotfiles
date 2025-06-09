@@ -11,7 +11,7 @@
 
 # Ensure .zprofile is only sourced once per shell
 [ -n "$SKIP_ZPROFILE" ] && return
-export SKIP_ZPROFILE=1
+export SKIP_ZPROFILE=true
 
 # Homebrew
 if [[ `uname -m` == 'arm64' ]]; then
