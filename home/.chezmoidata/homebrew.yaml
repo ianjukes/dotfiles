@@ -125,7 +125,6 @@ homebrew:
       - "microsoft-auto-update"  # https://learn.microsoft.com/en-gb/officeupdates/release-history-microsoft-autoupdate/
       - "microsoft-edge"         # https://www.microsoft.com/en-gb/edge/
       - "microsoft-teams"        # https://www.microsoft.com/en-gb/microsoft-teams/
-      - "mkvtoolnix"             # https://mkvtoolnix.download
       - "moom"                   # https://manytricks.com/moom/
       - "mongodb-compass"        # https://www.mongodb.com/products/tools/compass/
       - "mysqlworkbench"         # https://www.mysql.com/products/workbench/
