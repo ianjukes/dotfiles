@@ -100,7 +100,7 @@ homebrew:
       - "cork"                   # https://corkmac.app
       - "cursor"                 # https://www.cursor.com
       - "discord"                # https://discord.com
-      - "docker"                 # https://www.docker.com/products/docker-desktop/
+      - "docker-desktop"         # https://www.docker.com/products/docker-desktop/
       - "drawio"                 # https://www.drawio.com
       - "dropbox"                # https://www.dropbox.com
       - "evernote"               # https://evernote.com
@@ -111,12 +111,12 @@ homebrew:
       - "google-chrome"          # https://www.google.com/intl/en_uk/chrome/
       - "google-earth-pro"       # https://earth.google.com/intl/earth/versions/#earth-pro
       - "graalvm-jdk@21"         # https://www.graalvm.org
-      - "handbrake"              # https://handbrake.fr
+      - "handbrake-app"          # https://handbrake.fr
       - "hazel"                  # https://www.noodlesoft.com
       - "intellij-idea"          # https://www.jetbrains.com/idea/
       - "iterm2"                 # https://iterm2.com
       - "jdk-mission-control"    # https://www.oracle.com/java/technologies/jdk-mission-control.html
-      - "jupyterlab"             # https://jupyter.org
+      - "jupyterlab-app"         # https://jupyter.org
       - "kaleidoscope"           # https://kaleidoscope.app
       - "keyboard-maestro"       # https://www.keyboardmaestro.com
       - "little-snitch"          # https://www.obdev.at/products/littlesnitch/
@@ -153,7 +153,7 @@ homebrew:
       - "vlc"                    # https://www.videolan.org
       - "webcatalog"             # https://webcatalog.io
       - "webex"                  # https://www.webex.com
-      - "wireshark"              # https://www.wireshark.org
+      - "wireshark-app"          # https://www.wireshark.org
       - "zoom"                   # https://zoom.us
       - "zulu"                   # https://www.azul.com/downloads/#zulu
       - "zulu@8"                 # https://www.azul.com/downloads/?version=java-8-lts#zulu
