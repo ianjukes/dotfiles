@@ -41,7 +41,7 @@ if [ -e "$OP_SCK" ] && [ ! -L $OP_DIR/agent.sock ]; then
 fi
 
 # AWS
-export AWS_PROFILE="noomedia"
+export AWS_PROFILE="noobric"
 export AWS_REGION="eu-west-2"
 export AWS_DEFAULT_REGION="eu-west-2"
 export AWS_DEFAULT_OUTPUT="json"
