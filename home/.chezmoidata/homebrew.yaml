@@ -140,6 +140,7 @@ homebrew:
       - "raindropio"             # https://raindrop.io
       - "rocket"                 # https://matthewpalmer.net/rocket/
       - "sf-symbols"             # https://developer.apple.com/sf-symbols/
+      - "sloth"                  # https://sveinbjorn.org/sloth 
       - "rustrover"              # https://www.jetbrains.com/rust/
       - "soundsource"            # https://rogueamoeba.com/soundsource/
       - "steam"                  # https://store.steampowered.com
