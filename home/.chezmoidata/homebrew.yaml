@@ -89,7 +89,6 @@ homebrew:
       - "antinote"               # https://antinote.io
       - "audio-hijack"           # https://rogueamoeba.com/audiohijack/
       - "balenaetcher"           # https://etcher.balena.io
-      - "bartender"              # https://www.macbartender.com
       - "betterdisplay"          # https://betterdisplay.pro
       - "bootstrap-studio"       # https://bootstrapstudio.io
       - "calibre"                # https://calibre-ebook.com
@@ -173,6 +172,7 @@ homebrew:
       - "\"Amphetamine\", id: 937984704"
       - "\"Apple Developer\", id: 640199958"
       - "\"Apple Remote Desktop\", id: 409907375"
+      - "\"Barbee - Hide Menu Bar Items\", id: 1548711022"
       - "\"Capacities Web Extension\", id: 6502697899"
       - "\"ColorSlurp\", id: 1287239339"
       - "\"Craft: Write docs, AI editing\", id: 1487937127"
