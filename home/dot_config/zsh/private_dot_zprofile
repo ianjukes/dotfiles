@@ -76,6 +76,10 @@ export GUILE_TLS_CERTIFICATE_DIRECTORY="$HOMEBREW_PREFIX/etc/gnutls/"
 export JAVA_HOME="$(/usr/libexec/java_home)"
 export JENV_ROOT="$XDG_DATA_HOME/jenv"
 
+# Langflow
+export LANGFLOW_CONFIG_DIR="$XDG_CONFIG_HOME/langflow"
+export PATH="${PATH:+$PATH:}$XDG_CONFIG_HOME/langflow/uv"
+
 # Less
 export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"
 export LESS="-XFR"
