@@ -244,7 +244,7 @@ homebrew:
       # Formulae from taps (see above)
       - "fcanas/tap/mirror-displays"
     casks:
-      - "aldente"                # https://apphousekitchen.com
+      # - "aldente"              # https://apphousekitchen.com
       - "remote-buddy"           # https://www.iospirit.com/products/remotebuddy/
     apps:
       - "\"Passepartout, VPN Client\", id: 1433648537"
