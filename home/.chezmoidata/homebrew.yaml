@@ -92,6 +92,8 @@ homebrew:
       - "betterdisplay"          # https://betterdisplay.pro
       - "bootstrap-studio"       # https://bootstrapstudio.io
       - "calibre"                # https://calibre-ebook.com
+      - "claude"                 # https://claude.com/product/overview
+      - "claude-code"            # https://claude.com/product/claude-code
       - "capacities"             # https://capacities.io
       - "chatgpt"                # https://chatgpt.com
       - "clion"                  # https://www.jetbrains.com/clion/
