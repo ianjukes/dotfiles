@@ -91,6 +91,7 @@ homebrew:
       - "balenaetcher"           # https://etcher.balena.io
       - "betterdisplay"          # https://betterdisplay.pro
       - "bootstrap-studio"       # https://bootstrapstudio.io
+      - "brilliant"              # https://try-brilliant.com
       - "calibre"                # https://calibre-ebook.com
       - "claude"                 # https://claude.com/product/overview
       - "claude-code"            # https://claude.com/product/claude-code
