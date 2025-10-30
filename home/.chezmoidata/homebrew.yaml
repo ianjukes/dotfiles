@@ -170,9 +170,9 @@ homebrew:
       - "zulu@21"                # https://www.azul.com/downloads/?version=java-21-lts#zulu
     apps:
       - "\"1Password for Safari\", id: 1569813296"
-      - "\"Affinity Designer 2\", id: 1616831348"
-      - "\"Affinity Photo 2: Image Editor\", id: 1616822987"
-      - "\"Affinity Publisher 2\", id: 1606941598"
+      # - "\"Affinity Designer 2\", id: 1616831348"
+      # - "\"Affinity Photo 2: Image Editor\", id: 1616822987"
+      # - "\"Affinity Publisher 2\", id: 1606941598"
       - "\"Agenda - Notes meets Calendar\", id: 1287445660"
       - "\"Amphetamine\", id: 937984704"
       - "\"Apple Developer\", id: 640199958"
