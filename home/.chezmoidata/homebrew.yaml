@@ -25,7 +25,6 @@ homebrew:
       - "cfn-lint"
       - "chezmoi"
       - "cmake"
-      - "codex"
       - "displayplacer" # Used with Keyboad Maestro
       - "dockutil"
       - "eksctl"
@@ -100,6 +99,7 @@ homebrew:
       - "chatgpt"                # https://chatgpt.com
       - "clion"                  # https://www.jetbrains.com/clion/
       - "coderunner"             # https://coderunnerapp.com
+      - "codex"                  # https://developers.openai.com/codex/cli/
       - "cork"                   # https://corkmac.app
       - "cursor"                 # https://www.cursor.com
       - "discord"                # https://discord.com
