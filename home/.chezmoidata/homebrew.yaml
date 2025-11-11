@@ -250,5 +250,5 @@ homebrew:
     casks:
       # - "aldente"              # https://apphousekitchen.com
       - "remote-buddy"           # https://www.iospirit.com/products/remotebuddy/
-    apps:
-      - "\"Passepartout, VPN Client\", id: 1433648537"
+    apps: []
+      # - "\"Passepartout, VPN Client\", id: 1433648537"
