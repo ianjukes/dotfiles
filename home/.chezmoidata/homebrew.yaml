@@ -138,7 +138,7 @@ homebrew:
       # - "notion"                 # https://www.notion.com
       - "nova"                   # https://nova.app
       # - "obsidian"               # https://obsidian.md
-      - "openinterminal"         # https://github.com/Ji4n1ng/OpenInTerminal 
+      # - "openinterminal"         # https://github.com/Ji4n1ng/OpenInTerminal 
       - "pearcleaner"            # https://itsalin.com/appInfo/?id=pearcleaner
       - "plex"                   # https://www.plex.tv/media-server-downloads/?cat=plex+desktop&plat=macos#plex-app
       - "plex-htpc"              # https://www.plex.tv/media-server-downloads/?cat=plex+htpc&plat=macos#plex-app
