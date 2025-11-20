@@ -117,7 +117,7 @@ homebrew:
       - "graalvm-jdk@21"         # https://www.graalvm.org
       - "handbrake-app"          # https://handbrake.fr
       # - "hazel"                  # https://www.noodlesoft.com
-      - "icon-composer"          # https://developer.apple.com/icon-composer/
+      # - "icon-composer"          # https://developer.apple.com/icon-composer/
       - "intellij-idea"          # https://www.jetbrains.com/idea/
       - "iterm2"                 # https://iterm2.com
       - "jdk-mission-control"    # https://www.oracle.com/java/technologies/jdk-mission-control.html
