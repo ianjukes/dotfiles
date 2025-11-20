@@ -10,10 +10,10 @@ IFS=$'\n\t'
 
 source "{{ .include }}"
 
-app="Terminal"
+app="iTerm"
 
-pls="com.apple.Terminal.plist"
-src="{{ .filesDir }}/prefs/${app}/{{ $pre }}${pls}.asc"
+pls="com.googlecode.iterm2.plist"
+src="{{ .filesDir }}/prefs/${app}/{{ $pre }}${pls}"
 dst="$HOME/Library/Preferences/${pls}"
 
-replace_lib "${src}" "${dst}" "${app}" "${pls}" true
+replace_lib "${src}" "${dst}" "${app}" "${pls}"

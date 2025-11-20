@@ -15,12 +15,21 @@ app="Moom"
 pls="com.manytricks.Moom.plist"
 src="{{ .filesDir }}/prefs/${app}/{{ $pre }}${pls}"
 dst="$HOME/Library/Preferences/${pls}"
-
 replace_lib "${src}" "${dst}" "${app}" "${pls}"
+
+mkdir -p "$HOME/Library/Application Support/Many Tricks/Licenses"
 
 lic="Ian Jukes.moomlicense"
 src="{{ .filesDir }}/prefs/${app}/${lic}.asc"
 dst="$HOME/Library/Application Support/Many Tricks/Licenses/${lic}"
+replace_lib "${src}" "${dst}" "${app}" "${lic}" true
 
-mkdir -p "$HOME/Library/Application Support/Many Tricks/Licenses"
+lic="Ian Jukes.moomupgradelicense"
+src="{{ .filesDir }}/prefs/${app}/${lic}.asc"
+dst="$HOME/Library/Application Support/Many Tricks/Licenses/${lic}"
+replace_lib "${src}" "${dst}" "${app}" "${lic}" true
+
+lic="Ian Jukes.moomcombolicense"
+src="{{ .filesDir }}/prefs/${app}/${lic}.asc"
+dst="$HOME/Library/Application Support/Many Tricks/Licenses/${lic}"
 replace_lib "${src}" "${dst}" "${app}" "${lic}" true
