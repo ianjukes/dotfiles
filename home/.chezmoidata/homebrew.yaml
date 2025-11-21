@@ -101,12 +101,14 @@ homebrew:
       - "coderunner"             # https://coderunnerapp.com
       - "codex"                  # https://developers.openai.com/codex/cli/
       - "cork"                   # https://corkmac.app
+      - "craft"                  # https://www.craft.do
       - "cursor"                 # https://www.cursor.com
       - "discord"                # https://discord.com
       - "docker-desktop"         # https://www.docker.com/products/docker-desktop/
       - "drawio"                 # https://www.drawio.com
       - "dropbox"                # https://www.dropbox.com
       - "evernote"               # https://evernote.com
+      - "fantastical"            # https://flexibits.com/fantastical/
       - "firefox"                # https://www.mozilla.org/en-GB/firefox/
       - "ghostty"                # https://ghostty.org
       - "github"                 # https://github.com/apps/desktop
@@ -148,7 +150,8 @@ homebrew:
       # - "rocket"                 # https://matthewpalmer.net/rocket/
       - "sf-symbols"             # https://developer.apple.com/sf-symbols/
       - "sloth"                  # https://sveinbjorn.org/sloth
-      - "reader"                 # https://readwise.io/read
+      - "readdle-spark"          # https://sparkmailapp.com
+      - "reader"                 # https://readwise.io/read/
       - "rustrover"              # https://www.jetbrains.com/rust/
       - "soundsource"            # https://rogueamoeba.com/soundsource/
       - "steam"                  # https://store.steampowered.com
@@ -162,6 +165,7 @@ homebrew:
       - "vlc"                    # https://www.videolan.org
       - "webcatalog"             # https://webcatalog.io
       - "webex"                  # https://www.webex.com
+      - "whatsapp"               # https://www.whatsapp.com
       - "wireshark-app"          # https://www.wireshark.org
       - "zoom"                   # https://zoom.us
       - "zulu"                   # https://www.azul.com/downloads/#zulu
@@ -182,13 +186,13 @@ homebrew:
       # # - "\"Capacities Web Extension\", id: 6502697899"
       # # - "\"ColorSlurp\", id: 1287239339"
       # - "\"Broadcasts\", id: 1469995354"
-      # - "\"Craft: Write docs, AI editing\", id: 1487937127"
+      # # - "\"Craft: Write docs, AI editing\", id: 1487937127"
       # - "\"Craft Web Clipper\", id: 6748613311"
       # - "\"CrystalFetch ISO Downloader\", id: 6454431289"
       # - "\"DaisyDisk\", id: 411643860"
       # - "\"Diagrams\", id: 1276248849"
       # - "\"Draw Things: AI Generation\", id: 6444050820"
-      # - "\"Fantastical - Calendar\", id: 975937182"
+      # # - "\"Fantastical - Calendar\", id: 975937182"
       # - "\"Flighty – Live Flight Tracker\", id: 1358823008"
       # - "\"FullPage Screenshot for Safari\", id: 6745571462"
       # - "\"GarageBand\", id: 682658836"
@@ -208,7 +212,7 @@ homebrew:
       # - "\"Numbers\", id: 409203825"
       # - "\"OpenIn 4 Advanced Link Handler\", id: 1643649331"
       # - "\"Pages\", id: 409201541"
-      # - "\"PParcel - Delivery Tracking\", id: 375589283"
+      # - "\"Parcel - Delivery Tracking\", id: 375589283"
       # - "\"PDF Expert – Edit, Sign PDFs\", id: 1055273043"
       # - "\"Pixelmator Pro\", id: 1289583905"
       # - "\"Save to Matter\", id: 1548677272"
@@ -228,7 +232,7 @@ homebrew:
       # # - "\"Triode - Internet Radio\", id: 1450027401"
       # - "\"Typeface 3\", id: 1062679359"
       # - "\"UTM Virtual Machines\", id: 1538878817"
-      # - "\"WhatsApp Messenger\", id: 310633997"
+      # # - "\"WhatsApp Messenger\", id: 310633997"
       # - "\"Windows App\", id: 1295203466"
       # - "\"Xcode\", id: 497799835"
   desktop:
