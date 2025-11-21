@@ -102,10 +102,13 @@ homebrew:
       - "codex"                  # https://developers.openai.com/codex/cli/
       - "cork"                   # https://corkmac.app
       - "craft"                  # https://www.craft.do
+      - "crystalfetch"           # https://github.com/TuringSoftware/CrystalFetch/
       - "cursor"                 # https://www.cursor.com
+      - "daisydisk"              # https://daisydiskapp.com
       - "discord"                # https://discord.com
       - "docker-desktop"         # https://www.docker.com/products/docker-desktop/
       - "drawio"                 # https://www.drawio.com
+      - "draw-things"            # https://drawthings.ai
       - "dropbox"                # https://www.dropbox.com
       - "evernote"               # https://evernote.com
       - "fantastical"            # https://flexibits.com/fantastical/
@@ -125,6 +128,7 @@ homebrew:
       - "jdk-mission-control"    # https://www.oracle.com/java/technologies/jdk-mission-control.html
       - "jupyterlab-app"         # https://jupyter.org
       - "kaleidoscope"           # https://kaleidoscope.app
+      - "keka"                   # https://www.keka.io/en/
       - "keyboard-maestro"       # https://www.keyboardmaestro.com
       - "langflow"               # https://www.langflow.org
       - "little-snitch"          # https://www.obdev.at/products/littlesnitch/
@@ -141,6 +145,7 @@ homebrew:
       - "nova"                   # https://nova.app
       # - "obsidian"               # https://obsidian.md
       # - "openinterminal"         # https://github.com/Ji4n1ng/OpenInTerminal 
+      - "pdf-expert"             # https://pdfexpert.com
       - "pearcleaner"            # https://itsalin.com/appInfo/?id=pearcleaner
       - "plex"                   # https://www.plex.tv/media-server-downloads/?cat=plex+desktop&plat=macos#plex-app
       - "plex-htpc"              # https://www.plex.tv/media-server-downloads/?cat=plex+htpc&plat=macos#plex-app
@@ -148,6 +153,7 @@ homebrew:
       - "pycharm"                # https://www.jetbrains.com/pycharm/
       - "raindropio"             # https://raindrop.io
       # - "rocket"                 # https://matthewpalmer.net/rocket/
+      - "slack"                  # https://slack.com
       - "sf-symbols"             # https://developer.apple.com/sf-symbols/
       - "sloth"                  # https://sveinbjorn.org/sloth
       - "readdle-spark"          # https://sparkmailapp.com
@@ -157,9 +163,11 @@ homebrew:
       - "steam"                  # https://store.steampowered.com
       - "subler"                 # https://subler.org
       - "tableplus"              # https://tableplus.com
+      - "todoist-app"            # https://www.todoist.com
       - "tor-browser"            # https://www.torproject.org
       - "tower"                  # https://www.git-tower.com/mac/
       - "transmit"               # https://panic.com/transmit/
+      - "utm"                    # https://mac.getutm.app
       - "visual-studio-code"     # https://code.visualstudio.com
       - "visualvm"               # https://visualvm.github.io
       - "vlc"                    # https://www.videolan.org
@@ -188,10 +196,10 @@ homebrew:
       # - "\"Broadcasts\", id: 1469995354"
       # # - "\"Craft: Write docs, AI editing\", id: 1487937127"
       # - "\"Craft Web Clipper\", id: 6748613311"
-      # - "\"CrystalFetch ISO Downloader\", id: 6454431289"
-      # - "\"DaisyDisk\", id: 411643860"
+      # # - "\"CrystalFetch ISO Downloader\", id: 6454431289"
+      # # - "\"DaisyDisk\", id: 411643860"
       # - "\"Diagrams\", id: 1276248849"
-      # - "\"Draw Things: AI Generation\", id: 6444050820"
+      # # - "\"Draw Things: AI Generation\", id: 6444050820"
       # # - "\"Fantastical - Calendar\", id: 975937182"
       # - "\"Flighty – Live Flight Tracker\", id: 1358823008"
       # - "\"FullPage Screenshot for Safari\", id: 6745571462"
@@ -200,7 +208,7 @@ homebrew:
       # # - "\"iMovie\", id: 408981434"
       # - "\"iStatistica Pro\", id: 1447778660"
       # - "\"Kahoot! Play & Create Quizzes\", id: 1131203560"
-      # - "\"Keka\", id: 470158793"
+      # # - "\"Keka\", id: 470158793"
       # - "\"Keynote\", id: 409183694"
       # - "\"Kindle\", id: 302584613"
       # - "\"LEGO® MINDSTORMS® Inventor\", id: 1515448947"
@@ -213,25 +221,25 @@ homebrew:
       # - "\"OpenIn 4 Advanced Link Handler\", id: 1643649331"
       # - "\"Pages\", id: 409201541"
       # - "\"Parcel - Delivery Tracking\", id: 375589283"
-      # - "\"PDF Expert – Edit, Sign PDFs\", id: 1055273043"
+      # # - "\"PDF Expert – Edit, Sign PDFs\", id: 1055273043"
       # - "\"Pixelmator Pro\", id: 1289583905"
-      # - "\"Save to Matter\", id: 1548677272"
+      # # - "\"Save to Matter\", id: 1548677272"
       # - "\"Save to Raindrop.io\", id: 1549370672"
       # - "\"Save to Reader\", id: 1640236961"
-      # - "\"Slack for Desktop\", id: 803453959"
+      # # - "\"Slack for Desktop\", id: 803453959"
       # - "\"Sofa: Downtime Organizer\", id: 1276554886"
       # - "\"SnippetsLab\", id: 1006087419"
       # - "\"Speedtest by Ookla\", id: 1153157709"
-      # - "\"Spark Mail – AI Email & Inbox\", id: 6445813049"
+      # # - "\"Spark Mail – AI Email & Inbox\", id: 6445813049"
       # - "\"StopTheMadness Pro\", id: 6471380298"
       # - "\"Subscriptions - Track Expenses\", id: 1577082754"
       # - "\"Swift Playgrounds\", id: 1496833156"
       # - "\"System Color Picker\", id: 1545870783"
       # - "\"Things 3\", id: 904280696"
-      # - "\"Todoist: To-Do List & Tasks\", id: 585829637"
+      # # - "\"Todoist: To-Do List & Tasks\", id: 585829637"
       # # - "\"Triode - Internet Radio\", id: 1450027401"
       # - "\"Typeface 3\", id: 1062679359"
-      # - "\"UTM Virtual Machines\", id: 1538878817"
+      # # - "\"UTM Virtual Machines\", id: 1538878817"
       # # - "\"WhatsApp Messenger\", id: 310633997"
       # - "\"Windows App\", id: 1295203466"
       # - "\"Xcode\", id: 497799835"
