@@ -100,6 +100,7 @@ homebrew:
       - "clion"                  # https://www.jetbrains.com/clion/
       - "coderunner"             # https://coderunnerapp.com
       - "codex"                  # https://developers.openai.com/codex/cli/
+      - "conductor"              # https://conductor.build
       - "cork"                   # https://corkmac.app
       - "craft"                  # https://www.craft.do
       - "crystalfetch"           # https://github.com/TuringSoftware/CrystalFetch/
