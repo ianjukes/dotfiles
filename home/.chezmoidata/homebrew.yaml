@@ -6,13 +6,11 @@ homebrew:
       - "hashicorp/tap"
       - "sass/sass"
       - "spring-io/tap"
-      # - "waydabber/betterdisplay"
     formulae:
       # Formulae from taps (see above)
       - "hashicorp/tap/terraform"
       - "sass/sass/sass"
       - "spring-io/tap/spring-boot"
-      # - "waydabber/betterdisplay/betterdisplaycli"
       # Regular formulae
       - "age"
       - "aws-cdk"
@@ -122,8 +120,6 @@ homebrew:
       - "graalvm-jdk"            # https://www.graalvm.org
       - "graalvm-jdk@21"         # https://www.graalvm.org
       - "handbrake-app"          # https://handbrake.fr
-      # - "hazel"                  # https://www.noodlesoft.com
-      # - "icon-composer"          # https://developer.apple.com/icon-composer/
       - "intellij-idea"          # https://www.jetbrains.com/idea/
       - "iterm2"                 # https://iterm2.com
       - "jdk-mission-control"    # https://www.oracle.com/java/technologies/jdk-mission-control.html
@@ -135,17 +131,14 @@ homebrew:
       - "little-snitch"          # https://www.obdev.at/products/littlesnitch/
       - "loopback"               # https://rogueamoeba.com/loopback/
       - "macwhisper"             # https://goodsnooze.gumroad.com/l/macwhisper/
-      - "microsoft-auto-update"  # https://learn.microsoft.com/en-gb/officeupdates/release-history-microsoft-autoupdate/
+      - "microsoft-auto-update"  # https://www.microsoft.com/en-gb/
       - "microsoft-edge"         # https://www.microsoft.com/en-gb/edge/
       - "microsoft-teams"        # https://www.microsoft.com/en-gb/microsoft-teams/
       - "moom"                   # https://manytricks.com/moom/
       - "mongodb-compass"        # https://www.mongodb.com/products/tools/compass/
       - "mysqlworkbench"         # https://www.mysql.com/products/workbench/
       - "ngrok"                  # https://ngrok.com
-      # - "notion"                 # https://www.notion.com
       - "nova"                   # https://nova.app
-      # - "obsidian"               # https://obsidian.md
-      # - "openinterminal"         # https://github.com/Ji4n1ng/OpenInTerminal 
       - "pdf-expert"             # https://pdfexpert.com
       - "pearcleaner"            # https://itsalin.com/appInfo/?id=pearcleaner
       - "plex"                   # https://www.plex.tv/media-server-downloads/?cat=plex+desktop&plat=macos#plex-app
@@ -153,7 +146,6 @@ homebrew:
       - "pycharm-ce"             # https://www.jetbrains.com/pycharm/
       - "pycharm"                # https://www.jetbrains.com/pycharm/
       - "raindropio"             # https://raindrop.io
-      # - "rocket"                 # https://matthewpalmer.net/rocket/
       - "slack"                  # https://slack.com
       - "sf-symbols"             # https://developer.apple.com/sf-symbols/
       - "sloth"                  # https://sveinbjorn.org/sloth
@@ -184,32 +176,17 @@ homebrew:
       - "zulu@21"                # https://www.azul.com/downloads/?version=java-21-lts#zulu
     apps:
       - "\"1Password for Safari\", id: 1569813296"
-      # - "\"Affinity Designer 2\", id: 1616831348"
-      # - "\"Affinity Photo 2: Image Editor\", id: 1616822987"
-      # - "\"Affinity Publisher 2\", id: 1606941598"
-      # - "\"Agenda - Notes meets Calendar\", id: 1287445660"
-      # - "\"Amphetamine\", id: 937984704"
       - "\"Apple Developer\", id: 640199958"
       - "\"Apple Remote Desktop\", id: 409907375"
       - "\"Barbee - Hide Menu Bar Items\", id: 1548711022"
-      # - "\"Capacities Web Extension\", id: 6502697899"
-      # - "\"ColorSlurp\", id: 1287239339"
       - "\"Broadcasts\", id: 1469995354"
-      # - "\"Craft: Write docs, AI editing\", id: 1487937127"
       - "\"Craft Web Clipper\", id: 6748613311"
-      # - "\"CrystalFetch ISO Downloader\", id: 6454431289"
-      # - "\"DaisyDisk\", id: 411643860"
-      # - "\"Diagrams\", id: 1276248849"
-      # - "\"Draw Things: AI Generation\", id: 6444050820"
-      # - "\"Fantastical - Calendar\", id: 975937182"
       - "\"Flighty – Live Flight Tracker\", id: 1358823008"
       - "\"FullPage Screenshot for Safari\", id: 6745571462"
       # - "\"GarageBand\", id: 682658836"
-      # - "\"Image2icon - Make your icons\", id: 992115977"
       # - "\"iMovie\", id: 408981434"
       - "\"iStatistica Pro\", id: 1447778660"
       - "\"Kahoot! Play & Create Quizzes\", id: 1131203560"
-      # - "\"Keka\", id: 470158793"
       - "\"Keynote\", id: 409183694"
       - "\"Kindle\", id: 302584613"
       - "\"LEGO® MINDSTORMS® Inventor\", id: 1515448947"
@@ -222,26 +199,18 @@ homebrew:
       - "\"OpenIn 4 Advanced Link Handler\", id: 1643649331"
       - "\"Pages\", id: 409201541"
       - "\"Parcel - Delivery Tracking\", id: 375589283"
-      # - "\"PDF Expert – Edit, Sign PDFs\", id: 1055273043"
       - "\"Pixelmator Pro\", id: 1289583905"
-      # - "\"Save to Matter\", id: 1548677272"
       - "\"Save to Raindrop.io\", id: 1549370672"
       - "\"Save to Reader\", id: 1640236961"
-      # - "\"Slack for Desktop\", id: 803453959"
       - "\"Sofa: Downtime Organizer\", id: 1276554886"
       - "\"SnippetsLab\", id: 1006087419"
       - "\"Speedtest by Ookla\", id: 1153157709"
-      # - "\"Spark Mail – AI Email & Inbox\", id: 6445813049"
       - "\"StopTheMadness Pro\", id: 6471380298"
       - "\"Subscriptions - Track Expenses\", id: 1577082754"
       - "\"Swift Playgrounds\", id: 1496833156"
       - "\"System Color Picker\", id: 1545870783"
       - "\"Things 3\", id: 904280696"
-      # - "\"Todoist: To-Do List & Tasks\", id: 585829637"
-      # - "\"Triode - Internet Radio\", id: 1450027401"
       - "\"Typeface 3\", id: 1062679359"
-      # - "\"UTM Virtual Machines\", id: 1538878817"
-      # - "\"WhatsApp Messenger\", id: 310633997"
       - "\"Windows App\", id: 1295203466"
       - "\"Xcode\", id: 497799835"
   desktop:
@@ -262,7 +231,6 @@ homebrew:
       # Formulae from taps (see above)
       - "fcanas/tap/mirror-displays"
     casks:
-      # - "aldente"              # https://apphousekitchen.com
       - "remote-buddy"           # https://www.iospirit.com/products/remotebuddy/
     apps:
       - "\"Passepartout, VPN Client\", id: 1433648537"

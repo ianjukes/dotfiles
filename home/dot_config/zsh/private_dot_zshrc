@@ -176,8 +176,7 @@ alias lscolors='${bin_dir}/lscolors.zsh'
 
 # Homebrew
 alias bu='brew upgrade'
-# alias bcu='brew cu --all --include-mas --yes'
-alias bcu='brew cu --all --yes'
+alias bcu='brew cu --all --include-mas --yes'
 alias ba='bu; bcu; brew cleanup --prune=all'
 
 # Kubernetes
