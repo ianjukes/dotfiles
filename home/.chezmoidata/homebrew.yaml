@@ -198,7 +198,6 @@ homebrew:
       - "\"Numbers\", id: 409203825"
       - "\"OpenIn 4 Advanced Link Handler\", id: 1643649331"
       - "\"Pages\", id: 409201541"
-      - "\"Parcel - Delivery Tracking\", id: 375589283"
       - "\"Pixelmator Pro\", id: 1289583905"
       - "\"Save to Raindrop.io\", id: 1549370672"
       - "\"Save to Reader\", id: 1640236961"
@@ -234,3 +233,9 @@ homebrew:
       - "remote-buddy"           # https://www.iospirit.com/products/remotebuddy/
     apps:
       - "\"Passepartout, VPN Client\", id: 1433648537"
+  tahoe:
+    taps: []
+    formulae: []
+    casks: []
+    apps:
+      - "\"Parcel - Delivery Tracking\", id: 375589283"

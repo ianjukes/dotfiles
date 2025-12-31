@@ -27,6 +27,16 @@ echo "Installing/updating applications via Homebrew..."
 {{ $casks    = concat $casks    $platform.casks    -}}
 {{ $apps     = concat $apps     $platform.apps     -}}
 
+{{/* merge tahoe-only */}}
+{{- $macosVersion := output "sw_vers" "--productVersion" -}}
+{{- $macosMajor   := (regexFind "^[0-9]+" $macosVersion) -}}
+{{- if eq $macosMajor "26" -}}
+  {{ $taps     = concat $taps     .homebrew.tahoe.taps     -}}
+  {{ $formulae = concat $formulae .homebrew.tahoe.formulae -}}
+  {{ $casks    = concat $casks    .homebrew.tahoe.casks    -}}
+  {{ $apps     = concat $apps     .homebrew.tahoe.apps     -}}
+{{- end -}}
+
 export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 mkdir -p {{ .stateDir }}
 cat > {{ .stateDir }}/Brewfile <<EOF
