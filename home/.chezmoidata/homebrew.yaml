@@ -146,7 +146,7 @@ homebrew:
       - "plex-htpc"              # https://www.plex.tv/media-server-downloads/?cat=plex+htpc&plat=macos#plex-app
       - "pycharm-ce"             # https://www.jetbrains.com/pycharm/
       - "pycharm"                # https://www.jetbrains.com/pycharm/
-      - "raindropio"             # https://raindrop.io
+      # - "raindropio"             # https://raindrop.io
       - "slack"                  # https://slack.com
       - "sf-symbols"             # https://developer.apple.com/sf-symbols/
       - "sloth"                  # https://sveinbjorn.org/sloth
@@ -183,7 +183,6 @@ homebrew:
       - "\"Broadcasts\", id: 1469995354"
       - "\"Craft Web Clipper\", id: 6748613311"
       - "\"Flighty – Live Flight Tracker\", id: 1358823008"
-      - "\"FullPage Screenshot for Safari\", id: 6745571462"
       # - "\"GarageBand\", id: 682658836"
       # - "\"iMovie\", id: 408981434"
       - "\"iStatistica Pro\", id: 1447778660"
@@ -201,8 +200,8 @@ homebrew:
       - "\"OpenIn 4 Advanced Link Handler\", id: 1643649331"
       - "\"Pages\", id: 409201541"
       - "\"Pixelmator Pro\", id: 1289583905"
-      - "\"Save to Raindrop.io\", id: 1549370672"
-      - "\"Save to Reader\", id: 1640236961"
+      # - "\"Save to Raindrop.io\", id: 1549370672"
+      # - "\"Save to Reader\", id: 1640236961"
       - "\"Sofa: Downtime Organizer\", id: 1276554886"
       - "\"SnippetsLab\", id: 1006087419"
       - "\"Speedtest by Ookla\", id: 1153157709"
