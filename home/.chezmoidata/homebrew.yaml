@@ -119,6 +119,7 @@ homebrew:
       - "google-earth-pro"       # https://earth.google.com/intl/earth/versions/#earth-pro
       - "graalvm-jdk"            # https://www.graalvm.org
       - "graalvm-jdk@21"         # https://www.graalvm.org
+      - "hammerspoon"            # https://www.hammerspoon.org
       - "handbrake-app"          # https://handbrake.fr
       - "intellij-idea"          # https://www.jetbrains.com/idea/
       - "iterm2"                 # https://iterm2.com
@@ -126,7 +127,7 @@ homebrew:
       - "jupyterlab-app"         # https://jupyter.org
       - "kaleidoscope"           # https://kaleidoscope.app
       - "keka"                   # https://www.keka.io/en/
-      - "keyboard-maestro"       # https://www.keyboardmaestro.com
+      # - "keyboard-maestro"       # https://www.keyboardmaestro.com
       - "langflow"               # https://www.langflow.org
       - "little-snitch"          # https://www.obdev.at/products/littlesnitch/
       - "loopback"               # https://rogueamoeba.com/loopback/
