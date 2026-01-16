@@ -2,6 +2,7 @@ homebrew:
   all:
     taps:
       - "buo/cask-upgrade"        # Provides 'brew cu' command
+      - "bwya77/tap"
       - "hanshuaikang/nping"
       - "hashicorp/tap"
       - "sass/sass"
@@ -105,6 +106,7 @@ homebrew:
       - "cursor"                 # https://www.cursor.com
       - "daisydisk"              # https://daisydiskapp.com
       - "discord"                # https://discord.com
+      - "dockanchor"             # hhttps://github.com/bwya77/DockAnchor
       - "docker-desktop"         # https://www.docker.com/products/docker-desktop/
       - "drawio"                 # https://www.drawio.com
       - "draw-things"            # https://drawthings.ai
