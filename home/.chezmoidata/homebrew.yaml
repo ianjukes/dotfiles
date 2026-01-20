@@ -62,6 +62,7 @@ homebrew:
       - "nping"
       - "nvm"
       - "ollama"
+      - "opencode"
       - "opentofu"
       - "pinentry-mac"
       - "procs"
