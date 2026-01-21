@@ -88,7 +88,7 @@ export PATH="${PATH:+$PATH:}$XDG_CONFIG_HOME/langflow/uv"
 
 # Less
 export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"
-export LESS="-XFR"
+export LESS="-FrX"
 
 # Maven
 export M2_HOME="$HOMEBREW_PREFIX/opt/maven/libexec"
