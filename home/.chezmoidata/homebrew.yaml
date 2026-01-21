@@ -160,7 +160,8 @@ homebrew:
       - "steam"                  # https://store.steampowered.com
       - "subler"                 # https://subler.org
       - "tableplus"              # https://tableplus.com
-      - "todoist-app"            # https://www.todoist.com
+      - "ticktick"               # https://ticktick.com
+      # - "todoist-app"            # https://www.todoist.com
       - "tor-browser"            # https://www.torproject.org
       - "tower"                  # https://www.git-tower.com/mac/
       - "transmit"               # https://panic.com/transmit/
