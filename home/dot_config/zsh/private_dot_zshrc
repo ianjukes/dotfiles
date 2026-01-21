@@ -164,10 +164,10 @@ unalias l
 alias la='eza --icons=always --color=always --no-quotes -A'
 alias ls='eza --icons=always --color=always --no-quotes --ignore-glob=".CFUserTextEncoding|.DS_Store|.Trash|.Spotlight-V100|.TemporaryItems|.fseventsd|.DocumentRevisions-V100|Icon[!a-zA-Z0-9]|.timemachine|.localized|.file|.vol|.VolumeIcon.icns"'
 alias lf='ls -A'
-alias lg='ls -lgaM --tree --level=1 --git | less -FrX'
-alias ll='ls -lgaM | less -FrX'
-alias lo='ls -lgoaM | less -FrX'
-alias lt='ls -lgaM --tree --level=2 | less -FrX'
+alias lg='ls -lgaM --tree --level=1 --git' # | less -FrX'
+alias ll='ls -lgaM' # | less -FrX'
+alias lo='ls -lgoaM' # | less -FrX'
+alias lt='ls -lgaM --tree --level=2' # | less -FrX'
 
 # Local scripts
 local bin_dir="$XDG_DATA_HOME/../bin"
