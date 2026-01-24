@@ -104,7 +104,7 @@ homebrew:
       - "cork"                   # https://corkmac.app
       - "craft"                  # https://www.craft.do
       - "crystalfetch"           # https://github.com/TuringSoftware/CrystalFetch/
-      - "cursor"                 # https://www.cursor.com
+      # - "cursor"                 # https://www.cursor.com
       - "daisydisk"              # https://daisydiskapp.com
       - "discord"                # https://discord.com
       - "dockanchor"             # hhttps://github.com/bwya77/DockAnchor
