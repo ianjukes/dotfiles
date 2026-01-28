@@ -10,3 +10,6 @@
 [submodule "home/dot_config/tmux/plugins/external_tmux"]
 	path = home/dot_config/tmux/plugins/external_tmux
 	url = https://github.com/dracula/tmux.git
+[submodule "home/dot_local/opt/mcp-servers/external_ticktick-mcp"]
+	path = home/dot_local/opt/mcp-servers/external_ticktick-mcp
+	url = https://github.com/jacepark12/ticktick-mcp.git
