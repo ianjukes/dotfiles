@@ -86,6 +86,7 @@ homebrew:
       - "1password"              # https://1password.com
       - "1password-cli"          # https://1password.com/downloads/command-line/
       - "affinity"               # https://www.affinity.studio
+      - "antigravity"            # https://antigravity.google
       - "antinote"               # https://antinote.io
       - "audio-hijack"           # https://rogueamoeba.com/audiohijack/
       - "balenaetcher"           # https://etcher.balena.io
