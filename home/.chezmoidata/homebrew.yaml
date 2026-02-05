@@ -101,6 +101,7 @@ homebrew:
       - "clion"                  # https://www.jetbrains.com/clion/
       - "coderunner"             # https://coderunnerapp.com
       - "codex"                  # https://developers.openai.com/codex/cli/
+      - "codex-app"              # https://developers.openai.com/codex/app/
       - "conductor"              # https://conductor.build
       - "cork"                   # https://corkmac.app
       - "craft"                  # https://www.craft.do
