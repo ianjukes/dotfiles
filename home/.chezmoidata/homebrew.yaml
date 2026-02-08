@@ -82,6 +82,7 @@ homebrew:
       - "watch"
       - "wget"
       - "yt-dlp"
+      - "zig"
     casks:
       - "1password"              # https://1password.com
       - "1password-cli"          # https://1password.com/downloads/command-line/
