@@ -135,7 +135,6 @@ homebrew:
       - "keka"                   # https://www.keka.io/en/
       # - "keyboard-maestro"       # https://www.keyboardmaestro.com
       # - "langflow"               # https://www.langflow.org
-      - "launchos"               # https://launchosapp.com
       - "little-snitch"          # https://www.obdev.at/products/littlesnitch/
       - "loopback"               # https://rogueamoeba.com/loopback/
       - "macwhisper"             # https://goodsnooze.gumroad.com/l/macwhisper/
@@ -245,7 +244,8 @@ homebrew:
   tahoe:
     taps: []
     formulae: []
-    casks: []
+    casks:
+      - "launchos"               # https://launchosapp.com
     apps:
       - "\"Parcel - Delivery Tracking\", id: 375589283"
       - "\"System Color Picker\", id: 1545870783"
