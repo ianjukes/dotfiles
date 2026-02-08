@@ -176,6 +176,7 @@ homebrew:
       - "webex"                  # https://www.webex.com
       - "whatsapp"               # https://www.whatsapp.com
       - "wireshark-app"          # https://www.wireshark.org
+      - "zed"                    # https://zed.dev
       - "zoom"                   # https://zoom.us
       - "zulu"                   # https://www.azul.com/downloads/#zulu
       - "zulu@8"                 # https://www.azul.com/downloads/?version=java-8-lts#zulu
