@@ -110,7 +110,7 @@ homebrew:
       # - "cursor"                 # https://www.cursor.com
       - "daisydisk"              # https://daisydiskapp.com
       - "discord"                # https://discord.com
-      - "dockanchor"             # hhttps://github.com/bwya77/DockAnchor
+      - "dockanchor"             # https://github.com/bwya77/DockAnchor
       - "docker-desktop"         # https://www.docker.com/products/docker-desktop/
       - "drawio"                 # https://www.drawio.com
       - "draw-things"            # https://drawthings.ai
@@ -210,7 +210,7 @@ homebrew:
       - "\"Pages: Create Documents\", id: 361309726"
       - "\"Pixelmator Pro\", id: 1289583905"
       # - "\"Save to Raindrop.io\", id: 1549370672"
-      # - "\"Save to Reader\", id: 1640236961"
+      - "\"Save to Reader\", id: 1640236961"
       - "\"Sofa: Downtime Organizer\", id: 1276554886"
       - "\"SnippetsLab\", id: 1006087419"
       - "\"Speedtest by Ookla\", id: 1153157709"
