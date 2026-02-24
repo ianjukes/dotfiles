@@ -42,22 +42,28 @@ mkdir -p {{ .stateDir }}
 
 # Taps
 cat > {{ .stateDir }}/Brewfile.taps <<EOF
+## Taps
 {{ range ($taps | sortAlpha | uniq) -}}
 tap "{{ . }}"
-{{ end -}}
+{{ end }}
 EOF
 brew bundle --file={{ .stateDir }}/Brewfile.taps
 
 # Formulae, casks, and Mac App Store apps
 cat > {{ .stateDir }}/Brewfile <<EOF
+## Formulae
 {{ range ($formulae | sortAlpha | uniq) -}}
 brew "{{ . }}"
 {{ end }}
+## Applications
+# Casks
 {{ range ($casks | sortAlpha | uniq) -}}
 cask "{{ . }}"
-{{ end }}
+{{ end -}}
+#  Mac App Store
 {{ range ($apps | sortAlpha | uniq) -}}
 mas {{ . }}
 {{ end -}}
 EOF
+
 brew bundle --file={{ .stateDir }}/Brewfile
