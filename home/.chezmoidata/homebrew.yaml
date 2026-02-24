@@ -145,7 +145,7 @@ homebrew:
       - "mongodb-compass"        # https://www.mongodb.com/products/tools/compass/
       - "mysqlworkbench"         # https://www.mysql.com/products/workbench/
       - "ngrok"                  # https://ngrok.com
-      - "nova"                   # https://nova.app
+      - "homebrew/cask/nova"      # https://nova.app
       - "pdf-expert"             # https://pdfexpert.com
       - "pearcleaner"            # https://itsalin.com/appInfo/?id=pearcleaner
       - "plex"                   # https://www.plex.tv/media-server-downloads/?cat=plex+desktop&plat=macos#plex-app
@@ -155,7 +155,7 @@ homebrew:
       # - "raindropio"             # https://raindrop.io
       - "slack"                  # https://slack.com
       - "sf-symbols"             # https://developer.apple.com/sf-symbols/
-      - "sloth"                  # https://sveinbjorn.org/sloth
+      - "homebrew/cask/sloth"    # https://sveinbjorn.org/sloth
       - "readdle-spark"          # https://sparkmailapp.com
       - "reader"                 # https://readwise.io/read/
       - "rustrover"              # https://www.jetbrains.com/rust/
@@ -165,7 +165,7 @@ homebrew:
       - "tableplus"              # https://tableplus.com
       - "ticktick"               # https://ticktick.com
       # - "todoist-app"            # https://www.todoist.com
-      - "tor-browser"            # https://www.torproject.org
+      # - "tor-browser"            # https://www.torproject.org
       - "tower"                  # https://www.git-tower.com/mac/
       - "transmit"               # https://panic.com/transmit/
       - "utm"                    # https://mac.getutm.app
