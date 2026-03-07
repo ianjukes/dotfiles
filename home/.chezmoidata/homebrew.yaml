@@ -91,6 +91,7 @@ homebrew:
       - "antinote"               # https://antinote.io
       - "audio-hijack"           # https://rogueamoeba.com/audiohijack/
       - "balenaetcher"           # https://etcher.balena.io
+      - "bartender"              # https://www.macbartender.com
       - "betterdisplay"          # https://betterdisplay.pro
       - "bootstrap-studio"       # https://bootstrapstudio.io
       - "brilliant"              # https://try-brilliant.com
@@ -150,7 +151,6 @@ homebrew:
       - "pearcleaner"            # https://itsalin.com/appInfo/?id=pearcleaner
       - "plex"                   # https://www.plex.tv/media-server-downloads/?cat=plex+desktop&plat=macos#plex-app
       - "plex-htpc"              # https://www.plex.tv/media-server-downloads/?cat=plex+htpc&plat=macos#plex-app
-      # - "pycharm-ce"             # https://www.jetbrains.com/pycharm/
       - "pycharm"                # https://www.jetbrains.com/pycharm/
       # - "raindropio"             # https://raindrop.io
       - "slack"                  # https://slack.com
@@ -187,7 +187,7 @@ homebrew:
       - "\"1Password for Safari\", id: 1569813296"
       - "\"Apple Developer\", id: 640199958"
       - "\"Apple Remote Desktop\", id: 409907375"
-      - "\"Barbee - Hide Menu Bar Items\", id: 1548711022"
+      # - "\"Barbee - Hide Menu Bar Items\", id: 1548711022"
       - "\"Broadcasts\", id: 1469995354"
       - "\"Caffeinated: Anti Sleep App\", id: 1362171212"
       - "\"Craft Web Clipper\", id: 6748613311"
