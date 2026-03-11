@@ -139,6 +139,7 @@ homebrew:
       - "little-snitch"          # https://www.obdev.at/products/littlesnitch/
       - "loopback"               # https://rogueamoeba.com/loopback/
       - "macwhisper"             # https://goodsnooze.gumroad.com/l/macwhisper/
+      - "markedit"               # https://github.com/MarkEdit-app/
       - "microsoft-auto-update"  # https://www.microsoft.com/en-gb/
       - "microsoft-edge"         # https://www.microsoft.com/en-gb/edge/
       - "microsoft-teams"        # https://www.microsoft.com/en-gb/microsoft-teams/
