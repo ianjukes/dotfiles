@@ -102,8 +102,7 @@ export MINIKUBE_HOME="$XDG_STATE_HOME/minikube"
 export PATH="${PATH:+$PATH:}$HOMEBREW_PREFIX/opt/mysql-client/bin"
 
 # Node.js
-export NVM_DIR="$XDG_DATA_HOME/nvm"
-export NVM_HOMEBREW="$HOMEBREW_PREFIX/opt/nvm"
+export NVM_DIR="$HOMEBREW_PREFIX/opt/nvm"
 
 # NPM
 export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
