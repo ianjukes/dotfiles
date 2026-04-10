@@ -103,7 +103,7 @@ export PATH="${PATH:+$PATH:}$HOMEBREW_PREFIX/opt/mysql-client/bin"
 
 # Node.js
 export NVM_DIR="$XDG_DATA_HOME/nvm"
-export NVM_HOMEBREW="$HOMEBREW_PREFIX/nvm"
+export NVM_HOMEBREW="$HOMEBREW_PREFIX/opt/nvm"
 
 # NPM
 export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
