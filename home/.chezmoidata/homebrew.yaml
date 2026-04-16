@@ -124,6 +124,7 @@ homebrew:
       - "goland"                 # https://www.jetbrains.com/go/
       - "google-chrome"          # https://www.google.com/intl/en_uk/chrome/
       - "google-earth-pro"       # https://earth.google.com/intl/earth/versions/#earth-pro
+      - "google-gemini"          # https://gemini.google/mac/
       - "graalvm-jdk"            # https://www.graalvm.org
       - "graalvm-jdk@21"         # https://www.graalvm.org
       - "hammerspoon"            # https://www.hammerspoon.org
