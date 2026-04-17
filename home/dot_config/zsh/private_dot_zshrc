@@ -11,12 +11,16 @@ source "$XDG_CONFIG_HOME/zsh/.zprofile"
 # This needs to be set here rather than .zprofile because macOS overrides it in /etc/zshrc
 export HISTFILE="$XDG_CACHE_HOME/zsh_history"
 
-# Detect if the terminal is integrated into another application (e.g. VSCode, IntelliJ)
-[[ $TERM_PROGRAM == "docker_desktop" || $TERM_PROGRAM == "vscode" || $TERMINAL_EMULATOR == "JetBrains-JediTerm" || -n "$INTELLIJ_ENVIRONMENT_READER" ]] && IS_INTEGRATED=true
+# Detect if the terminal is integrated into another application (e.g. Docker Desktop, VS Code, etc.)
+[[ $TERM_PROGRAM == "docker_desktop" \
+  || $TERM_PROGRAM == "vscode" || -n "$VSCODE_PID" \
+  || $TERMINAL_EMULATOR == "JetBrains-JediTerm" || -n "$INTELLIJ_ENVIRONMENT_READER" \
+  || -n "$ZED_TERM" ]] \
+  && IS_INTEGRATED=true
 
 # ---- tmux ----------------------------------------------------------------------------------------
 
-if [[ -z "$TMUX" && -z "$VSCODE_PID" && -z "$IS_INTEGRATED" ]]; then
+if [[ -o interactive && -t 1 && -z "$TMUX" && -z "$IS_INTEGRATED" ]]; then
   if tmux has-session &>/dev/null && tmux ls | grep -qv attached; then
     exec tmux attach && exit
   else
