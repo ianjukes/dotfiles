@@ -160,7 +160,7 @@ unsetopt share_history
 # eza -- replacement for ls
 # Set preferred colours
 #   https://github.com/eza-community/eza/blob/main/man/eza_colors.5.md
-export EZA_COLORS="oc=37:xa=37:ur=32:uw=32:ux=32:ue=32:gr=33:gw=33:gx=33:tr=35:tw=35:tx=35:bd=31"
+export EZA_COLORS="reset:di=34:ln=36:ex=32:uu=33:gu=33:un=33:gn=33:oc=37:xa=37:ur=32:uw=32:ux=32:ue=32:gr=33:gw=33:gx=33:tr=35:tw=35:tx=35:bd=31"
 # Aliases to replace ls
 unalias l
 alias la='eza --icons=always --color=always --no-quotes -A'
