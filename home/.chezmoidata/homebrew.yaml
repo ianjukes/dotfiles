@@ -97,7 +97,7 @@ homebrew:
       - "brilliant"              # https://try-brilliant.com
       - "calibre"                # https://calibre-ebook.com
       - "claude"                 # https://claude.com/product/overview
-      - "claude-code"            # https://claude.com/product/claude-code
+      - "claude-code@latest"     # https://claude.com/product/claude-code
       - "capacities"             # https://capacities.io
       - "chatgpt"                # https://chatgpt.com
       - "clion"                  # https://www.jetbrains.com/clion/
