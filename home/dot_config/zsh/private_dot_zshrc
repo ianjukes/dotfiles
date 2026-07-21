@@ -177,9 +177,9 @@ alias aws-profile='source ${bin_dir}/aws-profile.zsh'
 alias lscolors='${bin_dir}/lscolors.zsh'
 
 # Homebrew
-alias bu='brew upgrade'
-alias bcu='brew cu --all --include-mas --yes'
-alias ba='bu; bcu; brew cleanup --prune=all'
+alias bu='brew upgrade --formulae'
+alias bcu='brew cu --all --cleanup --include-mas --yes'
+alias ba='bu; bcu'
 
 # Kubernetes
 alias kubectl='kubecolor'

@@ -1,10 +1,9 @@
 homebrew:
   all:
     taps:
-      - "buo/cask-upgrade"        # Provides 'brew cu' command
-      - "bwya77/tap"
-      - "hanshuaikang/nping"
+      - "buo/cask-upgrade" # Provides 'brew cu' command
       - "hashicorp/tap"
+      - "jeresalo/tap"
       - "sass/sass"
       - "spring-io/tap"
     formulae:
@@ -59,7 +58,7 @@ homebrew:
       - "mosh"
       - "muon"
       - "mysql-client"
-      - "nping"
+      - "nbping"
       - "nvm"
       - "ollama"
       - "opencode"
@@ -87,14 +86,13 @@ homebrew:
       - "1password"              # https://1password.com
       - "1password-cli"          # https://1password.com/downloads/command-line/
       - "affinity"               # https://www.affinity.studio
-      - "antigravity"            # https://antigravity.google
       - "antinote"               # https://antinote.io
       - "audio-hijack"           # https://rogueamoeba.com/audiohijack/
       - "balenaetcher"           # https://etcher.balena.io
       - "bartender"              # https://www.macbartender.com
+      - "beeper"                 # https://www.beeper.com
       - "betterdisplay"          # https://betterdisplay.pro
       - "bootstrap-studio"       # https://bootstrapstudio.io
-      - "brilliant"              # https://try-brilliant.com
       - "calibre"                # https://calibre-ebook.com
       - "claude"                 # https://claude.com/product/overview
       - "claude-code@latest"     # https://claude.com/product/claude-code
@@ -103,15 +101,14 @@ homebrew:
       - "clion"                  # https://www.jetbrains.com/clion/
       - "coderunner"             # https://coderunnerapp.com
       - "codex"                  # https://developers.openai.com/codex/cli/
-      - "codex-app"              # https://developers.openai.com/codex/app/
       - "conductor"              # https://conductor.build
       - "cork"                   # https://corkmac.app
       - "craft"                  # https://www.craft.do
       - "crystalfetch"           # https://github.com/TuringSoftware/CrystalFetch/
-      # - "cursor"                 # https://www.cursor.com
       - "daisydisk"              # https://daisydiskapp.com
       - "discord"                # https://discord.com
-      - "dockanchor"             # https://github.com/bwya77/DockAnchor
+      - "displace"               # https://displaceapp.com
+      - "dolphin"                # https://dolphin-emu.org
       - "docker-desktop"         # https://www.docker.com/products/docker-desktop/
       - "drawio"                 # https://www.drawio.com
       - "draw-things"            # https://drawthings.ai
@@ -120,7 +117,9 @@ homebrew:
       - "fantastical"            # https://flexibits.com/fantastical/
       - "firefox"                # https://www.mozilla.org/en-GB/firefox/
       - "ghostty"                # https://ghostty.org
+      - "git-credential-manager" # https://github.com/git-ecosystem/git-credential-manager/
       - "github"                 # https://github.com/apps/desktop
+      - "github-copilot-app"     # https://github.com/features/ai/github-app/
       - "goland"                 # https://www.jetbrains.com/go/
       - "google-chrome"          # https://www.google.com/intl/en_uk/chrome/
       - "google-earth-pro"       # https://earth.google.com/intl/earth/versions/#earth-pro
@@ -135,8 +134,6 @@ homebrew:
       - "jupyterlab-app"         # https://jupyter.org
       - "kaleidoscope"           # https://kaleidoscope.app
       - "keka"                   # https://www.keka.io/en/
-      # - "keyboard-maestro"       # https://www.keyboardmaestro.com
-      # - "langflow"               # https://www.langflow.org
       - "little-snitch"          # https://www.obdev.at/products/littlesnitch/
       - "loopback"               # https://rogueamoeba.com/loopback/
       - "macwhisper"             # https://goodsnooze.gumroad.com/l/macwhisper/
@@ -148,16 +145,18 @@ homebrew:
       - "mongodb-compass"        # https://www.mongodb.com/products/tools/compass/
       - "mysqlworkbench"         # https://www.mysql.com/products/workbench/
       - "ngrok"                  # https://ngrok.com
-      - "homebrew/cask/nova"      # https://nova.app
+      - "notion"                 # https://www.notion.com
+      - "nova"                   # https://nova.app
+      - "osaurus"                # https://osaurus.ai
       - "pdf-expert"             # https://pdfexpert.com
       - "pearcleaner"            # https://itsalin.com/appInfo/?id=pearcleaner
       - "plex"                   # https://www.plex.tv/media-server-downloads/?cat=plex+desktop&plat=macos#plex-app
       - "plex-htpc"              # https://www.plex.tv/media-server-downloads/?cat=plex+htpc&plat=macos#plex-app
       - "pycharm"                # https://www.jetbrains.com/pycharm/
-      # - "raindropio"             # https://raindrop.io
+      - "raindropio"             # https://raindrop.io
       - "slack"                  # https://slack.com
       - "sf-symbols"             # https://developer.apple.com/sf-symbols/
-      - "homebrew/cask/sloth"    # https://sveinbjorn.org/sloth
+      - "sloth"                  # https://sveinbjorn.org/sloth
       - "readdle-spark"          # https://sparkmailapp.com
       - "reader"                 # https://readwise.io/read/
       - "rustrover"              # https://www.jetbrains.com/rust/
@@ -166,8 +165,7 @@ homebrew:
       - "subler"                 # https://subler.org
       - "tableplus"              # https://tableplus.com
       - "ticktick"               # https://ticktick.com
-      # - "todoist-app"            # https://www.todoist.com
-      # - "tor-browser"            # https://www.torproject.org
+      - "tor-browser"            # https://www.torproject.org
       - "tower"                  # https://www.git-tower.com/mac/
       - "transmit"               # https://panic.com/transmit/
       - "utm"                    # https://mac.getutm.app
@@ -176,7 +174,6 @@ homebrew:
       - "vlc"                    # https://www.videolan.org
       - "webcatalog"             # https://webcatalog.io
       - "webex"                  # https://www.webex.com
-      - "whatsapp"               # https://www.whatsapp.com
       - "wireshark-app"          # https://www.wireshark.org
       - "zed"                    # https://zed.dev
       - "zoom"                   # https://zoom.us
@@ -189,12 +186,12 @@ homebrew:
       - "\"1Password for Safari\", id: 1569813296"
       - "\"Apple Developer\", id: 640199958"
       - "\"Apple Remote Desktop\", id: 409907375"
-      # - "\"Barbee - Hide Menu Bar Items\", id: 1548711022"
       - "\"Broadcasts\", id: 1469995354"
       - "\"Caffeinated: Anti Sleep App\", id: 1362171212"
       - "\"Craft Web Clipper\", id: 6748613311"
+      - "\"DemoPro - Screen Annotation\", id: 1384206666"
       - "\"Flighty – Live Flight Tracker\", id: 1358823008"
-      # - "\"GarageBand\", id: 682658836"
+      - "\"GarageBand\", id: 682658836"
       - "\"iMovie\", id: 408981434"
       - "\"iStatistica Pro\", id: 1447778660"
       - "\"Kahoot! Play & Create Quizzes\", id: 1131203560"
@@ -211,7 +208,7 @@ homebrew:
       - "\"OpenIn 4 Advanced Link Handler\", id: 1643649331"
       - "\"Pages: Create Documents\", id: 361309726"
       - "\"Pixelmator Pro\", id: 1289583905"
-      # - "\"Save to Raindrop.io\", id: 1549370672"
+      - "\"Save to Raindrop.io\", id: 1549370672"
       - "\"Save to Reader\", id: 1640236961"
       - "\"Sofa: Downtime Organizer\", id: 1276554886"
       - "\"SnippetsLab\", id: 1006087419"
@@ -223,13 +220,13 @@ homebrew:
       - "\"Things 3\", id: 904280696"
       - "\"TV Launcher - Live UK Channels\", id: 1622598042"
       - "\"Typeface 3\", id: 1062679359"
+      - "\"Usage for Claude\", id: 6755173244"
       - "\"Windows App\", id: 1295203466"
       - "\"Xcode\", id: 497799835"
   desktop:
     taps: []
     formulae: []
     casks:
-      - "cursr"                  # https://cursr.app
       - "displaylink"            # https://www.synaptics.com/products/displaylink-graphics/downloads/macos/
       - "elgato-camera-hub"      # https://www.elgato.com/uk/en/s/downloads/
       - "elgato-control-center"  # https://www.elgato.com/uk/en/s/downloads/
@@ -252,5 +249,6 @@ homebrew:
     casks:
       - "launchos"               # https://launchosapp.com
     apps:
+      - "\"Juicy: Battery Alerts & Health\", id: 6752221257"
       - "\"Parcel - Delivery Tracking\", id: 375589283"
       - "\"System Color Picker\", id: 1545870783"
