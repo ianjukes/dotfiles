@@ -101,7 +101,6 @@ homebrew:
       - "claude-code@latest"     # https://claude.com/product/claude-code
       - "capacities"             # https://capacities.io
       - "chatgpt"                # https://chatgpt.com
-      - "chatgpt-classic"        # https://chatgpt.com
       - "clion"                  # https://www.jetbrains.com/clion/
       - "coderunner"             # https://coderunnerapp.com
       - "codex"                  # https://developers.openai.com/codex/cli/
