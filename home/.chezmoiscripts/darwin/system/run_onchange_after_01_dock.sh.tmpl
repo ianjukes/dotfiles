@@ -6,14 +6,13 @@ echo "Resetting macOS dock applications..."
 
 dockutil --no-restart --remove all
 
-{{/* differentiate between laptop, desktop and vm */ -}}
+{{/* differentiate between laptop and desktop */ -}}
 {{ $app_list := .dock.desktop -}}
 {{ if hasPrefix "MacBook" .chezmoi.hostname -}}
 {{   $app_list = .dock.laptop -}}
-{{ else if hasSuffix "Test" .chezmoi.hostname -}}
-{{   $app_list = .dock.test -}}
 {{ end -}}
 
+# Selected Dock entries: {{ $app_list | toJson | sha256sum }}
 app_list=(
 {{ range $app_list -}}
   "{{ . }}"
@@ -21,7 +20,11 @@ app_list=(
 )
 
 for app in "${app_list[@]}"; do
-  dockutil --no-restart --add "${app}" || true
+  if [[ -d "${app}" ]]; then
+    dockutil --no-restart --add "${app}"
+  else
+    echo "Skipping absent Dock application: ${app}"
+  fi
 done
 
 dockutil --add ~/Downloads --view fan --display folder --sort dateadded

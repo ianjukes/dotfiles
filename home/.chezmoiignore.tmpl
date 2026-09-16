@@ -1,10 +1,6 @@
 .files/**
 
 {{ if eq .chezmoi.os "darwin" -}}
-{{/* Bartender 5 */ -}}
-{{   if not (stat "/Applications/Bartender 5.app") -}}
-Library/Preferences/com.surteesstudios.Bartender.plist
-{{   end -}}
 {{/* HuionTablet */ -}}
 {{   if not (stat "/Applications/HuionTablet.app") -}}
 Library/Application\ Support/HuionTablet/HUION_M214.cfg

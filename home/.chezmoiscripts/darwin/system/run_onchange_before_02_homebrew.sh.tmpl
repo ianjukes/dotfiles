@@ -13,12 +13,6 @@ echo "Installing/updating applications via Homebrew..."
 {{ $platform := .homebrew.desktop -}}
 {{ if hasPrefix "MacBook" .chezmoi.hostname -}}
 {{   $platform = .homebrew.laptop -}}
-{{ else if hasSuffix "Test" .chezmoi.hostname -}}
-{{  $platform = .homebrew.test -}}
-{{  $taps     = list -}}
-{{  $formulae = list -}}
-{{  $casks    = list -}}
-{{  $apps     = list -}}
 {{ end -}}
 
 {{/* merge platform-specifics */ -}}

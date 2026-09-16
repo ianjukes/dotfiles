@@ -1,3 +1,5 @@
+{{/* Huion is optional. An empty script is not recorded as a successful restore. */ -}}
+{{ if stat "/Applications/HuionTablet.app" -}}
 #!/usr/bin/env zsh
 set -eufo pipefail
 IFS=$'\n\t'
@@ -8,18 +10,35 @@ IFS=$'\n\t'
 {{   $pre = "laptop." -}}
 {{ end -}}
 
+{{ $prefs := print ".files/prefs/HuionTablet/" $pre "com.huion.HuionTablet.plist" -}}
+{{ $shared := ".files/prefs/HuionTablet/com.huion.HuionTablet.plist" -}}
+{{/* Prefer the matching machine snapshot, falling back to a shared snapshot. */ -}}
+{{ if and (not (stat (joinPath .chezmoi.sourceDir $prefs))) (stat (joinPath .chezmoi.sourceDir $shared)) -}}
+{{   $pre = "" -}}
+{{   $prefs = $shared -}}
+{{ end -}}
+{{ $havePrefs := stat (joinPath .chezmoi.sourceDir $prefs) -}}
+
+# Restore helper: {{ include ".files/lib/macos.sh" | sha256sum }}
 source "{{ .include }}"
 
 app="HuionTablet"
 
+# Preferences: {{ if $havePrefs }}{{ include $prefs | sha256sum }}{{ else }}missing{{ end }}
 pls="com.huion.HuionTablet.plist"
 src="{{ .filesDir }}/prefs/${app}/{{ $pre }}${pls}"
 dst="$HOME/Library/Preferences/${pls}"
 
+{{ if $havePrefs -}}
 replace_lib "${src}" "${dst}" "${app}" "${pls}"
+{{ else -}}
+print -u2 -- "Skipping ${app} preferences: missing snapshot ${src} (also checked {{ .filesDir }}/prefs/${app}/${pls})"
+{{ end -}}
 
+# Tablet configuration: {{ include ".files/prefs/HuionTablet/HUION_M22d.cfg" | sha256sum }}
 cfg="HUION_M22d.cfg"
 src="{{ .filesDir }}/prefs/${app}/${cfg}"
 dst="$HOME/Library/Application Support/HuionTablet/${cfg}"
 
 replace_lib "${src}" "${dst}" "${app}" "${cfg}"
+{{ end -}}

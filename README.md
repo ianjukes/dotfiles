@@ -10,6 +10,14 @@ A repository of configuration files (dotfiles) created by [@ianjukes](https://gi
 
 3. Perform any operating system updates via **General → Software Update**.
 
+4. Sign into iCloud and let synchronisation complete.
+
+5. Install Dropbox and let synchronisation complete.
+
+6. Make sure the Mac’s hostname begins with `MacBook` for laptop settings. All other hostnames use desktop settings.
+
+7. Quit any applications whose preferences are managed by chezmoi before running it.
+
 ### Install
 
 To bootstrap a new machine use the following command:

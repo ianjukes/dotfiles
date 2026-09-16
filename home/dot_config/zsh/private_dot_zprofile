@@ -141,7 +141,7 @@ export PATH="${PATH:+$PATH:}$XDG_DATA_HOME/../bin"
 export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"
 
 # Visual Studio Code
-export PATH="${PATH:+$PATH:}/Applications/Visual Studio Code.app/Content/Resources/app/bin"
+export PATH="${PATH:+$PATH:}/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 # API Keys
 source "$XDG_CONFIG_HOME/env/api_keys.sh"

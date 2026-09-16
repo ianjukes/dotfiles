@@ -8,6 +8,17 @@ IFS=$'\n\t'
 {{   $pre = "laptop." -}}
 {{ end -}}
 
+{{ $prefs := print ".files/prefs/BetterDisplay/" $pre "pro.betterdisplay.BetterDisplay.plist.asc" -}}
+{{ $shared := ".files/prefs/BetterDisplay/pro.betterdisplay.BetterDisplay.plist.asc" -}}
+{{/* Prefer the matching machine snapshot, falling back to a shared snapshot. */ -}}
+{{ if and (not (stat (joinPath .chezmoi.sourceDir $prefs))) (stat (joinPath .chezmoi.sourceDir $shared)) -}}
+{{   $pre = "" -}}
+{{   $prefs = $shared -}}
+{{ end -}}
+{{ $havePrefs := stat (joinPath .chezmoi.sourceDir $prefs) -}}
+
+# Restore helper: {{ include ".files/lib/macos.sh" | sha256sum }}
+# Preferences: {{ if $havePrefs }}{{ include $prefs | sha256sum }}{{ else }}missing{{ end }}
 source "{{ .include }}"
 
 app="BetterDisplay"
@@ -16,4 +27,8 @@ pls="pro.betterdisplay.BetterDisplay.plist"
 src="{{ .filesDir }}/prefs/${app}/{{ $pre }}${pls}.asc"
 dst="$HOME/Library/Preferences/${pls}"
 
+{{ if $havePrefs -}}
 replace_lib "${src}" "${dst}" "${app}" "${pls}" true
+{{ else -}}
+print -u2 -- "Skipping ${app} preferences: missing snapshot ${src} (also checked {{ .filesDir }}/prefs/${app}/${pls}.asc)"
+{{ end -}}
