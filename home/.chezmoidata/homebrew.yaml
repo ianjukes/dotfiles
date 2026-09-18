@@ -136,7 +136,6 @@ homebrew:
       - "iterm2"                 # https://iterm2.com
       - "jdk-mission-control"    # https://www.oracle.com/java/technologies/jdk-mission-control.html
       - "jupyterlab-app"         # https://jupyter.org
-      - "kaleidoscope"           # https://kaleidoscope.app
       - "keka"                   # https://www.keka.io/en/
       - "little-snitch"          # https://www.obdev.at/products/littlesnitch/
       - "launchos"               # https://launchosapp.com
