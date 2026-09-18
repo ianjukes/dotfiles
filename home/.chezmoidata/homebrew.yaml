@@ -123,7 +123,6 @@ homebrew:
       - "ghostty"                # https://ghostty.org
       - "git-credential-manager" # https://github.com/git-ecosystem/git-credential-manager/
       - "github"                 # https://github.com/apps/desktop
-      - "github-copilot-app"     # https://github.com/features/ai/github-app/
       - "goland"                 # https://www.jetbrains.com/go/
       - "google-chrome"          # https://www.google.com/intl/en_uk/chrome/
       - "google-earth-pro"       # https://earth.google.com/intl/earth/versions/#earth-pro
