@@ -1,5 +1,4 @@
 """Exercise the real shell helpers using synthetic files and mocked macOS commands."""
-import importlib.util
 import json
 import os
 from pathlib import Path
@@ -12,9 +11,6 @@ import unittest
 REPO = Path(__file__).resolve().parents[1]
 LIB = REPO / 'home/.files/lib/macos.sh'
 SCRIPTS = REPO / 'home/.chezmoiscripts/darwin/app_libs'
-spec = importlib.util.spec_from_file_location('pref_filter', LIB.with_name('filter_app_prefs.py'))
-pref_filter = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(pref_filter)
 
 MOCK_DEFAULTS = '''import os, pathlib, plistlib, shutil, sys
 root = pathlib.Path(os.environ['APP_TEST_HOME']).resolve()
@@ -26,9 +22,7 @@ if action == 'read':
     sys.exit(0)
 assert '/' not in domain
 target = root / 'Library/Preferences' / (domain + '.plist')
-if action == 'export':
-    shutil.copyfile(target, sys.argv[3])
-elif action == 'import':
+if action == 'import':
     marker = root / 'failed-once'
     if os.environ.get('APP_TEST_IMPORT_FAIL') and not marker.exists():
         marker.touch()
@@ -110,26 +104,27 @@ class PreferenceTests(unittest.TestCase):
         self.assertEqual(self.dst.stat().st_mode & 0o777, 0o600)
         self.assertFalse(list(self.dst.parent.glob('.chezmoi-restore*')))
 
-    def test_replacement_merges_preferences_and_backs_up_original(self):
+    def test_replacement_restores_entire_plist_and_backs_up_original(self):
         original = {'registrationInfo': 'synthetic-only', 'setting': 'old'}
         self.seed(self.dst, original)
         result = self.restore(opt_in='Loopback')
         self.assertEqual(result.returncode, 0, result.stderr)
         after = plistlib.loads(self.dst.read_bytes())
-        self.assertEqual(after, dict(original, setting='snapshot'))
+        self.assertEqual(after, {'setting': 'snapshot'})
         backups = list(self.dst.parent.glob('example.plist.chezmoi.*'))
         self.assertEqual(len(backups), 1)
         self.assertEqual(plistlib.loads(backups[0].read_bytes()), original)
         self.assertEqual(backups[0].stat().st_mode & 0o777, 0o600)
 
-    def test_tableplus_preserves_excluded_nested_keys(self):
+    def test_tableplus_restores_all_snapshot_fields_without_merging(self):
         self.dst = self.dst.with_name('com.tinyapp.TablePlus.plist')
         self.seed(self.dst, {'ViewSetting': {'SQLFontSize': 10, 'Variables': {'key': 'synthetic'}}})
-        self.src.write_bytes(plistlib.dumps({'ViewSetting': {'SQLFontSize': 14}}))
+        captured = {'ViewSetting': {'SQLFontSize': 14, 'RecentMatchedItems': ['synthetic'],
+                    'Variables': {'key': 'synthetic-snapshot'}}, 'UnrecognisedPreference': True}
+        self.src.write_bytes(plistlib.dumps(captured))
         result = self.restore(app='TablePlus', major='26', opt_in='TablePlus', APP_TEST_VERSION='26.10.20')
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(plistlib.loads(self.dst.read_bytes())['ViewSetting'],
-                         {'SQLFontSize': 14, 'Variables': {'key': 'synthetic'}})
+        self.assertEqual(plistlib.loads(self.dst.read_bytes()), captured)
 
     def test_missing_snapshot_later_becomes_eligible(self):
         missing = self.root / 'later.asc'
@@ -189,14 +184,6 @@ class PreferenceTests(unittest.TestCase):
         result = self.shell(command)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(plistlib.loads(self.dst.read_bytes()), {'setting': 'snapshot'})
-
-    def test_filter_excludes_sensitive_and_history_fields(self):
-        data = {'registrationInfo': 'private', 'ViewSetting': {'SQLFontSize': 14,
-                'RecentMatchedItems': ['private'], 'Variables': {'key': 'private'}, 'IsEnableOpenAIChat': True}}
-        self.assertEqual(pref_filter.filter_preferences('TablePlus', data), {'ViewSetting': {'SQLFontSize': 14}})
-        self.assertEqual(pref_filter.filter_preferences('Loopback', data), {})
-        with self.assertRaises(ValueError):
-            pref_filter.filter_preferences('UnknownApp', data)
 
     def test_rendered_selection_and_missing_desktop_without_fallback(self):
         config = self.root / 'chezmoi.toml'

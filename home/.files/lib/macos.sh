@@ -87,18 +87,9 @@ function replace_icons() {
 # Optional is only for intentional omissions; required failures must reach chezmoi.
 function replace_lib() (
   local src=$1 dst=$2 app=$3 lib=$4 dec=${5:-false} requirement=${6:-required}
-  local prefs_mode=${7:-replace}
   local bundle tmp='' backup='' running
   if [[ "${requirement}" != required && "${requirement}" != optional ]]; then
     print -u2 -- "Invalid restoration requirement: ${requirement}"
-    return 1
-  fi
-  if [[ "${prefs_mode}" != replace && "${prefs_mode}" != merge ]]; then
-    print -u2 -- "Invalid preference restoration mode: ${prefs_mode}"
-    return 1
-  fi
-  if [[ "${prefs_mode}" == merge && "${dst}" != "$HOME/Library/Preferences/"*.plist ]]; then
-    print -u2 -- "Preference merging requires a user preference plist"
     return 1
   fi
   if [[ ! -f "${src}" ]] || ! bundle=$(app_path "${app}"); then
@@ -134,7 +125,7 @@ function replace_lib() (
   umask 077
   mkdir -p "${dst:h}" || return 1
   tmp=$(mktemp "${dst:h}/.chezmoi-restore.XXXXXX") || return 1
-  trap 'rm -f -- "${tmp}" "${tmp}.current" "${tmp}.merged"' EXIT
+  trap 'rm -f -- "${tmp}"' EXIT
   trap 'exit 1' HUP INT TERM
   if [[ "${dec}" == true ]]; then
     if ! chezmoi decrypt "${src}" > "${tmp}"; then
@@ -155,27 +146,6 @@ function replace_lib() (
       return 1
     }
   fi
-  if [[ "${prefs_mode}" == merge && -f "${dst}" ]]; then
-    defaults export "${lib%.plist}" "${tmp}.current" >/dev/null 2>&1 || return 1
-    # Selective captures must not erase licenses or unrelated existing preferences.
-    # TablePlus nests its general settings together with history/security settings.
-    if ! python3 - "${tmp}.current" "${tmp}" "${lib}" > "${tmp}.merged" 2>/dev/null <<'PY'
-import plistlib, sys
-with open(sys.argv[1], 'rb') as f:
-    current = plistlib.load(f)
-with open(sys.argv[2], 'rb') as f:
-    incoming = plistlib.load(f)
-if sys.argv[3] == 'com.tinyapp.TablePlus.plist' and 'ViewSetting' in incoming:
-    incoming['ViewSetting'] = dict(current.get('ViewSetting', {}), **incoming['ViewSetting'])
-current.update(incoming)
-sys.stdout.buffer.write(plistlib.dumps(current))
-PY
-    then
-      print -u2 -- "Could not merge ${lib}; existing settings were left untouched"
-      return 1
-    fi
-    mv -f "${tmp}.merged" "${tmp}" || return 1
-  fi
   chmod 600 "${tmp}" || return 1
   if [[ -f "${dst}" ]] && cmp -s "${tmp}" "${dst}"; then
     return 0
@@ -184,11 +154,7 @@ PY
     chown "$(stat -f '%u:%g' "${dst}")" "${tmp}" || return 1
     # Retain the existing backup convention, but only after preparation succeeds.
     backup=$(mktemp "${dst}.chezmoi.$(date +%Y%m%d%H%M%S).XXXXXX") || return 1
-    if [[ -f "${tmp}.current" ]]; then
-      cp "${tmp}.current" "${backup}" || return 1
-    else
-      cp -p "${dst}" "${backup}" || return 1
-    fi
+    cp -p "${dst}" "${backup}" || return 1
     chmod 600 "${backup}" || return 1
   fi
   echo "Updating ${lib}..."
@@ -223,7 +189,7 @@ function restore_app_libs() (
     destinations+=("$2")
     shift 2
   done
-  local src dst item tmp='' bundle version processes pattern mode index
+  local src dst item tmp='' bundle version processes pattern index
   for src in "${sources[@]}"; do
     if [[ ! -f "${src}" ]]; then
       print -u2 -- "Skipping ${app}: missing ${src}. Capture on the matching Mac; see docs/app-preferences.md. Existing settings untouched."
@@ -275,9 +241,7 @@ function restore_app_libs() (
   done
   for (( index=1; index <= ${#sources}; index++ )); do
     dst="${destinations[index]}"
-    mode=replace
-    [[ "${dst}" != "$HOME/Library/Preferences/"*.plist ]] || mode=merge
-    replace_lib "${staged[index]}" "${dst}" "${app}" "${dst:t}" false required "${mode}" || return 1
+    replace_lib "${staged[index]}" "${dst}" "${app}" "${dst:t}" false required || return 1
   done
   if [[ "${app}" == Loopback || "${app}" == SoundSource ]]; then
     print -- "Verify/reselect device references, application sources, effects and monitors before using audio."

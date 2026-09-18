@@ -1,9 +1,10 @@
 # Five application preference backups
 
 These apps use the existing `.files/prefs/<App>/` storage and `replace_lib` restoration
-pattern. Files are ordinary plists encrypted individually with the repository's
-existing chezmoi/GPG configuration. There is no custom archive format, snapshot
-manager, duplicate staging directory or additional installation logic.
+pattern. Complete preference-domain exports and selected application-support plists
+are encrypted individually with the repository's existing chezmoi/GPG configuration.
+No keys are filtered. There is no custom archive format, snapshot manager, duplicate
+staging directory or additional installation logic.
 
 Hostnames beginning with `MacBook` select `laptop.` files; all other hostnames select
 `desktop.` files. Bartender, Loopback and SoundSource never cross-fallback. OpenIn
@@ -12,15 +13,16 @@ same repository configuration on both Macs, not continuous two-way synchronisati
 
 ## What is actually saved
 
-The 2026-09-18 captures were retained byte-for-byte when removing the earlier JSON
-wrapper, then re-encrypted as individual plists. Versions and contents:
+The preference-domain captures were refreshed in full on 2026-09-18, replacing the
+earlier filtered copies. Application-support plists are also stored whole. Versions
+and contents:
 
 | Directory below `home/.files/prefs/` | Files and contents |
 | --- | --- |
-| `Bartender` | `laptop.com.surteesstudios.Bartender.plist.asc`: filtered preferences from Bartender 7.0.1; one profile, three trigger records, layouts, shortcuts, styles and embedded image data. |
+| `Bartender` | `laptop.com.surteesstudios.Bartender.plist.asc`: complete preferences from Bartender 7.0.1; includes one profile, three trigger records, layouts, shortcuts, styles and embedded image data. |
 | `Loopback` | `laptop.com.rogueamoeba.Loopback.plist.asc`, `laptop.Devices.plist.asc`: Loopback 2.5.0 preferences and **zero virtual devices**. No populated routing was backed up. |
 | `SoundSource` | `laptop.com.rogueamoeba.soundsource.plist.asc`, `laptop.Models.v2.plist.asc`, `laptop.Presets.v2.plist.asc`: SoundSource 6.1.4 preferences, 187 application models and three system-device models, embedded built-in EQ/overdrive settings, and **zero saved presets**. |
-| `TablePlus` | `com.tinyapp.TablePlus.plist.asc`, `Connections.plist.asc`, `ConnectionGroups.plist.asc`: TablePlus 26.10.20 general preferences/shortcuts and **empty connection and group lists**. |
+| `TablePlus` | `com.tinyapp.TablePlus.plist.asc`, `Connections.plist.asc`, `ConnectionGroups.plist.asc`: TablePlus 26.10.20 complete preferences and **empty connection and group lists**. |
 | `OpenIn` | **Pending**, by request: a history-free native export is needed. No database or older iCloud backup was captured. |
 
 Desktop captures for Bartender, Loopback and SoundSource are still needed. Capture
@@ -31,8 +33,8 @@ Storage investigation matters:
 * Bartender's group-container `24J875RH8J.com.surteesstudios.Bartender/Library/Application Support/default.store`
   had zero `ZWIDGETSETTINGS` rows, verified using a read-only SQLite backup that included
   committed WAL data. Its empty widget store/transaction metadata is excluded. Menu
-  profiles and rules are in its preference domain. OS-owned menu positions, migration
-  flags, window maps, licences and permission data are excluded. Re-investigate if
+  profiles and rules are in its complete preference domain. Separate OS-owned menu
+  position and permission files are not managed. Re-investigate if
   widget records appear; a preference plist is not a complete backup of arbitrary
   Bartender 7 functionality.
 * OpenIn 4.4.4's group-container `4QE86VV38D.app.loshadki.OpenIn/Library/Application Support/OpenIn/local.sqlite`
@@ -43,10 +45,12 @@ Storage investigation matters:
   `CustomPresets.plist` and `.migratedModelsV6` are excluded migration data. The inspected
   effects are embedded; the downloaded `hpeq_profiles` catalogue is excluded. Review
   storage again after upgrades or adding third-party effects/external EQ assets.
-* TablePlus's `Data/Settings.json` contained only `closedWorkspaces`, so it is excluded
-  session history. Its preference dictionary also mixes general settings with recents,
-  saved queries, security and AI settings. `filter_app_prefs.py` only emits the reviewed
-  keys listed in `app_pref_keys.json`; it does not capture, encrypt or restore files.
+* TablePlus's separate `Data/Settings.json` contained only `closedWorkspaces` and is not
+  included. Its complete preference plist, including the nested `ViewSetting` dictionary,
+  is encrypted without removing any fields.
+
+Complete plists retain whatever fields the app stores in them, including embedded
+history or registration state. Only their encrypted `.asc` files belong in Git.
 
 ## Deliberate restoration
 
@@ -83,10 +87,10 @@ The small `restore_app_libs` guard in `macos.sh` checks the app's reviewed major
 background processes and all paths, then decrypts/lints **every** source before calling
 `replace_lib` for each destination. Missing files change nothing. Plaintext preparation
 is in private `/private/tmp` directories and is removed afterward. `replace_lib` keeps
-its atomic file replacement, backup and real-error handling. Its optional `merge` mode
-imports selected preference keys through `defaults`/cfprefsd while preserving unrelated
-existing keys, including licences; TablePlus's nested `ViewSetting` is also merged.
-Existing callers retain the original replacement behaviour.
+its atomic file replacement, backup and real-error handling. Preference plists are
+imported as complete domains through `defaults`/cfprefsd, using the established
+replacement behaviour. There is no key-by-key merging: an explicit restore replaces
+the target's preferences with the saved plist, after backing up the existing file.
 
 Existing files are backed up beside their destinations using the established
 `.chezmoi.<timestamp>.<unique>` suffix, mode 0600. Source/staging files are validated
@@ -149,7 +153,7 @@ the desired shared configuration:
   esac
   capture_tmp=$(mktemp -d /private/tmp/chezmoi-capture.XXXXXX)
   trap 'rm -rf "$capture_tmp"' EXIT
-  defaults export "$domain" - | python3 home/.files/lib/filter_app_prefs.py "$app" > "$capture_tmp/$domain.plist"
+  defaults export "$domain" - > "$capture_tmp/$domain.plist"
   for name in "${support[@]}"; do
     cp "$HOME/Library/Application Support/$app/$name" "$capture_tmp/$name"
   done
@@ -168,12 +172,11 @@ the desired shared configuration:
 ```
 
 Review the encrypted-file diff, document the captured version/counts, and update the
-template's minimum version when capturing from a newer app. Preserve
-the no-history requirement: inspect SoundSource device-selection history before
-refreshing; if nonempty, obtain a safe export procedure rather than archiving it or
-editing proprietary model structures. Do not recapture old migrations or directories.
-Passwords, tokens, licences, private keys, history and decrypted exports must not be
-committed. Do not export the Keychain. Plaintext stays outside the Dropbox checkout.
+template's minimum version when capturing from a newer app. Capture the selected files
+whole; do not filter or modify their contents. Separate caches, logs, obsolete files
+and whole containers remain outside the capture list. Never commit passwords, tokens,
+licences, private keys or decrypted exports in plaintext. Do not export the Keychain.
+Plaintext preparation stays outside the Dropbox checkout and is deleted afterward.
 
 ### Native exports: OpenIn and populated TablePlus connections
 
@@ -222,7 +225,8 @@ files in isolated temporary destinations. Preference operations and process chec
 are mocked; the tests cannot import preferences into the real macOS account. They
 cover selection, shared files, missing-then-added captures, opt-in protection,
 decryption/validation failures before any replacement, backups, repeats, symlinks,
-preference rollback/merging and compatibility with the repaired helper's old calls.
+whole-plist replacement, preference rollback and compatibility with the repaired
+helper's old calls.
 
 No bootstrap, live apply/update, setting import, app restart, push or merge was used
 for implementation. Fresh-Mac checks remain: Bartender 7 layouts, native imports,
