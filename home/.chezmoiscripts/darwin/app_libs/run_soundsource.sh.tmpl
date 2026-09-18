@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+{{ $pre := "desktop." -}}
+{{ if hasPrefix "MacBook" .chezmoi.hostname -}}
+{{ $pre = "laptop." -}}
+{{ end -}}
+source "{{ .include }}"
+src="{{ .filesDir }}/prefs/SoundSource"
+pls="com.rogueamoeba.soundsource.plist"
+dst="$HOME/Library/Application Support/SoundSource"
+restore_app_libs SoundSource 6.1.4 \
+  "${src}/{{ $pre }}${pls}.asc" "$HOME/Library/Preferences/${pls}" \
+  "${src}/{{ $pre }}Models.v2.plist.asc" "${dst}/Models.v2.plist" \
+  "${src}/{{ $pre }}Presets.v2.plist.asc" "${dst}/Presets.v2.plist"

@@ -87,9 +87,18 @@ function replace_icons() {
 # Optional is only for intentional omissions; required failures must reach chezmoi.
 function replace_lib() (
   local src=$1 dst=$2 app=$3 lib=$4 dec=${5:-false} requirement=${6:-required}
+  local prefs_mode=${7:-replace}
   local bundle tmp='' backup='' running
   if [[ "${requirement}" != required && "${requirement}" != optional ]]; then
     print -u2 -- "Invalid restoration requirement: ${requirement}"
+    return 1
+  fi
+  if [[ "${prefs_mode}" != replace && "${prefs_mode}" != merge ]]; then
+    print -u2 -- "Invalid preference restoration mode: ${prefs_mode}"
+    return 1
+  fi
+  if [[ "${prefs_mode}" == merge && "${dst}" != "$HOME/Library/Preferences/"*.plist ]]; then
+    print -u2 -- "Preference merging requires a user preference plist"
     return 1
   fi
   if [[ ! -f "${src}" ]] || ! bundle=$(app_path "${app}"); then
@@ -110,7 +119,14 @@ function replace_lib() (
     running=$?
     [[ ${running} -eq 1 ]] || return "${running}"
   fi
-  if [[ -L "${dst}" || ( -e "${dst}" && ! -f "${dst}" ) ]]; then
+  local parent
+  for parent in "${src}" "${dst}"; do
+    while [[ "${parent}" != / && "${parent}" != . ]]; do
+      [[ ! -L "${parent}" ]] || { print -u2 -- "Refusing a symlink in a library path"; return 1; }
+      parent=${parent:h}
+    done
+  done
+  if [[ -e "${dst}" && ! -f "${dst}" ]]; then
     print -u2 -- "Refusing to replace non-regular destination: ${dst}"
     return 1
   fi
@@ -118,7 +134,7 @@ function replace_lib() (
   umask 077
   mkdir -p "${dst:h}" || return 1
   tmp=$(mktemp "${dst:h}/.chezmoi-restore.XXXXXX") || return 1
-  trap 'rm -f -- "${tmp}"' EXIT
+  trap 'rm -f -- "${tmp}" "${tmp}.current" "${tmp}.merged"' EXIT
   trap 'exit 1' HUP INT TERM
   if [[ "${dec}" == true ]]; then
     if ! chezmoi decrypt "${src}" > "${tmp}"; then
@@ -139,12 +155,41 @@ function replace_lib() (
       return 1
     }
   fi
+  if [[ "${prefs_mode}" == merge && -f "${dst}" ]]; then
+    defaults export "${lib%.plist}" "${tmp}.current" >/dev/null 2>&1 || return 1
+    # Selective captures must not erase licenses or unrelated existing preferences.
+    # TablePlus nests its general settings together with history/security settings.
+    if ! python3 - "${tmp}.current" "${tmp}" "${lib}" > "${tmp}.merged" 2>/dev/null <<'PY'
+import plistlib, sys
+with open(sys.argv[1], 'rb') as f:
+    current = plistlib.load(f)
+with open(sys.argv[2], 'rb') as f:
+    incoming = plistlib.load(f)
+if sys.argv[3] == 'com.tinyapp.TablePlus.plist' and 'ViewSetting' in incoming:
+    incoming['ViewSetting'] = dict(current.get('ViewSetting', {}), **incoming['ViewSetting'])
+current.update(incoming)
+sys.stdout.buffer.write(plistlib.dumps(current))
+PY
+    then
+      print -u2 -- "Could not merge ${lib}; existing settings were left untouched"
+      return 1
+    fi
+    mv -f "${tmp}.merged" "${tmp}" || return 1
+  fi
   chmod 600 "${tmp}" || return 1
+  if [[ -f "${dst}" ]] && cmp -s "${tmp}" "${dst}"; then
+    return 0
+  fi
   if [[ -f "${dst}" ]]; then
     chown "$(stat -f '%u:%g' "${dst}")" "${tmp}" || return 1
     # Retain the existing backup convention, but only after preparation succeeds.
     backup=$(mktemp "${dst}.chezmoi.$(date +%Y%m%d%H%M%S).XXXXXX") || return 1
-    cp -p "${dst}" "${backup}" || return 1
+    if [[ -f "${tmp}.current" ]]; then
+      cp "${tmp}.current" "${backup}" || return 1
+    else
+      cp -p "${dst}" "${backup}" || return 1
+    fi
+    chmod 600 "${backup}" || return 1
   fi
   echo "Updating ${lib}..."
   if [[ "${dst}" == "$HOME/Library/Preferences/"*.plist ]]; then
@@ -162,6 +207,80 @@ function replace_lib() (
   else
     # Staging beside the destination makes replacement an atomic rename.
     mv -f "${tmp}" "${dst}" || return 1
+  fi
+)
+
+# Opt-in restoration for the five new apps; replacements still go through replace_lib.
+# Arguments: application, captured version, then encrypted-source/destination pairs.
+# Ordinary run_ scripts remain eligible after a missing-file skip, without overwriting apps.
+function restore_app_libs() (
+  local app=$1 minimum=$2
+  shift 2
+  (( $# > 0 && $# % 2 == 0 )) || { print -u2 -- "Expected source/destination pairs"; return 1; }
+  local -a sources destinations staged
+  while (( $# )); do
+    sources+=("$1")
+    destinations+=("$2")
+    shift 2
+  done
+  local src dst item tmp='' bundle version processes pattern mode index
+  for src in "${sources[@]}"; do
+    if [[ ! -f "${src}" ]]; then
+      print -u2 -- "Skipping ${app}: missing ${src}. Capture on the matching Mac; see docs/app-preferences.md. Existing settings untouched."
+      return 0
+    fi
+  done
+  if [[ "${DOTFILES_RESTORE_APP:-}" != "${app}" ]]; then
+    print -- "${app}: snapshot available; restore explicitly as documented in docs/app-preferences.md."
+    return 0
+  fi
+  bundle=$(app_path "${app}") || { print -u2 -- "Install ${app} before restoring"; return 1; }
+  version=$(defaults read "${bundle}/Contents/Info.plist" CFBundleShortVersionString) || return 1
+  [[ "${version%%.*}" == "${minimum%%.*}" ]] || { print -u2 -- "${app} storage needs review for this version"; return 1; }
+  autoload -Uz is-at-least
+  is-at-least "${minimum}" "${version}" || { print -u2 -- "Install ${app} ${minimum} or newer before restoring"; return 1; }
+  # Look at executable names, not argv (which can include credentials).
+  processes=$(ps -axo comm=) || return 1
+  case "${app}" in
+    'Bartender 7') pattern='bartender|menubaragent|notchbar' ;;
+    Loopback) pattern='loopback|arkaudiod|aceagent' ;;
+    SoundSource) pattern='soundsource|arkaudiod|aceagent' ;;
+    TablePlus) pattern='tableplus' ;;
+    *) print -u2 -- "No reviewed restoration policy for ${app}"; return 1 ;;
+  esac
+  if [[ "${(L)processes}" =~ ${pattern} ]]; then
+    print -u2 -- "Quit ${app} and its background helpers first; nothing was terminated. See docs/app-preferences.md."
+    return 1
+  fi
+  # Validate every path and prepare every decrypted plist before any replacement.
+  for item in "${sources[@]}" "${destinations[@]}"; do
+    [[ ! -e "${item}" || -f "${item}" ]] || { print -u2 -- "Non-regular library file"; return 1; }
+    while [[ "${item}" != / && "${item}" != . ]]; do
+      [[ ! -L "${item}" ]] || { print -u2 -- "Symlink in library path"; return 1; }
+      item=${item:h}
+    done
+  done
+  umask 077
+  tmp=$(mktemp -d /private/tmp/chezmoi-prefs.XXXXXX) || return 1
+  trap 'rm -rf -- "${tmp}"' EXIT
+  trap 'exit 1' HUP INT TERM
+  for (( index=1; index <= ${#sources}; index++ )); do
+    dst="${tmp}/${index}.plist"
+    if ! chezmoi decrypt "${sources[index]}" > "${dst}" 2>/dev/null; then
+      print -u2 -- "Decryption failed for ${app}; existing settings untouched"
+      return 1
+    fi
+    plutil -lint "${dst}" >/dev/null 2>&1 || { print -u2 -- "Invalid ${app} plist; existing settings untouched"; return 1; }
+    staged+=("${dst}")
+  done
+  for (( index=1; index <= ${#sources}; index++ )); do
+    dst="${destinations[index]}"
+    mode=replace
+    [[ "${dst}" != "$HOME/Library/Preferences/"*.plist ]] || mode=merge
+    replace_lib "${staged[index]}" "${dst}" "${app}" "${dst:t}" false required "${mode}" || return 1
+  done
+  if [[ "${app}" == Loopback || "${app}" == SoundSource ]]; then
+    print -- "Verify/reselect device references, application sources, effects and monitors before using audio."
   fi
 )
 

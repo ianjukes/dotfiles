@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+{{ $pre := "desktop." -}}
+{{ if hasPrefix "MacBook" .chezmoi.hostname -}}
+{{ $pre = "laptop." -}}
+{{ end -}}
+source "{{ .include }}"
+src="{{ .filesDir }}/prefs/Loopback"
+pls="com.rogueamoeba.Loopback.plist"
+restore_app_libs Loopback 2.5.0 \
+  "${src}/{{ $pre }}${pls}.asc" "$HOME/Library/Preferences/${pls}" \
+  "${src}/{{ $pre }}Devices.plist.asc" "$HOME/Library/Application Support/Loopback/Devices.plist"

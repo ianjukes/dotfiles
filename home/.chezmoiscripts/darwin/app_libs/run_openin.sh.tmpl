@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+
+if [[ -f "{{ .filesDir }}/prefs/OpenIn/settings.openin-backup.asc" ]]; then
+  print -- 'OpenIn: native export available; import explicitly using docs/app-preferences.md.'
+else
+  print -- 'OpenIn: history-free native export still needed. See docs/app-preferences.md; existing settings untouched.'
+fi

@@ -33,3 +33,11 @@ A previously bootstrapped machine can be updated at anytime with:
     chezmoi update
 
 This will pull the latest updates from this repository and apply them locally.
+
+### Application preferences
+
+Bartender, Loopback, SoundSource and TablePlus use encrypted plists under
+`.files/prefs`, restored through the existing `replace_lib` helper. Their new scripts
+require explicit opt-in, so updates do not overwrite app changes. OpenIn remains
+pending a history-free native export. See [capture and restore instructions](docs/app-preferences.md)
+for machine selection, missing desktop captures, native imports and first-launch checks.
