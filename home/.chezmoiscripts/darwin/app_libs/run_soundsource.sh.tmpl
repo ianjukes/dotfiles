@@ -2,15 +2,21 @@
 set -eufo pipefail
 IFS=$'\n\t'
 
+{{/* differentiate between laptop and desktop */ -}}
 {{ $pre := "desktop." -}}
 {{ if hasPrefix "MacBook" .chezmoi.hostname -}}
-{{ $pre = "laptop." -}}
+{{   $pre = "laptop." -}}
 {{ end -}}
+
 source "{{ .include }}"
-src="{{ .filesDir }}/prefs/SoundSource"
+
+app="SoundSource"
+
 pls="com.rogueamoeba.soundsource.plist"
-dst="$HOME/Library/Application Support/SoundSource"
-restore_app_libs SoundSource 6.1.4 \
+src="{{ .filesDir }}/prefs/${app}"
+dst="$HOME/Library/Application Support/${app}"
+
+replace_lib "${app}" "6.1.4" "soundsource|arkaudiod|aceagent" "${dst}" \
   "${src}/{{ $pre }}${pls}.asc" "$HOME/Library/Preferences/${pls}" \
   "${src}/{{ $pre }}Models.v2.plist.asc" "${dst}/Models.v2.plist" \
   "${src}/{{ $pre }}Presets.v2.plist.asc" "${dst}/Presets.v2.plist"

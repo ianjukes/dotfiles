@@ -1,0 +1,28 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+{{/* differentiate between laptop and desktop */ -}}
+{{ $pre := "desktop." -}}
+{{ if hasPrefix "MacBook" .chezmoi.hostname -}}
+{{   $pre = "laptop." -}}
+{{ end -}}
+
+{{ $prefs := print ".files/prefs/HuionTablet/" $pre "com.huion.HuionTablet.plist" -}}
+{{ $shared := ".files/prefs/HuionTablet/com.huion.HuionTablet.plist" -}}
+{{/* fall back to a shared snapshot if available */ -}}
+{{ if and (not (stat (joinPath .chezmoi.sourceDir $prefs))) (stat (joinPath .chezmoi.sourceDir $shared)) -}}
+{{   $pre = "" -}}
+{{ end -}}
+
+source "{{ .include }}"
+
+app="HuionTablet"
+
+pls="com.huion.HuionTablet.plist"
+cfg="HUION_M22d.cfg"
+src="{{ .filesDir }}/prefs/${app}"
+
+replace_lib "${app}" - "huion" "" \
+  "${src}/{{ $pre }}${pls}" "$HOME/Library/Preferences/${pls}" \
+  "${src}/${cfg}" "$HOME/Library/Application Support/HuionTablet/${cfg}"

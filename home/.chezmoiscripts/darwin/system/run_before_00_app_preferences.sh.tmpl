@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+# Enrol apps during bootstrap, before installation or restoration can fail
+# Leave existing Macs untouched during ordinary applies
+[[ "${DOTFILES_INITIAL_SETUP:-}" == 1 ]] || exit 0
+
+source "{{ .include }}"
+
+# Run the app scripts in enrolment-only mode
+export DOTFILES_PREFS_ENROL_ONLY=1
+
+{{ $context := . -}}
+{{ range glob (joinPath .chezmoi.sourceDir ".chezmoiscripts/darwin/app_libs/run_*.sh.tmpl") }}
+(
+{{ includeTemplate (trimPrefix (print $context.chezmoi.sourceDir "/") .) $context }}
+)
+{{ end -}}

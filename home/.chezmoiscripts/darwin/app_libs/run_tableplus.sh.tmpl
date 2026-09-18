@@ -3,15 +3,23 @@ set -eufo pipefail
 IFS=$'\n\t'
 
 source "{{ .include }}"
-src="{{ .filesDir }}/prefs/TablePlus"
+
+app="TablePlus"
+
 pls="com.tinyapp.TablePlus.plist"
+src="{{ .filesDir }}/prefs/${app}"
 dst="$HOME/Library/Application Support/com.tinyapp.TablePlus/Data"
+
 if [[ -f "${src}/connections.tableplusconnection.asc" ]]; then
-  restore_app_libs TablePlus 26.10.20 "${src}/${pls}.asc" "$HOME/Library/Preferences/${pls}"
-  print -- 'TablePlus connections: use the native import procedure in docs/app-preferences.md.'
+  replace_lib "${app}" "26.10.20" "tableplus" "" \
+    "${src}/${pls}.asc" "$HOME/Library/Preferences/${pls}"
+
+  if [[ "${DOTFILES_PREFS_ENROL_ONLY:-}" != 1 ]]; then
+    print -- "TablePlus connections: use the native import procedure in docs/app-preferences.md."
+  fi
 else
-  # These two plists capture the verified empty lists. Use native exports once populated.
-  restore_app_libs TablePlus 26.10.20 \
+  # Restore the empty lists; use native exports once connections are populated
+  replace_lib "${app}" "26.10.20" "tableplus" "" \
     "${src}/${pls}.asc" "$HOME/Library/Preferences/${pls}" \
     "${src}/Connections.plist.asc" "${dst}/Connections.plist" \
     "${src}/ConnectionGroups.plist.asc" "${dst}/ConnectionGroups.plist"

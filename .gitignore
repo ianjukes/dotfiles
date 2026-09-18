@@ -36,3 +36,8 @@ Temporary Items
 
 # History
 .history/
+
+test/*
+
+# Local tests
+/tests/

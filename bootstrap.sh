@@ -38,7 +38,7 @@ if ! command -v chezmoi &>/dev/null; then
   brew install chezmoi
 fi
 
-# 5) Initialize chezmoi and apply your dotfiles
+# 5) Initialize chezmoi and enrol saved app preferences for this new Mac
 echo "Initializing configuration with chezmoi..."
 echo "You may be prompted for a password"
-chezmoi init ianjukes --apply
+DOTFILES_INITIAL_SETUP=1 chezmoi init ianjukes --apply

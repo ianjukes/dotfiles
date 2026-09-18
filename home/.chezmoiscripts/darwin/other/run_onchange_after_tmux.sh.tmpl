@@ -15,12 +15,15 @@ if [[ -L "${dst}" || ( -e "${dst}" && ! -f "${dst}" ) ]]; then
   print -u2 -- "Refusing to replace non-regular tmux script: ${dst}"
   exit 1
 fi
+
 mkdir -p "${dst:h}"
 tmp=$(mktemp "${dst:h}/.cwd.sh.XXXXXX")
 trap 'rm -f -- "${tmp}"' EXIT
 trap 'exit 1' HUP INT TERM
+
 cp -p "${src}" "${tmp}"
 sed -i '' "s|cwd=\"\${path/\"\$HOME\"/'~'}|cwd=\"\${path/\"\$HOME\"/~}|g" "${tmp}"
+
 if [[ ! -f "${dst}" ]] || ! cmp -s "${tmp}" "${dst}"; then
   mv -f "${tmp}" "${dst}"
 fi

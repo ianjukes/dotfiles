@@ -1,0 +1,30 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+IFS=$'\n\t'
+
+{{/* differentiate between laptop and desktop */ -}}
+{{ $pre := "desktop." -}}
+{{ if hasPrefix "MacBook" .chezmoi.hostname -}}
+{{   $pre = "laptop." -}}
+{{ end -}}
+
+{{ $prefs := print ".files/prefs/Moom/" $pre "com.manytricks.Moom.plist" -}}
+{{ $shared := ".files/prefs/Moom/com.manytricks.Moom.plist" -}}
+{{/* fall back to a shared snapshot if available */ -}}
+{{ if and (not (stat (joinPath .chezmoi.sourceDir $prefs))) (stat (joinPath .chezmoi.sourceDir $shared)) -}}
+{{   $pre = "" -}}
+{{ end -}}
+
+source "{{ .include }}"
+
+app="Moom"
+
+pls="com.manytricks.Moom.plist"
+src="{{ .filesDir }}/prefs/${app}"
+dst="$HOME/Library/Application Support/Many Tricks/Licenses"
+
+replace_lib "${app}" - "moom" "" \
+  "${src}/{{ $pre }}${pls}" "$HOME/Library/Preferences/${pls}" \
+  "${src}/Ian Jukes.moomlicense.asc" "${dst}/Ian Jukes.moomlicense" \
+  "${src}/Ian Jukes.moomupgradelicense.asc" "${dst}/Ian Jukes.moomupgradelicense" \
+  "${src}/Ian Jukes.moomcombolicense.asc" "${dst}/Ian Jukes.moomcombolicense"

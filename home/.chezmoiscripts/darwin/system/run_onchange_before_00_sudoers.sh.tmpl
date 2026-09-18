@@ -4,10 +4,12 @@ IFS=$'\n\t'
 
 {{ $enc := print .filesDir "/etc/encrypted_nopasswd.asc" -}}
 {{ $out := "/etc/sudoers.d/nopasswd" -}}
+
 # Policy asset (encrypted): {{ include ".files/etc/encrypted_nopasswd.asc" | sha256sum }}
 
 out="{{ $out }}"
-# Preserve the existing install-only policy; never replace an installed policy.
+
+# Preserve an existing policy
 if [[ -L "${out}" || ( -e "${out}" && ! -f "${out}" ) ]]; then
   print -u2 -- "Refusing non-regular sudoers destination: ${out}"
   exit 1
@@ -16,14 +18,16 @@ fi
 
 umask 077
 tmp=$(mktemp -d)
-staged=''
+staged=""
 trap 'rm -rf -- "${tmp}"; if [[ -n "${staged}" ]]; then sudo rm -f -- "${staged}"; fi' EXIT
 trap 'exit 1' HUP INT TERM
+
 if ! chezmoi decrypt "{{ $enc }}" > "${tmp}/policy"; then
   print -u2 -- "Sudoers decryption failed; nothing was installed"
   exit 1
 fi
-# Do not print policy contents, including in validation diagnostics.
+
+# Validate the policy without printing its contents
 if [[ ! -s "${tmp}/policy" ]] || ! visudo -cf "${tmp}/policy" >/dev/null 2>&1; then
   print -u2 -- "Sudoers validation failed; nothing was installed"
   exit 1
@@ -33,9 +37,11 @@ echo "Installing validated sudoers policy (which may request your password)..."
 sudo mkdir -p -m 0755 "${out:h}"
 staged=$(sudo mktemp "${out:h}/.chezmoi-sudoers.XXXXXX")
 sudo install -o root -g wheel -m 0440 "${tmp}/policy" "${staged}"
+
 if ! sudo visudo -cf "${staged}" >/dev/null 2>&1; then
   print -u2 -- "Staged sudoers validation failed; nothing was installed"
   exit 1
 fi
-# Atomic, exclusive creation: a concurrent installation is never overwritten.
+
+# Create the policy without overwriting a concurrent installation
 sudo ln "${staged}" "${out}"

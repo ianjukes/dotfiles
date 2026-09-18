@@ -2,9 +2,9 @@
 set -eufo pipefail
 IFS=$'\n\t'
 
-# Locate user-installed apps and macOS system utilities.
 function app_path() {
   local app=$1 root
+  # Locate the application
   for root in /Applications /System/Applications /System/Applications/Utilities; do
     if [[ -d "${root}/${app}.app" ]]; then
       print -r -- "${root}/${app}.app"
@@ -44,7 +44,7 @@ function replace() {
   if [[ -f "${dst}" ]] && cmp -s "${src}" "${dst}"; then
     return 1
   fi
-  # An absent icon has no metadata to preserve. Use its source metadata.
+  # Preserve destination metadata, or use source metadata for a new file
   if [[ -e "${dst}" ]]; then
     [[ -f "${dst}" ]] || return 1
     own=$(sudo stat -f '%u' "${dst}") || return 1
@@ -84,168 +84,265 @@ function replace_icons() {
   return $res
 }
 
-# Optional is only for intentional omissions; required failures must reach chezmoi.
-function replace_lib() (
-  local src=$1 dst=$2 app=$3 lib=$4 dec=${5:-false} requirement=${6:-required}
-  local bundle tmp='' backup='' running
-  if [[ "${requirement}" != required && "${requirement}" != optional ]]; then
-    print -u2 -- "Invalid restoration requirement: ${requirement}"
-    return 1
-  fi
-  if [[ ! -f "${src}" ]] || ! bundle=$(app_path "${app}"); then
-    if [[ "${requirement}" == optional ]]; then
-      print -u2 -- "Skipping optional ${lib}: source or application is absent"
-      return 0
-    fi
-    print -u2 -- "Cannot restore ${lib}: required source (${src}) or application (${app}) is absent"
-    return 1
-  fi
-  # Escape the bundle path for pgrep's regular expression; do not quit apps for the user.
-  local pattern
-  pattern=$(print -r -- "${bundle}/Contents/MacOS/" | sed 's/[][\\.^$*+?(){}|]/\\&/g') || return 1
-  if pgrep -u "$(id -u)" -f "${pattern}" >/dev/null; then
-    print -u2 -- "Quit ${app} before restoring ${lib}, then run chezmoi apply again."
-    return 1
-  else
-    running=$?
-    [[ ${running} -eq 1 ]] || return "${running}"
-  fi
-  local parent
-  for parent in "${src}" "${dst}"; do
-    while [[ "${parent}" != / && "${parent}" != . ]]; do
-      [[ ! -L "${parent}" ]] || { print -u2 -- "Refusing a symlink in a library path"; return 1; }
-      parent=${parent:h}
-    done
-  done
-  if [[ -e "${dst}" && ! -f "${dst}" ]]; then
-    print -u2 -- "Refusing to replace non-regular destination: ${dst}"
-    return 1
-  fi
+function app_preference_state() (
+  # Read or record restoration state without resetting completed apps
+  (( $# >= 1 && $# <= 2 )) || return 1
+  local app=$1 next=${2:-} current="unmanaged" item tmp=""
 
-  umask 077
-  mkdir -p "${dst:h}" || return 1
-  tmp=$(mktemp "${dst:h}/.chezmoi-restore.XXXXXX") || return 1
-  trap 'rm -f -- "${tmp}"' EXIT
-  trap 'exit 1' HUP INT TERM
-  if [[ "${dec}" == true ]]; then
-    if ! chezmoi decrypt "${src}" > "${tmp}"; then
-      print -u2 -- "Decryption failed for ${lib}; existing settings were left untouched"
-      return 1
-    fi
-  elif [[ "${dec}" == false ]]; then
-    cp "${src}" "${tmp}" || return 1
-  else
-    print -u2 -- "Invalid encryption flag for ${lib}: ${dec}"
+  # Validate the app name and requested state
+  [[ -n "${app}" && "${app}" != */* && "${app}" != . && "${app}" != .. ]] || return 1
+  [[ -z "${next}" || "${next}" == pending || "${next}" == complete ]] || return 1
+
+  # Check the state directory and file
+  local directory="${XDG_STATE_HOME:-$HOME/.local/state}/chezmoi/app-preferences"
+  local record="${directory}/${app}"
+  [[ "${directory}" == /* ]] || {
+    print -u2 -- "Application preference state must use an absolute path"
     return 1
-  fi
-  [[ -s "${tmp}" ]] || { print -u2 -- "Empty replacement for ${lib}"; return 1; }
-  if [[ "${dst}" == *.plist ]]; then
-    # Suppress diagnostics that could include decrypted preference values.
-    plutil -lint "${tmp}" >/dev/null 2>&1 || {
-      print -u2 -- "Invalid preference plist for ${lib}; existing settings were left untouched"
+  }
+  item="${directory}"
+  while [[ "${item}" != / && "${item}" != . ]]; do
+    [[ ! -L "${item}" && ( ! -e "${item}" || -d "${item}" ) ]] || {
+      print -u2 -- "Unsafe application preference state directory"
+      return 1
+    }
+    item=${item:h}
+  done
+  [[ ! -L "${record}" && ( ! -e "${record}" || -f "${record}" ) ]] || {
+    print -u2 -- "Unsafe application preference state for ${app}"
+    return 1
+  }
+
+  # Read the current state
+  if [[ -f "${record}" ]]; then
+    current=$(cat "${record}") || return 1
+    [[ "${current}" == pending || "${current}" == complete ]] || {
+      print -u2 -- "Invalid application preference state for ${app}; settings untouched"
       return 1
     }
   fi
-  chmod 600 "${tmp}" || return 1
-  if [[ -f "${dst}" ]] && cmp -s "${tmp}" "${dst}"; then
-    return 0
-  fi
-  if [[ -f "${dst}" ]]; then
-    chown "$(stat -f '%u:%g' "${dst}")" "${tmp}" || return 1
-    # Retain the existing backup convention, but only after preparation succeeds.
-    backup=$(mktemp "${dst}.chezmoi.$(date +%Y%m%d%H%M%S).XXXXXX") || return 1
-    cp -p "${dst}" "${backup}" || return 1
-    chmod 600 "${backup}" || return 1
-  fi
-  echo "Updating ${lib}..."
-  if [[ "${dst}" == "$HOME/Library/Preferences/"*.plist ]]; then
-    # Go through cfprefsd instead of copying a plist behind its cache.
-    if ! defaults import "${lib%.plist}" "${tmp}" >/dev/null 2>&1; then
-      print -u2 -- "Preference import failed for ${lib}; retry after checking the app is closed"
-      if [[ -n "${backup}" ]]; then
-        defaults import "${lib%.plist}" "${backup}" >/dev/null 2>&1 || {
-          print -u2 -- "Could not roll back ${lib}; original retained at ${backup}"
-        }
-      fi
-      return 1
+
+  # Create a pending record, or record successful restoration
+  if [[ -n "${next}" && "${next}" != "${current}" &&
+        ( "${next}" == complete || "${current}" == unmanaged ) ]]; then
+    umask 077
+    mkdir -p "${directory}" || return 1
+    chmod 700 "${directory}" || return 1
+    tmp=$(mktemp "${directory}/.state.XXXXXX") || return 1
+    trap 'rm -f -- "${tmp}"' EXIT
+    trap 'exit 1' HUP INT TERM
+
+    print -r -- "${next}" > "${tmp}" || return 1
+    chmod 600 "${tmp}" || return 1
+    if [[ "${next}" == pending ]]; then
+      # Do not overwrite a completion record created by another invocation
+      ln "${tmp}" "${record}" || return 1
+    else
+      mv -f "${tmp}" "${record}" || return 1
     fi
-    chmod 600 "${dst}" || return 1
-  else
-    # Staging beside the destination makes replacement an atomic rename.
-    mv -f "${tmp}" "${dst}" || return 1
+    current="${next}"
   fi
+  print -r -- "${current}"
 )
 
-# Opt-in restoration for the five new apps; replacements still go through replace_lib.
-# Arguments: application, captured version, then encrypted-source/destination pairs.
-# Ordinary run_ scripts remain eligible after a missing-file skip, without overwriting apps.
-function restore_app_libs() (
-  local app=$1 minimum=$2
-  shift 2
-  (( $# > 0 && $# % 2 == 0 )) || { print -u2 -- "Expected source/destination pairs"; return 1; }
+function replace_lib() (
+  # Arguments: app, minimum version ("-" if unrecorded), process pattern,
+  # first-launch path (empty if unnecessary), then source/destination pairs
+  (( $# >= 6 && ($# - 4) % 2 == 0 )) || {
+    print -u2 -- "Expected app, minimum version, process pattern, first-launch path and source/destination pairs"
+    return 1
+  }
+  local app=$1 minimum=$2 pattern=$3 ready=$4
+  shift 4
+
+  # Validate the app and prerequisites
+  [[ -n "${app}" && "${app}" != */* && "${app}" != . && "${app}" != .. ]] || {
+    print -u2 -- "Invalid application"
+    return 1
+  }
+  [[ "${minimum}" == - || "${minimum}" =~ '^[0-9]+([.][0-9]+)*$' ]] || {
+    print -u2 -- "Invalid minimum application version"
+    return 1
+  }
+  [[ -z "${ready}" || "${ready}" == /* ]] || {
+    print -u2 -- "Expected an absolute first-launch path"
+    return 1
+  }
+  local pattern_status=0
+  /usr/bin/grep -Eq -e "${pattern}" /dev/null 2>/dev/null || pattern_status=$?
+  (( pattern_status <= 1 )) || {
+    print -u2 -- "Invalid application process pattern"
+    return 1
+  }
+
+  # Collect the source and destination pairs
   local -a sources destinations staged
   while (( $# )); do
+    [[ "$1" == /* && "$2" == /* && "$1" != "$2" ]] || {
+      print -u2 -- "Expected distinct absolute source and destination paths"
+      return 1
+    }
+    [[ ${destinations[(Ie)$2]} -eq 0 ]] || {
+      print -u2 -- "Duplicate restoration destination"
+      return 1
+    }
     sources+=("$1")
     destinations+=("$2")
     shift 2
   done
-  local src dst item tmp='' bundle version processes pattern index
+
+  local src dst item bundle version processes executable index backup
+  local staging="" tmp="" restore_state prerequisite_status=0
+
+  # Enrol apps before bootstrap starts installation
+  if [[ "${DOTFILES_PREFS_ENROL_ONLY:-}" == 1 ]]; then
+    [[ "${DOTFILES_INITIAL_SETUP:-}" == 1 ]] || return 1
+    app_preference_state "${app}" pending >/dev/null
+    return $?
+  fi
+
+  # Restore pending apps, or the app explicitly requested
+  restore_state=$(app_preference_state "${app}") || return 1
+  if [[ -n "${DOTFILES_RESTORE_APP:-}" ]]; then
+    [[ "${DOTFILES_RESTORE_APP}" == "${app}" ]] || return 0
+    prerequisite_status=1
+  elif [[ "${restore_state}" != pending ]]; then
+    # Leave existing Macs without a record untouched
+    return 0
+  fi
+
+  # Check that every snapshot is available
   for src in "${sources[@]}"; do
-    if [[ ! -f "${src}" ]]; then
-      print -u2 -- "Skipping ${app}: missing ${src}. Capture on the matching Mac; see docs/app-preferences.md. Existing settings untouched."
+    if [[ ! -e "${src}" && ! -L "${src}" ]]; then
+      print -u2 -- "Skipping ${app}: missing ${src}. Capture the appropriate snapshot; existing settings untouched."
       return 0
     fi
   done
-  if [[ "${DOTFILES_RESTORE_APP:-}" != "${app}" ]]; then
-    print -- "${app}: snapshot available; restore explicitly as documented in docs/app-preferences.md."
-    return 0
+
+  # Check the installed application and version
+  bundle=$(app_path "${app}") || {
+    print -u2 -- "${app}: restoration pending; install the app, then run chezmoi apply again."
+    return "${prerequisite_status}"
+  }
+  if [[ "${minimum}" != - ]]; then
+    version=$(defaults read "${bundle}/Contents/Info.plist" CFBundleShortVersionString) || return 1
+    [[ "${version%%.*}" == "${minimum%%.*}" ]] || {
+      print -u2 -- "${app}: restoration pending; storage needs review for this version."
+      return "${prerequisite_status}"
+    }
+    autoload -Uz is-at-least
+    is-at-least "${minimum}" "${version}" || {
+      print -u2 -- "${app}: restoration pending; install ${minimum} or newer within the reviewed major version."
+      return "${prerequisite_status}"
+    }
   fi
-  bundle=$(app_path "${app}") || { print -u2 -- "Install ${app} before restoring"; return 1; }
-  version=$(defaults read "${bundle}/Contents/Info.plist" CFBundleShortVersionString) || return 1
-  [[ "${version%%.*}" == "${minimum%%.*}" ]] || { print -u2 -- "${app} storage needs review for this version"; return 1; }
-  autoload -Uz is-at-least
-  is-at-least "${minimum}" "${version}" || { print -u2 -- "Install ${app} ${minimum} or newer before restoring"; return 1; }
-  # Look at executable names, not argv (which can include credentials).
+
+  # Check for running writers without reading private command arguments
   processes=$(ps -axo comm=) || return 1
-  case "${app}" in
-    'Bartender 7') pattern='bartender|menubaragent|notchbar' ;;
-    Loopback) pattern='loopback|arkaudiod|aceagent' ;;
-    SoundSource) pattern='soundsource|arkaudiod|aceagent' ;;
-    TablePlus) pattern='tableplus' ;;
-    *) print -u2 -- "No reviewed restoration policy for ${app}"; return 1 ;;
-  esac
-  if [[ "${(L)processes}" =~ ${pattern} ]]; then
-    print -u2 -- "Quit ${app} and its background helpers first; nothing was terminated. See docs/app-preferences.md."
-    return 1
-  fi
-  # Validate every path and prepare every decrypted plist before any replacement.
+  for executable in "${(@f)processes}"; do
+    if [[ "${executable}" == "${bundle}/"* ]] ||
+       [[ -n "${pattern}" && "${(L)executable}" =~ ${pattern} ]]; then
+      print -u2 -- "${app}: restoration pending; quit the app and its background helpers, then run chezmoi apply again. Nothing was terminated."
+      return "${prerequisite_status}"
+    fi
+  done
+
+  # Validate every path before preparing replacements
   for item in "${sources[@]}" "${destinations[@]}"; do
-    [[ ! -e "${item}" || -f "${item}" ]] || { print -u2 -- "Non-regular library file"; return 1; }
+    [[ ! -e "${item}" || -f "${item}" ]] || {
+      print -u2 -- "Non-regular library file"
+      return 1
+    }
     while [[ "${item}" != / && "${item}" != . ]]; do
-      [[ ! -L "${item}" ]] || { print -u2 -- "Symlink in library path"; return 1; }
+      [[ ! -L "${item}" ]] || {
+        print -u2 -- "Symlink in library path"
+        return 1
+      }
       item=${item:h}
     done
   done
+
+  # Check the first-launch indicator
+  if [[ -n "${ready}" && ! -e "${ready}" ]]; then
+    print -u2 -- "${app}: restoration pending; launch it once, complete its setup, then quit it and run chezmoi apply again. See docs/app-preferences.md."
+    return "${prerequisite_status}"
+  fi
+
+  # Prepare a private temporary directory
   umask 077
-  tmp=$(mktemp -d /private/tmp/chezmoi-prefs.XXXXXX) || return 1
-  trap 'rm -rf -- "${tmp}"' EXIT
+  staging=$(mktemp -d /private/tmp/chezmoi-prefs.XXXXXX) || return 1
+  trap 'rm -f -- "${tmp}"; rm -rf -- "${staging}"' EXIT
   trap 'exit 1' HUP INT TERM
+
+  # Prepare and validate all files before replacing any destination
   for (( index=1; index <= ${#sources}; index++ )); do
-    dst="${tmp}/${index}.plist"
-    if ! chezmoi decrypt "${sources[index]}" > "${dst}" 2>/dev/null; then
-      print -u2 -- "Decryption failed for ${app}; existing settings untouched"
-      return 1
+    src="${sources[index]}"
+    dst="${staging}/${index}"
+    if [[ "${src}" == *.asc ]]; then
+      if ! chezmoi decrypt "${src}" > "${dst}" 2>/dev/null; then
+        print -u2 -- "Decryption failed for ${app}; existing settings untouched"
+        return 1
+      fi
+    else
+      cp "${src}" "${dst}" || return 1
     fi
-    plutil -lint "${dst}" >/dev/null 2>&1 || { print -u2 -- "Invalid ${app} plist; existing settings untouched"; return 1; }
+    [[ -s "${dst}" ]] || {
+      print -u2 -- "Empty replacement for ${app}"
+      return 1
+    }
+    if [[ "${destinations[index]}" == *.plist ]]; then
+      plutil -lint "${dst}" >/dev/null 2>&1 || {
+        print -u2 -- "Invalid ${app} plist; existing settings untouched"
+        return 1
+      }
+    fi
     staged+=("${dst}")
   done
+
+  # Back up and replace files that differ
   for (( index=1; index <= ${#sources}; index++ )); do
+    src="${staged[index]}"
     dst="${destinations[index]}"
-    replace_lib "${staged[index]}" "${dst}" "${app}" "${dst:t}" false required || return 1
+    if [[ -f "${dst}" ]] && cmp -s "${src}" "${dst}"; then
+      continue
+    fi
+
+    mkdir -p "${dst:h}" || return 1
+    tmp=$(mktemp "${dst:h}/.chezmoi-restore.XXXXXX") || return 1
+    cp "${src}" "${tmp}" || return 1
+    chmod 600 "${tmp}" || return 1
+    backup=""
+    if [[ -f "${dst}" ]]; then
+      chown "$(stat -f '%u:%g' "${dst}")" "${tmp}" || return 1
+      backup=$(mktemp "${dst}.chezmoi.$(date +%Y%m%d%H%M%S).XXXXXX") || return 1
+      cp -p "${dst}" "${backup}" || return 1
+      chmod 600 "${backup}" || return 1
+    fi
+
+    print -- "Updating ${dst:t}..."
+    if [[ "${dst}" == "$HOME/Library/Preferences/"*.plist ]]; then
+      # Import preferences through cfprefsd
+      if ! defaults import "${${dst:t}%.plist}" "${tmp}" >/dev/null 2>&1; then
+        print -u2 -- "Preference import failed for ${app}; retry after checking the app is closed"
+        if [[ -n "${backup}" ]]; then
+          defaults import "${${dst:t}%.plist}" "${backup}" >/dev/null 2>&1 || {
+            print -u2 -- "Could not roll back preferences; original retained at ${backup}"
+          }
+        fi
+        return 1
+      fi
+      chmod 600 "${dst}" || return 1
+    else
+      # Replace other files with an atomic rename
+      mv -f "${tmp}" "${dst}" || return 1
+    fi
+    rm -f -- "${tmp}" || return 1
+    tmp=""
   done
-  if [[ "${app}" == Loopback || "${app}" == SoundSource ]]; then
-    print -- "Verify/reselect device references, application sources, effects and monitors before using audio."
-  fi
+
+  # Record completion only after every file has succeeded
+  app_preference_state "${app}" complete >/dev/null || return 1
+  print -- "Restored ${app}. Check its settings and any device references before use; see docs/app-preferences.md."
 )
 
 function reset_icons() {

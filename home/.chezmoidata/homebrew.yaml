@@ -130,6 +130,7 @@ homebrew:
       - "graalvm-jdk@21"         # https://www.graalvm.org
       - "hammerspoon"            # https://www.hammerspoon.org
       - "handbrake-app"          # https://handbrake.fr
+      - "homebrew-app"           # https://github.com/Homebrew/BrewUI/
       - "intellij-idea"          # https://www.jetbrains.com/idea/
       - "iterm2"                 # https://iterm2.com
       - "jdk-mission-control"    # https://www.oracle.com/java/technologies/jdk-mission-control.html

@@ -2,13 +2,20 @@
 set -eufo pipefail
 IFS=$'\n\t'
 
+{{/* differentiate between laptop and desktop */ -}}
 {{ $pre := "desktop." -}}
 {{ if hasPrefix "MacBook" .chezmoi.hostname -}}
-{{ $pre = "laptop." -}}
+{{   $pre = "laptop." -}}
 {{ end -}}
+
 source "{{ .include }}"
-src="{{ .filesDir }}/prefs/Loopback"
+
+app="Loopback"
+
 pls="com.rogueamoeba.Loopback.plist"
-restore_app_libs Loopback 2.5.0 \
+src="{{ .filesDir }}/prefs/${app}"
+dst="$HOME/Library/Application Support/${app}"
+
+replace_lib "${app}" "2.5.0" "loopback|arkaudiod|aceagent" "${dst}" \
   "${src}/{{ $pre }}${pls}.asc" "$HOME/Library/Preferences/${pls}" \
-  "${src}/{{ $pre }}Devices.plist.asc" "$HOME/Library/Application Support/Loopback/Devices.plist"
+  "${src}/{{ $pre }}Devices.plist.asc" "${dst}/Devices.plist"
