@@ -33,3 +33,11 @@ A previously bootstrapped machine can be updated at anytime with:
     chezmoi update
 
 This will pull the latest updates from this repository and apply them locally.
+
+### Application snapshots
+
+Bartender, Loopback and SoundSource have separate laptop/desktop restoration
+snapshots; OpenIn and TablePlus use shared snapshots. Routine chezmoi runs provision
+encrypted backups without overwriting these apps' live settings. Capture and restore
+are explicit actions. See [capture, restore and first-launch instructions](docs/app-snapshots.md),
+including pending desktop/OpenIn captures, manual native imports and audio-device checks.

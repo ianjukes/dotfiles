@@ -1,0 +1,5 @@
+# Only encrypted app payloads belong in this public repository.
+*
+!*/
+!*.json.asc
+!.gitignore

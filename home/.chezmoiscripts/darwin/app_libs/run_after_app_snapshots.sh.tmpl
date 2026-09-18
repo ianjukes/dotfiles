@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+set -eufo pipefail
+
+# Always eligible: a missing laptop/desktop snapshot can be captured later.
+# Only encrypted restore material is provisioned; app settings are never applied here.
+python3 {{ joinPath .chezmoi.sourceDir ".files/lib/app_snapshots.py" | quote }} provision all --hostname {{ .chezmoi.hostname | quote }}
