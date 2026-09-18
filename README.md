@@ -4,19 +4,19 @@ A repository of configuration files (dotfiles) created by [@ianjukes](https://gi
 
 ### macOS Prerequisites
 
-1. Make sure your terminal application (Terminal, Ghostty, iTerm, etc.) has **App Management** and **Full Disk Access** in **Settings → Privacy & Security**.
+1. Make sure the Mac’s hostname begins with `MacBook` for laptop settings. All other hostnames use desktop settings.
 
-2. Log into an Apple account for **Media & Puchases** so that applications can be installed from the **Mac App Store** automatically via [Homebrew](https://github.com/homebrew) (if applicable).
+2. Sign into iCloud.
 
 3. Perform any operating system updates via **General → Software Update**.
 
-4. Sign into iCloud and let synchronisation complete.
+4. Log into an Apple account for **Media & Puchases** so that applications can be installed from the **Mac App Store** automatically via [Homebrew](https://github.com/homebrew) (if applicable).
 
-5. Install Dropbox and let synchronisation complete.
+5. Launch Photos and Messages to initiate iCloud syncronisation.
 
-6. Make sure the Mac’s hostname begins with `MacBook` for laptop settings. All other hostnames use desktop settings.
+6. Install Dropbox and let synchronisation complete. This could take 24 hours.
 
-7. Quit any applications whose preferences are managed by chezmoi before running it.
+7. Make sure Terminal has **App Management** and **Full Disk Access** in **Settings → Privacy & Security**.
 
 ### Install
 
