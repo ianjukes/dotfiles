@@ -26,6 +26,8 @@ To bootstrap a new machine use the following command:
 
 This will install any prerequisite tools (like Homebrew), initialize chezmoi, and mark any saved application preferences for initial restoration.
 
+If bootstrapping fails, it prints a command to resume from the failed stage after a fix has been applied. Earlier bootstrap stages are skipped, and chezmoi skips unchanged scripts that already succeeded.
+
 ### Update
 
 A previously bootstrapped machine can be updated at anytime with:
