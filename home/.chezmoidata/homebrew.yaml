@@ -4,12 +4,10 @@ homebrew:
       - "buo/cask-upgrade" # Provides 'brew cu' command
       - "hashicorp/tap"
       - "jeresalo/tap"
-      - "sass/sass"
       - "spring-io/tap"
     formulae:
       # Formulae from taps (see above)
       - "hashicorp/tap/terraform"
-      - "sass/sass/sass"
       - "spring-io/tap/spring-boot"
       # Regular formulae
       - "age"
@@ -24,6 +22,7 @@ homebrew:
       - "cfn-lint"
       - "chezmoi"
       - "cmake"
+      - "dart-sass"
       - "displayplacer" # Used with Keyboad Maestro
       - "dockutil"
       - "eksctl"
