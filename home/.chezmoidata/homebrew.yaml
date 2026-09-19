@@ -1,4 +1,5 @@
 homebrew:
+  # Every tap listed here is trusted in full during installation.
   all:
     taps:
       - "buo/cask-upgrade" # Provides 'brew cu' command
@@ -72,7 +73,6 @@ homebrew:
       - "scala"
       - "tcl-tk"
       - "tailwindcss"
-      - "terraformer"
       - "tmux"
       - "tpm"
       - "tree"

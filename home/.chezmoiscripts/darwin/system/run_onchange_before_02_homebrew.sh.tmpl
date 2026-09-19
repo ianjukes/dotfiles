@@ -21,6 +21,8 @@ echo "Installing/updating applications via Homebrew..."
 {{ $casks    = concat $casks    $platform.casks    -}}
 {{ $apps     = concat $apps     $platform.apps     -}}
 
+# Use the same Homebrew trust store before and after shell configuration is installed.
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 mkdir -p {{ .stateDir }}
 
@@ -28,13 +30,15 @@ mkdir -p {{ .stateDir }}
 cat > {{ .stateDir }}/Brewfile.taps <<EOF
 ## Taps
 {{ range ($taps | sortAlpha | uniq) -}}
-tap "{{ . }}"
+tap "{{ . }}", trusted: true
 {{ end }}
 EOF
 brew bundle --file={{ .stateDir }}/Brewfile.taps
 
 # Formulae, casks, and Mac App Store apps
-cat > {{ .stateDir }}/Brewfile <<EOF
+# Preserve tap trust when the complete Brewfile is used on its own.
+cat {{ .stateDir }}/Brewfile.taps > {{ .stateDir }}/Brewfile
+cat >> {{ .stateDir }}/Brewfile <<EOF
 ## Formulae
 {{ range ($formulae | sortAlpha | uniq) -}}
 brew "{{ . }}"
