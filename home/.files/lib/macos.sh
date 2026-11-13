@@ -14,76 +14,6 @@ function app_path() {
   return 1
 }
 
-function launched() {
-  local app_name=$1
-  local app_path
-  app_path=$(app_path "${app_name}") || return 1
-  # Check for a support directory
-  local supp_dir="$HOME/Library/Application Support/${app_name}"
-  [[ -d "${supp_dir}" ]] && return 0
-  # Dynamically get the bundle identifier
-  local app_bundle
-  app_bundle=$(defaults read "$app_path/Contents/Info.plist" CFBundleIdentifier 2>/dev/null) || return 1
-  # Check for a preference file
-  local pref_file="$HOME/Library/Preferences/${app_bundle}.plist"
-  [[ -n "${app_bundle}" && -f "${pref_file}" ]] && return 0
-  # Check for a state file
-  local state_file="$HOME/Library/Saved Application State/${app_bundle}.savedState"
-  [[ -n "${app_bundle}" && -d "${state_file}" ]] && return 0
-  # Check /private/var/folders for bundle directory
-  local pvf_dir
-  pvf_dir=$(find /private/var/folders -type d -name "${app_bundle}" -print -quit 2>/dev/null) || true
-  [[ -n "${app_bundle}" && -d "${pvf_dir}" ]] && return 0
-  # If all other checks fail, assume not launched
-  return 1
-}
-
-function replace() {
-  local src=$1 dst=$2 own grp pem
-  [[ -f "${src}" && ! -L "${dst}" ]] || return 1
-  if [[ -f "${dst}" ]] && cmp -s "${src}" "${dst}"; then
-    return 1
-  fi
-  # Preserve destination metadata, or use source metadata for a new file
-  if [[ -e "${dst}" ]]; then
-    [[ -f "${dst}" ]] || return 1
-    own=$(sudo stat -f '%u' "${dst}") || return 1
-    grp=$(sudo stat -f '%g' "${dst}") || return 1
-    pem=$(sudo stat -f '%A' "${dst}") || return 1
-    sudo cp -p "${dst}" "${dst}.chezmoi.$(date +%Y%m%d%H%M%S)" || return 1
-  else
-    own=$(stat -f '%u' "${src}") || return 1
-    grp=$(stat -f '%g' "${src}") || return 1
-    pem=$(stat -f '%A' "${src}") || return 1
-  fi
-  sudo mkdir -p "${dst:h}" || return 1
-  sudo cp -f "${src}" "${dst}" || return 1
-  sudo chown "${own}:${grp}" "${dst}" || return 1
-  sudo chmod "${pem}" "${dst}" || return 1
-  return 0
-}
-
-function replace_icons() {
-  local src=$1 app=$2 ico=$3
-  local -a icons=("${@:4}")
-  local res=1
-  if launched "${app}"; then
-    IFS=':' read -r from to <<< "$ico"
-    if replace "${src}/${from}" "${to}"; then
-      reset_icons
-      res=0
-      echo "Updated application '${app}'";
-    fi
-    for icon in "${icons[@]}"; do
-      IFS=':' read -r from to <<< "$icon"
-      replace "${src}/${from}" "${to}" && res=0
-    done
-  else
-    echo "Application '${app}' does not exist or has not been launched"
-  fi
-  return $res
-}
-
 function app_preference_state() (
   # Read or record restoration state without resetting completed apps
   (( $# >= 1 && $# <= 2 )) || return 1
@@ -344,16 +274,3 @@ function replace_lib() (
   app_preference_state "${app}" complete >/dev/null || return 1
   print -- "Restored ${app}. Check its settings and any device references before use; see docs/app-preferences.md."
 )
-
-function reset_icons() {
-  echo "Resetting system icon caches..."
-  sudo rm -rf /Library/Caches/com.apple.iconservices.store 2>/dev/null || true
-  sudo find /private/var/folders/ -name com.apple.iconservices -exec rm -rf {} \; 2>/dev/null || true
-  sudo find /private/var/folders/ -name com.apple.dock.iconcache -exec rm -rf {} \; 2>/dev/null || true
-  echo "Waiting for Dock to restart..."
-  killall Dock
-  while ! pgrep Dock >/dev/null; do sleep 0.1; done
-  echo "Waiting for Finder to restart..."
-  killall Finder
-  while ! pgrep Finder >/dev/null; do sleep 0.1; done
-}
