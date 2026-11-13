@@ -94,6 +94,7 @@ homebrew:
       - "bartender"              # https://www.macbartender.com
       - "beeper"                 # https://www.beeper.com
       - "betterdisplay"          # https://betterdisplay.pro
+      - "blender"                # https://www.blender.org
       - "bootstrap-studio"       # https://bootstrapstudio.io
       - "calibre"                # https://calibre-ebook.com
       - "claude"                 # https://claude.com/product/overview
@@ -149,6 +150,7 @@ homebrew:
       - "ngrok"                  # https://ngrok.com
       - "notion"                 # https://www.notion.com
       - "nova"                   # https://nova.app
+      - "obsidian"               # https://obsidian.md
       - "osaurus"                # https://osaurus.ai
       - "pdf-expert"             # https://pdfexpert.com
       - "pearcleaner"            # https://itsalin.com/appInfo/?id=pearcleaner
@@ -190,6 +192,7 @@ homebrew:
       - "\"Apple Remote Desktop\", id: 409907375"
       - "\"Broadcasts\", id: 1469995354"
       - "\"Caffeinated: Anti Sleep App\", id: 1362171212"
+      - "\"ColorSlurp\", id: 1287239339"
       - "\"Craft Web Clipper\", id: 6748613311"
       - "\"DemoPro - Screen Annotation\", id: 1384206666"
       - "\"Flighty – Live Flight Tracker\", id: 1358823008"
