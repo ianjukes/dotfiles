@@ -56,6 +56,11 @@ if type brew &>/dev/null; then
   FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:${FPATH}"
 fi
 
+# Docker Desktop completions must be available before Oh My Zsh runs compinit.
+if [[ -d "$HOME/.docker/completions" ]]; then
+  fpath=("$HOME/.docker/completions" "${fpath[@]}")
+fi
+
 # ---- oh-my-zsh configuration ---------------------------------------------------------------------
 
 # Enable Powerlevel10k instant prompt
