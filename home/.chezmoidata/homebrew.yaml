@@ -224,12 +224,10 @@ homebrew:
       - "\"StopTheMadness Pro\", id: 6471380298"
       - "\"Subscriptions - Track Expenses\", id: 1577082754"
       - "\"Swift Playgrounds\", id: 1496833156"
-      - "\"System Color Picker\", id: 1545870783"
       - "\"TestFlight\", id: 899247664"
       - "\"Things 3\", id: 904280696"
       - "\"TV Launcher - Live UK Channels\", id: 1622598042"
       - "\"Typeface 3\", id: 1062679359"
-      - "\"Usage for Claude\", id: 6755173244"
       - "\"Windows App\", id: 1295203466"
       - "\"Xcode\", id: 497799835"
   desktop:
