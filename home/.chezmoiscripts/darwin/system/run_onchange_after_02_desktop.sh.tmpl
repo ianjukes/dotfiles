@@ -11,12 +11,13 @@ echo "Setting desktop wallpaper..."
 {{ end -}}
 
 osascript <<EOT
+set wallpaperFolder to (POSIX path of (path to home folder)) & "Pictures/Wallpaper/"
 tell application "System Events"
     set n to count of desktops
-    set picture of desktop 1 to "~/Pictures/Wallpaper/{{ $image }}"
+    set picture of desktop 1 to (wallpaperFolder & "{{ $image }}")
     if n > 1 then
         repeat with i from 2 to n
-            set picture of desktop i to "~/Pictures/Wallpaper/Dracula.png"
+            set picture of desktop i to (wallpaperFolder & "Dracula.png")
         end repeat
     end if
 end tell
