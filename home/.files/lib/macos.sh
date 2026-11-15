@@ -24,7 +24,7 @@ function app_preference_state() (
   [[ -z "${next}" || "${next}" == pending || "${next}" == complete ]] || return 1
 
   # Check the state directory and file
-  local directory="${XDG_STATE_HOME:-$HOME/.local/state}/chezmoi/app-preferences"
+  local directory="${XDG_STATE_HOME:-$HOME/.local/state}/chezmoi/app-prefs"
   local record="${directory}/${app}"
   [[ "${directory}" == /* ]] || {
     print -u2 -- "Application preference state must use an absolute path"
