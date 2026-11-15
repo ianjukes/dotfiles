@@ -194,7 +194,7 @@ function replace_lib() (
 
   # Check the first-launch indicator
   if [[ -n "${ready}" && ! -e "${ready}" ]]; then
-    print -u2 -- "${app}: restoration pending; launch it once, complete its setup, then quit it and run chezmoi apply again. See docs/app-preferences.md."
+    print -u2 -- "${app}: restoration pending; launch it once, complete its setup, then quit it and run chezmoi apply again."
     return "${prerequisite_status}"
   fi
 
@@ -272,5 +272,5 @@ function replace_lib() (
 
   # Record completion only after every file has succeeded
   app_preference_state "${app}" complete >/dev/null || return 1
-  print -- "Restored ${app}. Check its settings and any device references before use; see docs/app-preferences.md."
+  print -- "Restored ${app}. Check its settings and any device references before use."
 )

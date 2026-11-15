@@ -103,4 +103,20 @@ chezmoi init ianjukes
 # Pull fixes on a resumed setup, then regenerate config and apply the new revision.
 DOTFILES_INITIAL_SETUP=1 chezmoi update --init
 
-echo "Bootstrapping completed."
+# Report app settings that could not yet be restored.
+preference_state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/chezmoi/app-prefs"
+pending_apps=()
+for preference_record in "$preference_state_dir"/*; do
+  [[ -f "$preference_record" && ! -L "$preference_record" ]] || continue
+  if [[ "$(<"$preference_record")" == pending ]]; then
+    pending_apps+=("${preference_record##*/}")
+  fi
+done
+
+if [[ ${#pending_apps[@]} -gt 0 ]]; then
+  printf '\nSoftware and dotfiles installed. App settings still pending:\n'
+  printf '  - %s\n' "${pending_apps[@]}"
+  printf '\nFollow the app-specific messages above, then retry with:\n\n  chezmoi apply\n'
+else
+  echo "Bootstrapping completed."
+fi
