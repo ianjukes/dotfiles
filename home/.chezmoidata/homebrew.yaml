@@ -77,9 +77,11 @@ homebrew:
       - "tpm"
       - "tree"
       - "typescript"
+      - "uv"
       - "vim"
       - "watch"
       - "wget"
+      - "yq"
       - "yt-dlp"
       - "zig"
     casks:
