@@ -188,6 +188,7 @@ homebrew:
       - "zulu@11"                # https://www.azul.com/downloads/?version=java-11-lts#zulu
       - "zulu@17"                # https://www.azul.com/downloads/?version=java-17-lts#zulu
       - "zulu@21"                # https://www.azul.com/downloads/?version=java-21-lts#zulu
+      - "zulu@25"                # https://www.azul.com/downloads/?version=java-25-lts#zulu
     apps:
       - "\"1Password for Safari\", id: 1569813296"
       - "\"Apple Developer\", id: 640199958"
