@@ -90,7 +90,6 @@ plugins=(
   helm
   mvn
   npm
-  nvm
   sbt
   scala
   spring
@@ -103,6 +102,16 @@ source $XDG_CONFIG_HOME/oh-my-zsh/p10k.zsh
 
 # Fix for IntelliJ width issue
 [[ -n "$IS_INTEGRATED" ]] && unset ZLE_RPROMPT_INDENT
+
+# ---- Node.js -------------------------------------------------------------------------------------
+
+# Load Homebrew's nvm scripts with Node versions stored in the user's data directory.
+if [[ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ]] && mkdir -p "$NVM_DIR"; then
+  source "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
+  if [[ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ]]; then
+    source "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
+  fi
+fi
 
 # ---- Lazy initialisation of Java tools -----------------------------------------------------------
 
