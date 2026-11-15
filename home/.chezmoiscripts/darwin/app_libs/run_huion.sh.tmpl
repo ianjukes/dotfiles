@@ -23,6 +23,8 @@ pls="com.huion.HuionTablet.plist"
 cfg="HUION_M22d.cfg"
 src="{{ .filesDir }}/prefs/${app}"
 
-replace_lib "${app}" - "huion" "" \
+# The binary snapshot was last captured in May 2025, before the v20 rewrite.
+# Preserve it for v15; v20 restoration remains pending until its format is reviewed.
+replace_lib "${app}" "15" "huion" "" \
   "${src}/{{ $pre }}${pls}" "$HOME/Library/Preferences/${pls}" \
   "${src}/${cfg}" "$HOME/Library/Application Support/HuionTablet/${cfg}"
