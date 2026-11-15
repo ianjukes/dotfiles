@@ -97,6 +97,10 @@ stage=dotfiles
 stage_description="applying dotfiles and installing applications"
 echo "Initializing configuration with chezmoi..."
 echo "You may be prompted for a password"
-DOTFILES_INITIAL_SETUP=1 chezmoi init ianjukes --apply
+# Initialize the checkout without applying a potentially stale revision.
+chezmoi init ianjukes
+
+# Pull fixes on a resumed setup, then regenerate config and apply the new revision.
+DOTFILES_INITIAL_SETUP=1 chezmoi update --init
 
 echo "Bootstrapping completed."
