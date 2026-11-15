@@ -1,7 +1,7 @@
 k9s:
   command: workloads
   liveViewAutoRefresh: false
-  screenDumpDir: /Users/Ian/.local/state/k9s/screen-dumps
+  screenDumpDir: {{ joinPath .chezmoi.homeDir ".local/state/k9s/screen-dumps" | quote }}
   refreshRate: 2
   maxConnRetry: 5
   readOnly: false
