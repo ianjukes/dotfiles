@@ -16,7 +16,7 @@ pls="com.rogueamoeba.soundsource.plist"
 src="{{ .filesDir }}/prefs/${app}"
 dst="$HOME/Library/Application Support/${app}"
 
-replace_lib "${app}" "6.1.4" "soundsource|arkaudiod|aceagent" "${dst}" \
+replace_lib "${app}" "6.2.0" "soundsource|arkaudiod|aceagent" "${dst}" \
   "${src}/{{ $pre }}${pls}.asc" "$HOME/Library/Preferences/${pls}" \
   "${src}/{{ $pre }}Models.v2.plist.asc" "${dst}/Models.v2.plist" \
   "${src}/{{ $pre }}Presets.v2.plist.asc" "${dst}/Presets.v2.plist"
