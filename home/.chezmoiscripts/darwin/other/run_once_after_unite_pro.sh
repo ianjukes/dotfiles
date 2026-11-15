@@ -9,7 +9,7 @@ destination="$applications/Unite Pro.app"
 bundle_id="com.BZG.unitepro"
 # BZG's official latest-version link: https://www.bzgapps.com/unite-changelog
 url="https://bzgdownloads.s3.amazonaws.com/Unite/Unite+Pro.zip"
-requirement='anchor apple generic and identifier "com.BZG.unitepro" and certificate leaf[subject.OU] = "J463UA2LCA"'
+requirement='=anchor apple generic and identifier "com.BZG.unitepro" and certificate leaf[subject.OU] = "J463UA2LCA"'
 
 fail() {
   print -u2 -- "Unite Pro: $*"
