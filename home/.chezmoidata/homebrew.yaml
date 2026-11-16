@@ -128,7 +128,6 @@ homebrew:
       - "google-chrome"          # https://www.google.com/intl/en_uk/chrome/
       - "google-gemini"          # https://gemini.google/mac/
       - "graalvm-jdk"            # https://www.graalvm.org
-      - "graalvm-jdk@21"         # https://www.graalvm.org
       - "hammerspoon"            # https://www.hammerspoon.org
       - "handbrake-app"          # https://handbrake.fr
       - "homebrew-app"           # https://github.com/Homebrew/BrewUI/
