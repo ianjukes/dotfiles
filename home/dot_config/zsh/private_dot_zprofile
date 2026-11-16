@@ -36,9 +36,11 @@ export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
 OP_DIR="$XDG_CACHE_HOME/1password"
 OP_SCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 [ ! -d $OP_DIR ] && mkdir -p $OP_DIR
-if [ -e "$OP_SCK" ] && [ ! -L $OP_DIR/agent.sock ]; then
-  ln -s "$OP_SCK" $OP_DIR/agent.sock
-  export SSH_AUTH_SOCK=$OP_DIR/agent.sock
+if [ -e "$OP_SCK" ]; then
+  if [ ! -L "$OP_DIR/agent.sock" ]; then
+    ln -s "$OP_SCK" "$OP_DIR/agent.sock"
+  fi
+  export SSH_AUTH_SOCK="$OP_DIR/agent.sock"
 fi
 
 # AWS
