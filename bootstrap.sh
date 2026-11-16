@@ -24,6 +24,24 @@ if [[ "$(uname)" != "Darwin" ]]; then
   exit 1
 fi
 
+# Laptop settings are chosen by a hostname that begins with "MacBook". Stop
+# before anything is installed if a MacBook would receive desktop settings.
+host_name=$(hostname -s)
+hardware=$(/usr/sbin/system_profiler SPHardwareDataType 2>/dev/null || true)
+if [[ "$host_name" != MacBook* && "$hardware" == *"Model Name: MacBook"* ]]; then
+  cat >&2 <<EOF
+This Mac is a MacBook, but its hostname "$host_name" does not begin with
+"MacBook", so it would be set up with desktop settings.
+
+Give it a hostname that begins with "MacBook", for example:
+
+  sudo scutil --set LocalHostName MacBookPro
+
+Then run the bootstrap command again.
+EOF
+  exit 1
+fi
+
 stage=tools
 stage_description="installing Apple Developer Command Line Tools"
 
@@ -99,6 +117,24 @@ echo "Initializing configuration with chezmoi..."
 echo "You may be prompted for a password"
 # Initialize the checkout without applying a potentially stale revision.
 chezmoi init ianjukes
+
+# Check the GPG passphrase before anything is installed. A mistyped passphrase
+# is saved and reused on every retry, so ask for it again here.
+stage_description="checking the GPG passphrase"
+passphrase_check="$(chezmoi source-path)/.files/etc/encrypted_nopasswd.asc"
+if [[ -f "$passphrase_check" ]]; then
+  passphrase_attempts=1
+  until chezmoi decrypt "$passphrase_check" >/dev/null 2>&1; do
+    if [[ "$passphrase_attempts" -ge 3 ]]; then
+      echo "The GPG passphrase was not accepted." >&2
+      exit 1
+    fi
+    passphrase_attempts=$((passphrase_attempts + 1))
+    echo "The GPG passphrase was not accepted. Please enter it again."
+    chezmoi init --prompt
+  done
+fi
+stage_description="applying dotfiles and installing applications"
 
 # Pull fixes on a resumed setup, then regenerate config and apply the new revision.
 DOTFILES_INITIAL_SETUP=1 chezmoi update --init
