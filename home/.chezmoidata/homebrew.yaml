@@ -112,7 +112,6 @@ homebrew:
       - "crystalfetch"           # https://github.com/TuringSoftware/CrystalFetch/
       - "daisydisk"              # https://daisydiskapp.com
       - "discord"                # https://discord.com
-      - "displace"               # https://displaceapp.com
       - "dolphin"                # https://dolphin-emu.org
       - "docker-desktop"         # https://www.docker.com/products/docker-desktop/
       - "drawio"                 # https://www.drawio.com
@@ -233,6 +232,7 @@ homebrew:
     taps: []
     formulae: []
     casks:
+      - "displace"               # https://displaceapp.com
       - "displaylink"            # https://www.synaptics.com/products/displaylink-graphics/downloads/macos/
       - "elgato-camera-hub"      # https://www.elgato.com/uk/en/s/downloads/
       - "elgato-control-center"  # https://www.elgato.com/uk/en/s/downloads/
